@@ -4,9 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release type (major|minor|patch)'
+        description: 'Release type (major|minor|patch|premajor|preminor|prepatch|prerelease)'
         required: true
         default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+      prerelease_id:
+        description: 'Prerelease identifier (alpha|beta|rc) - only for prerelease versions'
+        required: false
+        default: 'beta'
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
 
 jobs:
   release:
@@ -28,11 +46,13 @@ jobs:
           node-version: '20'
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
+      
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
+      
       - name: Run tests with coverage
         run: pnpm coverage
 
@@ -50,8 +70,16 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://${{ secrets.GH_TOKEN }}@github.com/hezhengxu2018/silver-formily-element-plus.git
 
-      - name: Version and Release
+      - name: Version and Release (Regular)
+        if: ${{ !contains(github.event.inputs.version, 'pre') }}
         run: |
           pnpm release-it ${{ github.event.inputs.version }} --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      
+      - name: Version and Release (Prerelease)
+        if: ${{ contains(github.event.inputs.version, 'pre') }}
+        run: |
+          pnpm release-it ${{ github.event.inputs.version }} --preRelease=${{ github.event.inputs.prerelease_id }} --config .release-it.prerelease.json --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

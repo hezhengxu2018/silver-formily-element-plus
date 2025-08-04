@@ -1,0 +1,31 @@
+{
+  "$schema": "https://unpkg.com/release-it@18/schema/release-it.json",
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireBranch": ["master", "develop", "beta", "alpha"],
+    "tagName": "v${version}",
+    "push": true
+  },
+  "github": {
+    "release": true,
+    "preRelease": true
+  },
+  "npm": {
+    "publish": true,
+    "tag": "${preReleaseId}"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md",
+      "header": "# 更新日志\n\n",
+      "ignoreRecommendedBump": true,
+      "strictSemVer": true,
+      "releaseCount": 0
+    }
+  },
+  "hooks": {
+    "before:init": ["npm run lint"],
+    "after:release": "echo 预发布完成！"
+  }
+}
