@@ -1,6 +1,6 @@
-# Formily Element Plus
+# Silver Formily Element Plus
 
-[![codecov](https://codecov.io/gh/hezhengxu2018/formily-element-plus/branch/master/graph/badge.svg?token=ICNQKVRKUE)](https://codecov.io/gh/hezhengxu2018/formily-element-plus)
+[![codecov](https://codecov.io/gh/hezhengxu2018/silver-formily-element-plus/graph/badge.svg?token=LZF15NPLJU)](https://codecov.io/gh/hezhengxu2018/silver-formily-element-plus)
 
 Another @formily/element-plus component library.
 

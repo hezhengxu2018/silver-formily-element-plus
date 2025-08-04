@@ -7,10 +7,12 @@
     "push": true
   },
   "github": {
-    "release": true
+    "release": true,
+    "preRelease": false
   },
   "npm": {
-    "publish": true
+    "publish": true,
+    "tag": "latest"
   },
   "plugins": {
     "@release-it/conventional-changelog": {
