@@ -16,4 +16,7 @@ export default mergeConfig(viteConfig, defineConfig({
       instances: [{ browser: 'chromium' }],
     },
   },
+  define: {
+    'process.env': JSON.stringify({}),
+  },
 }))
