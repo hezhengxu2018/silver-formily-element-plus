@@ -81,6 +81,7 @@ jobs:
       - name: Version and Release (Regular)
         if: ${{ !contains(github.event.inputs.version, 'pre') }}
         run: |
+          npm publish --access=public
           pnpm release-it ${{ github.event.inputs.version }} --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
