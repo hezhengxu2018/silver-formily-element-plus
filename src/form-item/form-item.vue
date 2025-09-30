@@ -175,6 +175,8 @@ const context: FormItemContext = reactive({
   inlineMessage: true,
   showMessage: true,
   fieldValue: field.value?.value,
+  validateMessage: '',
+  propString: '',
 })
 watch(() => props.feedbackStatus, (val) => {
   if (val === 'pending') {

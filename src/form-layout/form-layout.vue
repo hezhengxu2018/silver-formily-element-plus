@@ -5,11 +5,12 @@ import { isEmpty, isValid } from '@formily/shared'
 import { useForm } from '@formily/vue'
 import { formContextKey } from 'element-plus'
 import { provide, ref, watch } from 'vue'
-import { stylePrefix, useThrottleFn } from '../__builtins__'
+import { stylePrefix, useCleanAttrs, useThrottleFn } from '../__builtins__'
 import { filterValidFormLayoutProps, formLayoutDeepContext, formLayoutShallowContext, useFormDeepLayout, useResponsiveFormLayout } from './utils'
 
 defineOptions({
   name: 'FFormLayout',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<IFormLayoutProps>(), {
@@ -24,6 +25,7 @@ const props = withDefaults(defineProps<IFormLayoutProps>(), {
   statusIcon: true,
 })
 const formPrefixCls = `${stylePrefix}-form`
+const { props: attrs } = useCleanAttrs()
 const rootHTMLRef = ref<HTMLElement>()
 
 const formLayoutDeepConfig = useFormDeepLayout()
@@ -70,6 +72,7 @@ const formRef = useForm()
     :id="formRef?.id && `formily-${formRef?.id}`"
     ref="rootHTMLRef"
     :class="formPrefixCls"
+    v-bind="attrs"
     @submit.prevent.stop
   >
     <slot />

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { ArrayField } from '@formily/core'
 import type { TabPaneName } from 'element-plus'
-import { observable } from '@formily/reactive'
-import { isFn } from '@formily/shared'
+import { reaction } from '@formily/reactive'
+import { isEqual, isFn } from '@formily/shared'
 import { RecursionField, useField, useFieldSchema } from '@formily/vue'
 import { ElBadge, ElTabPane, ElTabs } from 'element-plus'
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import { useCleanAttrs } from '../__builtins__'
 import { stylePrefix } from '../__builtins__/configs'
 import { getArrayItemSchema } from '../array-base/utils'
@@ -31,16 +31,23 @@ function getTabTitle(index: number) {
   return `${field.title || 'Untitled'} ${index + 1}`
 }
 
-const errorList = observable.computed(() => {
+const errorCountList = ref([])
+const dispose = reaction(() => {
   return field.value.map((item, index) => {
-    const path = field.address.concat(index)
-    return field.form.queryFeedbacks({
+    const panelErrors = field.form.queryFeedbacks({
       type: 'error',
-      address: `${path}.**`,
+      address: `${field.address.concat(index)}.**`,
     })
+    return panelErrors.length
   })
+}, (newVal) => {
+  errorCountList.value = newVal
+}, {
+  equals: isEqual,
 })
-
+onUnmounted(() => {
+  dispose()
+})
 const { props: elTabProps } = useCleanAttrs(['value'])
 </script>
 
@@ -85,10 +92,10 @@ const { props: elTabProps } = useCleanAttrs(['value'])
         />
       </template>
       <template #label>
-        <span v-if="errorList.value[index]?.length > 0">
+        <span v-if="errorCountList[index] > 0">
           <ElBadge
             :class="[`${prefixCls}-errors-badge`]"
-            :value="errorList.value[index].length"
+            :value="errorCountList[index]"
           >
             {{ getTabTitle(index) }}
           </ElBadge>

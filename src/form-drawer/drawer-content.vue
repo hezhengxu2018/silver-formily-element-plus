@@ -59,13 +59,13 @@ const _drawerProps = omit(props.drawerProps, ['modelValue', 'onUpdate:modelValue
     }"
   >
     <template v-if="slots.header" #header>
-      <slot name="header" :resolve :reject :form />
+      <slot name="header" :resolve="resolve" :reject="reject" :form="form" />
     </template>
 
     <template #default>
       <FormProvider :form="form">
         <ElConfigProvider v-bind="elConfig">
-          <slot :resolve :reject :form />
+          <slot :resolve="resolve" :reject="reject" :form="form" />
         </ElConfigProvider>
       </FormProvider>
     </template>
@@ -73,7 +73,7 @@ const _drawerProps = omit(props.drawerProps, ['modelValue', 'onUpdate:modelValue
     <template #footer>
       <div :class="`${prefixCls}-footer`">
         <template v-if="slots.footer">
-          <slot name="footer" :resolve :reject :form />
+          <slot name="footer" :resolve="resolve" :reject="reject" :form="form" />
         </template>
         <template v-else>
           <ElButton
