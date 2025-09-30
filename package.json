@@ -26,7 +26,7 @@
     "commit": "czg",
     "lint-staged": "lint-staged",
     "release": "release-it",
-    "postinstall": "husky init"
+    "postinstall": "husky"
   },
   "peerDependencies": {
     "@formily/core": "^2.0.8",
