@@ -1,7 +1,7 @@
 {
   "name": "@silver-formily/element-plus",
   "type": "module",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "Element Plus 的 Formily 封装",
   "author": "hezhengxu",
   "license": "MIT",
