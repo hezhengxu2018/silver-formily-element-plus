@@ -83,7 +83,7 @@ jobs:
       - name: Version and Release (Prerelease)
         if: ${{ contains(github.event.inputs.version, 'pre') }}
         run: |
-          pnpm release-it ${{ github.event.inputs.version }} --preRelease=${{ github.event.inputs.prerelease_id }} --config .release-it.prerelease.json --ci
+          pnpm release-it ${{ github.event.inputs.version }} --preReleaseId=${{ github.event.inputs.prerelease_id }} --config .release-it.prerelease.json --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
