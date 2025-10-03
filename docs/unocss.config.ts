@@ -1,7 +1,7 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetWind4 } from 'unocss'
 
 export default defineConfig({
-  presets: [presetUno(), presetAttributify(), presetIcons()],
+  presets: [presetWind4(), presetAttributify(), presetIcons()],
   content: {
     pipeline: {
       include: [`./**/*`],

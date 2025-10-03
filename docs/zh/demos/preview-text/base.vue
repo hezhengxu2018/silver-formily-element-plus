@@ -1,0 +1,67 @@
+<script lang="ts" setup>
+import { createForm } from '@formily/core'
+import { createSchemaField, FormProvider } from '@formily/vue'
+import { FormItem, FormLayout, PreviewText } from '@silver-formily/element-plus'
+
+const { SchemaField, SchemaStringField } = createSchemaField({
+  components: {
+    FormItem,
+    PreviewText,
+  },
+})
+
+const form = createForm()
+</script>
+
+<template>
+  <FormLayout :label-col="6" :wrapper-col="10">
+    <FormProvider :form="form">
+      <SchemaField>
+        <SchemaStringField
+          x-decorator="FormItem"
+          title="文本预览"
+          x-component="PreviewText.Input"
+          default="Hello world"
+        />
+        <SchemaStringField
+          x-decorator="FormItem"
+          title="选择项预览"
+          x-component="PreviewText.Select"
+          :x-component-props="{
+            multiple: true,
+          }"
+          :default="['123', '222']"
+          :enum="[
+            { label: 'A111', value: '123' },
+            {
+              label: 'A222',
+              value: '222',
+            },
+          ]"
+        />
+        <SchemaStringField
+          x-decorator="FormItem"
+          title="日期预览"
+          x-component="PreviewText.DatePicker"
+          default="2020-11-23 22:15:20"
+        />
+        <SchemaStringField
+          x-decorator="FormItem"
+          title="时间预览"
+          x-component="PreviewText.TimePicker"
+          :default="['2020-11-23 22:15:20', '2020-11-23 23:15:20']"
+        />
+        <SchemaStringField
+          x-decorator="FormItem"
+          title="Cascader预览"
+          x-component="PreviewText.Cascader"
+          :default="['hangzhou', 'yuhang']"
+          :enum="[
+            { label: '杭州', value: 'hangzhou' },
+            { label: '余杭', value: 'yuhang' },
+          ]"
+        />
+      </SchemaField>
+    </FormProvider>
+  </FormLayout>
+</template>

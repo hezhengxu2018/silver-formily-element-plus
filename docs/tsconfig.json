@@ -7,7 +7,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
-      "@sliver/formily-element-plus": ["../src"]
+      "@silver-formily/element-plus": ["../src"]
     },
     "resolveJsonModule": true,
     "allowJs": false,

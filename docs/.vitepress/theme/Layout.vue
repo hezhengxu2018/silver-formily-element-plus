@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
+import { inBrowser, useData } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+import { watchEffect } from 'vue'
 
-// https://vitepress.dev/reference/runtime-api#usedata
-const { site, frontmatter } = useData()
+const { lang } = useData()
+watchEffect(() => {
+  if (inBrowser) {
+    globalThis.cookieStore
+      .set({
+        name: `nf_lang=${lang.value}`,
+        value: lang.value,
+        expires: 'Mon, 1 Jan 2030 00:00:00 UTC',
+        path: '/',
+      })
+  }
+})
 </script>
 
 <template>
-  <div v-if="frontmatter.home">
-    <h1>{{ site.title }}</h1>
-    <p>{{ site.description }}</p>
-  </div>
-  <div v-else>
-    <a href="/">Home</a>
-    <Content />
-  </div>
+  <DefaultTheme.Layout />
 </template>

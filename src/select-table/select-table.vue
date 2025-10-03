@@ -150,15 +150,15 @@ function onSelect(newSelection: Record<string, any>[]) {
   }
 
   const removedItemList
-        = prevSelection.length > newSelection.length
-          ? differenceWith(
-              prevSelection,
-              newSelection,
-              (itemPrev, itemNext) => {
-                return itemPrev[rowKey] === itemNext[rowKey]
-              },
-            )
-          : []
+    = prevSelection.length > newSelection.length
+      ? differenceWith(
+          prevSelection,
+          newSelection,
+          (itemPrev, itemNext) => {
+            return itemPrev[rowKey] === itemNext[rowKey]
+          },
+        )
+      : []
   prevSelection = [...newSelection]
   selectedFlatDataSource.value = uniqWith(
     [...selectedFlatDataSource.value, ...newSelection],
