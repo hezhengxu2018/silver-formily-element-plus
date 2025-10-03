@@ -45,12 +45,7 @@ export default defineConfig({
       alias: [{
         find: /^.*\/VPNav\.vue$/,
         replacement: fileURLToPath(
-          new URL('theme/components/vp-nav.vue', import.meta.url),
-        ),
-      }, {
-        find: /^.*\/VPNavBar\.vue$/,
-        replacement: fileURLToPath(
-          new URL('theme/components/vp-navbar.vue', import.meta.url),
+          new URL('theme/components/VPNav.vue', import.meta.url),
         ),
       }, {
         find: '@silver-formily/element-plus',
