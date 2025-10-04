@@ -8,11 +8,9 @@ import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vitepress'
 import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
-// import { head } from './config/head'
-// import { mdPlugin } from './config/markdown-plugin'
-// import { nav } from './config/nav'
-// import { sidebar } from './config/sidebar'
-// https://vitepress.dev/reference/site-config
+import zhComponent from './i18n/zh/pages/component.json'
+import zhNav from './i18n/zh/pages/nav.json'
+
 export default defineConfig({
   title: 'Formily Element Plus',
   description: 'Element Plus 的 Formily 封装',
@@ -30,6 +28,23 @@ export default defineConfig({
         footer: {
           message: '本项目基于 MIT 协议开源',
         },
+        sidebar: {
+          '/guide/': [
+            {
+              text: 'Guide',
+              items: [
+                { text: 'Index', link: '/guide/' },
+                { text: 'One', link: '/guide/one' },
+                { text: 'Two', link: '/guide/two' },
+              ],
+            },
+          ],
+          '/zh/component/': zhComponent,
+        },
+        nav: zhNav,
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/hezhengxu2018/silver-formily-element-plus' },
+        ],
       },
     },
   },
