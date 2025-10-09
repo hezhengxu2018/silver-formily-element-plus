@@ -19,6 +19,7 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
     },
+    logo: '/formily-logo.svg',
   },
   locales: {
     zh: {

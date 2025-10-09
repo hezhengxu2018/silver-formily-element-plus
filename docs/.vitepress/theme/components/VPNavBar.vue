@@ -64,10 +64,6 @@ watchPostEffect(() => {
         </div>
       </div>
     </div>
-
-    <div class="divider">
-      <div class="divider-line" />
-    </div>
   </div>
 </template>
 
@@ -78,6 +74,12 @@ watchPostEffect(() => {
   pointer-events: none;
   white-space: nowrap;
   transition: background-color 0.25s;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 0 12px 0 24px;
+  background-image: radial-gradient(transparent 1px, var(--vp-c-bg) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
 }
 
 .VPNavBar.screen-open {
@@ -114,13 +116,16 @@ watchPostEffect(() => {
   .VPNavBar.has-sidebar .wrapper {
     padding: 0;
   }
+
+  .logo {
+    display: none;
+  }
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: calc(var(--vp-layout-max-width) - 64px);
   height: var(--vp-nav-height);
   pointer-events: none;
 }
@@ -146,50 +151,8 @@ watchPostEffect(() => {
   transition: background-color 0.5s;
 }
 
-@media (min-width: 960px) {
-  .VPNavBar.has-sidebar .title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    padding: 0 32px;
-    width: var(--vp-sidebar-width);
-    height: var(--vp-nav-height);
-    background-color: transparent;
-  }
-}
-
-@media (min-width: 1440px) {
-  .VPNavBar.has-sidebar .title {
-    padding-left: max(32px, calc((100% - (var(--vp-layout-max-width) - 64px)) / 2));
-    width: calc((100% - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px);
-  }
-}
-
 .content {
   flex-grow: 1;
-}
-
-@media (min-width: 960px) {
-  .VPNavBar.has-sidebar .content {
-    position: relative;
-    z-index: 1;
-    padding-left: var(--vp-sidebar-width);
-  }
-
-  .VPNavBar.has-sidebar .content-body {
-    padding-right: 32px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .VPNavBar.has-sidebar .content {
-    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
-  }
-
-  .VPNavBar.has-sidebar .content-body {
-    padding-right: calc((100vw - var(--vp-layout-max-width)) / 2 + 32px);
-  }
 }
 
 .content-body {
@@ -198,23 +161,6 @@ watchPostEffect(() => {
   align-items: center;
   height: var(--vp-nav-height);
   transition: background-color 0.5s;
-}
-
-@media (min-width: 960px) {
-  .VPNavBar:not(.home.top) .content-body {
-    position: relative;
-    background-color: var(--vp-nav-bg-color);
-  }
-
-  .VPNavBar:not(.has-sidebar):not(.home.top) .content-body {
-    background-color: transparent;
-  }
-}
-
-@media (max-width: 767px) {
-  .content-body {
-    column-gap: 0.5rem;
-  }
 }
 
 .menu + .translations::before,
@@ -241,42 +187,5 @@ watchPostEffect(() => {
 
 .social-links {
   margin-right: -8px;
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-}
-
-@media (min-width: 960px) {
-  .VPNavBar.has-sidebar .divider {
-    padding-left: var(--vp-sidebar-width);
-  }
-}
-
-@media (min-width: 1440px) {
-  .VPNavBar.has-sidebar .divider {
-    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
-  }
-}
-
-.divider-line {
-  width: 100%;
-  height: 1px;
-  transition: background-color 0.5s;
-}
-
-.VPNavBar:not(.home) .divider-line {
-  background-color: var(--vp-c-gutter);
-}
-
-@media (min-width: 960px) {
-  .VPNavBar:not(.home.top) .divider-line {
-    background-color: var(--vp-c-gutter);
-  }
-
-  .VPNavBar:not(.has-sidebar):not(.home.top) .divider {
-    background-color: var(--vp-c-gutter);
-  }
 }
 </style>
