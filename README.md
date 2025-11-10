@@ -29,3 +29,7 @@ All new components come with comprehensive component testing, ensuring component
 ### 📝 Vue Template Syntax Based
 
 New components are developed using Vue template syntax whenever possible, providing better readability and runtime optimization, making the code more maintainable and performant.
+
+## Contributor Guide
+
+Please review [`AGENTS.md`](AGENTS.md) for repository structure, workflows, and PR expectations before submitting changes.
