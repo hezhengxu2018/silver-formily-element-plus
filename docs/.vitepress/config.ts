@@ -1,17 +1,16 @@
+import type { EPThemeConfig } from 'vitepress-theme-element-plus'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import UnoCSS from 'unocss/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import Icons from 'unplugin-icons/vite'
-import Components from 'unplugin-vue-components/vite'
+import mdContainer from 'markdown-it-container'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vitepress'
-import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import { createDemoContainer } from 'vitepress-better-demo-plugin'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+import { mdExternalLinkIcon, mdTableWrapper, mdTag, mdTooltip } from 'vitepress-theme-element-plus/node'
 import zhComponent from './i18n/zh/pages/component.json'
 import zhNav from './i18n/zh/pages/nav.json'
 
-export default defineConfig({
+export default defineConfig<EPThemeConfig>({
   title: 'Formily Element Plus',
   description: 'Element Plus 的 Formily 封装',
   // head,
@@ -51,45 +50,48 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(vitepressDemoPlugin, {
+      md.use(groupIconMdPlugin)
+      md.use(mdExternalLinkIcon)
+      md.use(mdTag)
+      md.use(mdTooltip)
+      md.use(mdTableWrapper)
+      md.use(mdContainer, 'demo', createDemoContainer(md, {
         demoDir: path.resolve(import.meta.dirname, '../zh/demos'),
-      })
+        autoImportWrapper: false,
+      }))
     },
   },
   vite: {
     resolve: {
-      alias: [{
-        find: /^.*\/VPNav\.vue$/,
-        replacement: fileURLToPath(
-          new URL('theme/components/VPNav.vue', import.meta.url),
-        ),
-      }, {
-        find: '@silver-formily/element-plus',
-        replacement: `${path.resolve(import.meta.dirname, '../../src')}/`,
-      }],
-    },
-    plugins: [
-      VueMacros({
-        setupComponent: false,
-        setupSFC: false,
-        plugins: {
-          vueJsx: vueJsx(),
+      alias: [
+        {
+          find: '@silver-formily/element-plus',
+          replacement: `${path.resolve(import.meta.dirname, '../../src')}/`,
         },
-      }),
-      Components({
-        dirs: ['.vitepress/vitepress/components'],
-        allowOverrides: true,
-        resolvers: [
-          IconsResolver(),
-        ],
-        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      }),
-      Icons({
-        autoInstall: true,
-      }),
-      UnoCSS({
-        configFile: '../uno.config.ts',
-      }),
-    ],
+        {
+          find: /^dayjs$/,
+          replacement: 'dayjs/esm/index.js',
+        },
+        {
+          find: /^dayjs\/plugin\/(.+?)(?:\.js)?$/,
+          replacement: 'dayjs/esm/plugin/$1/index.js',
+        },
+      ],
+    },
+    plugins: [groupIconVitePlugin(), VueMacros({
+      setupComponent: false,
+      setupSFC: false,
+      plugins: {
+        vueJsx: vueJsx(),
+      },
+    })],
+    ssr: { noExternal: [
+      'vitepress-theme-element-plus',
+      'vitepress-better-demo-plugin',
+    ] },
+    optimizeDeps: {
+      include: ['dayjs'],
+      exclude: ['vitepress-theme-element-plus'],
+    },
   },
 })

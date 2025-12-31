@@ -1,13 +1,16 @@
-import type { Theme } from 'vitepress'
 import ElementPlus from 'element-plus'
-// https://vitepress.dev/guide/custom-theme
-import Layout from './Layout.vue'
-import './style.css'
+import {
+  VitepressEpDemoBox,
+  VitepressEpDemoPlaceholder,
+} from 'vitepress-better-demo-plugin/theme/element-plus'
+import Theme from 'vitepress-theme-element-plus'
+import 'virtual:group-icons.css'
 
 export default {
-  Layout,
-  enhanceApp(ctx) {
-    ctx.app.use(ElementPlus)
-    // ...
+  ...Theme,
+  enhanceApp({ app }) {
+    app.use(ElementPlus)
+    app.component('VitepressDemoBox', VitepressEpDemoBox)
+    app.component('VitepressDemoPlaceholder', VitepressEpDemoPlaceholder)
   },
-} satisfies Theme
+}
