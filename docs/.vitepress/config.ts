@@ -15,27 +15,37 @@ export default defineConfig<EPThemeConfig>({
   description: 'Element Plus 的 Formily 封装',
   // head,
   themeConfig: {
+    i18nRouting: true,
     footer: {
       message: 'Released under the MIT License.',
     },
     logo: '/formily-logo.svg',
   },
   locales: {
+    root: {
+      label: 'English',
+      lang: 'en',
+      themeConfig: {
+        footer: {
+          message: 'Released under the MIT License.',
+        },
+      },
+    },
     zh: {
       label: '简体中文',
       lang: 'zh',
+      link: '/zh/',
       themeConfig: {
         footer: {
           message: '本项目基于 MIT 协议开源',
         },
         sidebar: {
-          '/guide/': [
+          '/zh/guide/': [
             {
               text: 'Guide',
               items: [
-                { text: 'Index', link: '/guide/' },
-                { text: 'One', link: '/guide/one' },
-                { text: 'Two', link: '/guide/two' },
+                { text: '介绍', link: '/zh/guide/introduction' },
+                { text: '重大改动', link: '/zh/guide/breaking-changes' },
               ],
             },
           ],
@@ -68,14 +78,6 @@ export default defineConfig<EPThemeConfig>({
           find: '@silver-formily/element-plus',
           replacement: `${path.resolve(import.meta.dirname, '../../src')}/`,
         },
-        {
-          find: /^dayjs$/,
-          replacement: 'dayjs/esm/index.js',
-        },
-        {
-          find: /^dayjs\/plugin\/(.+?)(?:\.js)?$/,
-          replacement: 'dayjs/esm/plugin/$1/index.js',
-        },
       ],
     },
     plugins: [groupIconVitePlugin(), VueMacros({
@@ -90,7 +92,7 @@ export default defineConfig<EPThemeConfig>({
       'vitepress-better-demo-plugin',
     ] },
     optimizeDeps: {
-      include: ['dayjs'],
+      include: ['@formily/core', '@formily/vue', '@formily/reactive-vue', '@formily/reactive', '@formily/shared', 'lodash-es', '@element-plus/icons-vue', 'vue-draggable-plus', '@formily/grid', 'element-plus', 'dayjs'],
       exclude: ['vitepress-theme-element-plus'],
     },
   },

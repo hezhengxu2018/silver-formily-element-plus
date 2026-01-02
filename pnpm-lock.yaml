@@ -60,9 +60,6 @@ importers:
       '@iconify-json/ri':
         specifier: ^1.2.5
         version: 1.2.5
-      '@iconify/vue':
-        specifier: ^5.0.0
-        version: 5.0.0(vue@3.5.22(typescript@5.9.3))
       '@mdit-vue/shared':
         specifier: ^2.1.4
         version: 2.1.4
@@ -111,12 +108,6 @@ importers:
       czg:
         specifier: ^1.12.0
         version: 1.12.0
-      dayjs:
-        specifier: ^1.11.19
-        version: 1.11.19
-      es-toolkit:
-        specifier: ^1.43.0
-        version: 1.43.0
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.1)
@@ -214,8 +205,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4
       vitepress-theme-element-plus:
-        specifier: ^0.0.2
-        version: 0.0.2(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))
+        specifier: ^0.0.4
+        version: 0.0.4(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@20.19.19)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.6.1)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(yaml@2.8.1)
@@ -929,8 +920,8 @@ packages:
   '@iconify/utils@3.0.2':
     resolution: {integrity: sha512-EfJS0rLfVuRuJRn4psJHtK2A9TqVnkxPpHY6lYHiB9+8eSuudsxbwMiavocG45ujOo6FJ+CIRlRnlOGinzkaGQ==}
 
-  '@iconify/vue@5.0.0':
-    resolution: {integrity: sha512-C+KuEWIF5nSBrobFJhT//JS87OZ++QDORB6f2q2Wm6fl2mueSTpFBeBsveK0KW9hWiZ4mNiPjsh6Zs4jjdROSg==}
+  '@iconify/vue@4.3.0':
+    resolution: {integrity: sha512-Xq0h6zMrHBbrW8jXJ9fISi+x8oDQllg5hTDkDuxnWiskJ63rpJu9CvJshj8VniHVTbsxCg9fVoPAaNp3RQI5OQ==}
     peerDependencies:
       vue: '>=3'
 
@@ -3031,9 +3022,6 @@ packages:
   es-object-atoms@1.1.1:
     resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
     engines: {node: '>= 0.4'}
-
-  es-toolkit@1.43.0:
-    resolution: {integrity: sha512-SKCT8AsWvYzBBuUqMk4NPwFlSdqLpJwmy6AP322ERn8W2YLIB6JBXnwMI2Qsh2gfphT3q7EKAxKb23cvFHFwKA==}
 
   es6-promise@4.2.8:
     resolution: {integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==}
@@ -5965,8 +5953,8 @@ packages:
   vitepress-plugin-nprogress@0.0.4:
     resolution: {integrity: sha512-YzW36kBnjuFH91DOFIA5snyBf4WpF/cYfhAiyNefhqif8QQIKGsbpzvI8VN0M8RHLGr9iQyHhF7dQsm//Xf5Hw==}
 
-  vitepress-theme-element-plus@0.0.2:
-    resolution: {integrity: sha512-dGQFpR1aZkYtQisn6S2TM80/2IGEf0kHVqhj1V29alLoRkUO/q3EuwSq/pRMIQqzDGfd9Hpgxuv1GSj4blEEaA==}
+  vitepress-theme-element-plus@0.0.4:
+    resolution: {integrity: sha512-aiIrnNZZykcNH6C6u/jF8FecmCjX3jwQ+45KAk6A3KSkYtv97Sxrto0UibaFiVd7FbtyqQQLCqYTIQHIitzMWA==}
     peerDependencies:
       vitepress: 2.0.0-alpha.12
 
@@ -6956,7 +6944,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@iconify/vue@5.0.0(vue@3.5.22(typescript@5.9.3))':
+  '@iconify/vue@4.3.0(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@iconify/types': 2.0.0
       vue: 3.5.22(typescript@5.9.3)
@@ -9287,8 +9275,6 @@ snapshots:
   es-object-atoms@1.1.1:
     dependencies:
       es-errors: 1.3.0
-
-  es-toolkit@1.43.0: {}
 
   es6-promise@4.2.8: {}
 
@@ -12663,9 +12649,12 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
-  vitepress-theme-element-plus@0.0.2(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)):
+  vitepress-theme-element-plus@0.0.4(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
+      '@iconify/vue': 4.3.0(vue@3.5.22(typescript@5.9.3))
       vitepress: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - vue
 
   vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1):
     dependencies:

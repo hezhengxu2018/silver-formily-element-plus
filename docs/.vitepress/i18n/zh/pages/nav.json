@@ -1,17 +1,17 @@
 [
   {
     "text": "指南",
-    "link": "/guide/introduction",
-    "activeMatch": "/guide/"
+    "link": "/zh/guide/introduction",
+    "activeMatch": "/zh/guide/"
   },
   {
     "text": "组件",
-    "link": "/component/overview",
-    "activeMatch": "/component/"
+    "link": "/zh/component/overview",
+    "activeMatch": "/zh/component/"
   },
   {
     "text": "@formily/grid 文档",
-    "link": "/formily-grid",
-    "activeMatch": "/formily-grid"
+    "link": "/zh/formily-grid",
+    "activeMatch": "/zh/formily-grid"
   }
 ]

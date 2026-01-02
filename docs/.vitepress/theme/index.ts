@@ -5,6 +5,7 @@ import {
 } from 'vitepress-better-demo-plugin/theme/element-plus'
 import Theme from 'vitepress-theme-element-plus'
 import 'virtual:group-icons.css'
+import '../styles/theme.css'
 
 export default {
   ...Theme,

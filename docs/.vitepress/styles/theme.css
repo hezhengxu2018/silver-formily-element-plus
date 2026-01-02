@@ -1,0 +1,9 @@
+:root:root:root {
+  --vp-c-brand: #4569d4;
+  --vp-c-brand-1: #4569d4;
+}
+
+.VPImage.logo {
+  width: 150px;
+  height: auto;
+}
