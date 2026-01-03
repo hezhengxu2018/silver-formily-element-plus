@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { TableInstance } from 'element-plus'
 import type { ISelectTableProps } from './types'
-import { isEqual, isValid } from '@formily/shared'
+import { isEqual, isFn, isValid } from '@formily/shared'
+import { useField } from '@formily/vue'
 import {
   ElLink,
   ElRadio,
@@ -30,11 +31,13 @@ const props = withDefaults(defineProps<ISelectTableProps>(), {
   loading: false,
   clickRowToSelect: true,
   showAlertToolbar: true,
+  ignoreSelectable: true,
 })
 
 const emit = defineEmits(['change'])
 
 const elTableProps = useAttrs()
+const field = useField()
 
 function compatibleRadioValue(key: string) {
   return lt(version, '2.6.0') ? { label: key } : { value: key }
@@ -73,15 +76,6 @@ const currentSelectLength = computed(() => {
   }
 })
 
-// 当前页面是否是树形表格
-// const isTree = computed(() => {
-//   const treeProps = attrs.treeProps as TreeProps
-//   if (treeProps?.children) {
-//     return props.dataSource.some(item => item[treeProps.children])
-//   }
-//   return props.dataSource.some(item => item.children)
-// })
-
 watch(
   () => props.dataSource,
   async () => {
@@ -92,7 +86,7 @@ watch(
     for (const item of props.dataSource) {
       if (selectedKeys.includes(item[rowKey])) {
         if (props.mode === 'multiple') {
-          elTableRef.value.toggleRowSelection(item, true)
+          elTableRef.value.toggleRowSelection(item, true, props.ignoreSelectable)
         }
         else {
           elTableRef.value.setCurrentRow(item)
@@ -133,7 +127,7 @@ watch(
       for (const tableItem of props.dataSource) {
         if (diffItems.includes(tableItem[rowKey])) {
           const shouldSelect = valueKeys.includes(tableItem[rowKey])
-          elTableRef.value.toggleRowSelection(tableItem, shouldSelect)
+          elTableRef.value.toggleRowSelection(tableItem, shouldSelect, props.ignoreSelectable)
         }
       }
     }
@@ -225,6 +219,13 @@ function onClearSelectionClick() {
     emit('change', null)
   }
 }
+
+function selectable(row: Record<string, any>, index: number) {
+  if (props.selectable && isFn(props.selectable)) {
+    return props.selectable(row, index, field.value)
+  }
+  return true
+}
 </script>
 
 <template>
@@ -258,6 +259,7 @@ function onClearSelectionClick() {
       <ElTableColumn
         v-if="props.mode === 'multiple'"
         type="selection"
+        :selectable="selectable"
       />
       <ElTableColumn
         v-else

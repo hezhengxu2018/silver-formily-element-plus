@@ -2,7 +2,7 @@ import type { ArrayField, FieldDataSource } from '@formily/core'
 import { createForm } from '@formily/core'
 import { createSchemaField, Field, FormProvider } from '@formily/vue'
 import { ElTableColumn } from 'element-plus'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import { defineComponent, Fragment } from 'vue'
 import SelectTable from '../index'
@@ -592,6 +592,89 @@ describe('多选框交互', async () => {
       )
       .not
       .toBeChecked()
+  })
+
+  it('should respect selectable option when disabling rows', async () => {
+    const form = createForm()
+    const selectable = vi.fn(row => row.key !== '2')
+    const screen = render(
+      formilyWrapperFactory(
+        { rowKey: 'key' },
+        { selectable },
+      ),
+      {
+        props: {
+          form,
+        },
+      },
+    )
+
+    await screen
+      .getByRole('row', { name: 'title-1' })
+      .getByRole('checkbox')
+      .click()
+    expect(form.query('selectTable').get('value')).toEqual(['1'])
+
+    const disabledRow = screen.getByRole('row', { name: 'title-2' })
+    const disabledCheckbox = disabledRow.getByRole('checkbox')
+
+    await expect.element(disabledCheckbox).toBeDisabled()
+
+    await disabledRow.click()
+    expect(form.query('selectTable').get('value')).toEqual(['1'])
+    expect(selectable).toHaveBeenCalled()
+  })
+
+  it('should sync selections when ignoreSelectable is true', async () => {
+    const form = createForm()
+    form.setInitialValues({ selectTable: ['2'] })
+    const screen = render(
+      formilyWrapperFactory(
+        { rowKey: 'key' },
+        {
+          selectable: row => row.key !== '2',
+          ignoreSelectable: true,
+        },
+      ),
+      {
+        props: {
+          form,
+        },
+      },
+    )
+
+    await expect
+      .element(
+        screen.getByRole('row', { name: 'title-2' }).getByRole('checkbox'),
+      )
+      .toBeChecked()
+  })
+
+  it('should block syncing when ignoreSelectable is false', async () => {
+    const form = createForm()
+    form.setInitialValues({ selectTable: ['2'] })
+    const screen = render(
+      formilyWrapperFactory(
+        { rowKey: 'key' },
+        {
+          selectable: row => row.key !== '2',
+          ignoreSelectable: false,
+        },
+      ),
+      {
+        props: {
+          form,
+        },
+      },
+    )
+
+    await expect
+      .element(
+        screen.getByRole('row', { name: 'title-2' }).getByRole('checkbox'),
+      )
+      .not
+      .toBeChecked()
+    expect(form.query('selectTable').get('value')).toEqual(['2'])
   })
 })
 

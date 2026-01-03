@@ -1,3 +1,4 @@
+import type { GeneralField } from '@formily/core'
 import type { Column } from 'element-plus'
 
 export interface ISelectTableProps {
@@ -12,4 +13,6 @@ export interface ISelectTableProps {
   showAlertToolbar?: boolean
   value?: any
   data?: Record<string, any>[]
+  selectable?: (row: Record<string, any>, index: number, field: GeneralField) => boolean
+  ignoreSelectable?: boolean
 }

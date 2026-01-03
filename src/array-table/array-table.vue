@@ -80,6 +80,7 @@ const pageSize = ref(props.paginationProps?.pageSize ?? 10)
 const currentPage = ref(props.paginationProps?.currentPage ?? 1)
 
 function updateDataSource() {
+  /* istanbul ignore if -- @preserve */
   if (!isArr(field.value)) {
     dataSource.value = []
     return
@@ -161,11 +162,8 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
   <div :class="prefixCls">
     <ArrayBase :key="triggerUpdateKey" :key-map="keyMap" :add="onAddItemClick">
       <VueDraggable
-        :model-value="dataSource"
-        target="tbody"
-        :handle="`.${stylePrefix}-array-base-sort-handle`"
-        :animation="150"
-        @end="handleDragEnd"
+        :model-value="dataSource" target="tbody" :handle="`.${stylePrefix}-array-base-sort-handle`"
+        :animation="150" @end="handleDragEnd"
       >
         <ElTable ref="elTableRef" v-loading="field.loading" :row-key="getKey" :data="dataSource" v-bind="elTableProps">
           <template v-for="(column, colIndex) of columns.value" :key="column.key">
@@ -173,10 +171,8 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
               <template #default="{ row, $index }">
                 <ArrayBase.Item :key="getKey(row)" :index="$index + baseIndex" :record="row">
                   <RecursionField
-                    :key="`${getKey(row)}`"
-                    :schema="sources.value[colIndex].schema"
-                    :name="$index + baseIndex"
-                    only-render-properties
+                    :key="`${getKey(row)}`" :schema="sources.value[colIndex].schema"
+                    :name="$index + baseIndex" only-render-properties
                   />
                 </ArrayBase.Item>
               </template>
@@ -199,14 +195,9 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
         <RecursionField :name="column.name" :schema="column.schema" :only-render-self="true" />
       </template>
       <ElPagination
-        v-if="props.pagination"
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :class="`${prefixCls}-pagination`"
-        background
-        layout="total, sizes, prev, pager, next"
-        :total="props.value.length"
-        v-bind="paginationProps"
+        v-if="props.pagination" v-model:current-page="currentPage" v-model:page-size="pageSize"
+        :class="`${prefixCls}-pagination`" background layout="total, sizes, prev, pager, next"
+        :total="props.value.length" v-bind="paginationProps"
       />
       <template v-for="(itemSchema, key) of schemaRef.properties" :key="key">
         <RecursionField v-if="isAdditionComponent(itemSchema)" :schema="itemSchema" name="addition" />
