@@ -69,8 +69,6 @@ form-grid/form
 | -------- | ------ | ---------------------------------------------------- | ------ |
 | gridSpan | number | 元素所跨列数，如果为 -1，那么会自动反向跨列填补单元格 | 1      |
 
----
-
 ### FormGrid.useFormGrid
 
 从上下文中读取 Grid 实例
@@ -81,4 +79,8 @@ interface useFormGrid {
 }
 ```
 
-- Grid 实例属性方法参考 [https://github.com/alibaba/formily/tree/formily_next/packages/grid](https://github.com/alibaba/formily/tree/formily_next/packages/grid)
+- Grid 实例属性方法参考 [文档](/zh/formily-grid.html)
+
+### FormGrid.createFormGrid
+
+创建`formGrid`的实例，与直接使用不同的是它会返回一个 markRaw 的`formGrid`实例。避免循环触发事件。

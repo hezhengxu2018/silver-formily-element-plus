@@ -4,17 +4,15 @@
 
 ## 普通提交
 
-<!-- :::demo
+::: demo
 
 submit/base
 
-::: -->
-
-<demo vue="submit/base.vue" />
+:::
 
 ## 防重提交
 
-:::demo
+::: demo
 
 submit/loading
 
