@@ -47,6 +47,10 @@ const dispose = grid.connect(container)
 // dispose()
 ```
 
+::: warning 提示
+在Vue中使用`createFormGrid`需要从`FormGrid.createFormGrid`中引入，它会返回一个markRaw的formGrid实例，没有markRaw的formGrid会引起shouldVisible等监听函数无限循环执行。
+:::
+
 ## 配置选项
 
 `Grid` 构造函数接受一个 `IGridOptions` 对象，包含以下配置项：

@@ -3,10 +3,10 @@ layout: home
 page: true
 
 hero:
-  name: Formily Element Plus
+  name: Silver Formily Element Plus
   image:
     src: /logo.svg
-    alt: Formily Element Plus
+    alt: Silver Formily Element Plus
   tagline: 另一个 @formily/element-plus 组件库
   actions:
     - theme: alt
@@ -38,10 +38,6 @@ features:
 
   --vp-home-hero-image-background-image: linear-gradient(-45deg, #bd34fe 50%, #47caff 50%);
   --vp-home-hero-image-filter: blur(44px);
-}
-
-h2:not(.vp-features h2) {
-  text-align: center;
 }
 
 @media (min-width: 640px) {

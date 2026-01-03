@@ -3,7 +3,7 @@
 > FormGrid 组件
 
 ::: tip 提示
-该组件移除了`createFormGrid`，请自行从`@formily/grid`依赖中引入。
+在Vue中使用`createFormGrid`需要从`FormGrid.createFormGrid`中引入，它会返回一个markRaw的formGrid实例，没有markRaw的formGrid会引起shouldVisible等监听函数无限循环执行。
 :::
 
 ## Markup Schema 案例
