@@ -57,7 +57,7 @@ const labelPosition = computed(
     if (formlayout.value.layout === 'vertical' || (isArr(formlayout.value.layout) && formlayout.value.layout.includes('vertical' as any))) {
       return 'top'
     }
-    return formlayout.value.labelAlign
+    return formlayout.value.labelAlign ?? 'right'
   },
 )
 
