@@ -11,11 +11,13 @@ import zhComponent from './i18n/zh/pages/component.json'
 import zhNav from './i18n/zh/pages/nav.json'
 
 export default defineConfig<EPThemeConfig>({
-  title: 'Formily Element Plus',
+  title: 'Silver Formily Element Plus',
   description: 'Element Plus 的 Formily 封装',
   // head,
   themeConfig: {
-    i18nRouting: true,
+    search: {
+      provider: 'local',
+    },
     footer: {
       message: 'Released under the MIT License.',
     },
