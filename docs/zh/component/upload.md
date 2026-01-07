@@ -46,13 +46,13 @@ upload/template
 | ------------------------- | -------------------------------------------------------- | ---------------------------------------------- | --------------------------------------- |
 | textContent               | 上传按钮的文本内容，在不同的上传模式下显示位置不同       | `string`                                       | `''`                                    |
 | errorAdaptor              | 错误信息适配器，用于自定义错误信息的展示格式             | ^[Function]`(error?: Error) => string`         | `error => error?.message`                         |
-| formatValue ^(2.2.0)      | 格式化函数，用于将文件列表转换为表单最终提交的值         | ^[Function]`(fileList?: UploadFile[]) => any`  | `fileList => fileList`                            |
-| fileList ^(2.2.0)         | 文件列表，映射为`dataSource`,`ElUpload`的 fileList 属性  | ^[array]`UploadFile[]`                         | `[]`                                       |
-| imageViewerProps ^(2.2.0) | 图片预览器的属性配置，当上传图片时可用于自定义预览行为   | ^[object]`ImageViewerProps`                    | `{ teleported: true, showProgress: true }` |
+| formatValue ^(1.0.0)      | 格式化函数，用于将文件列表转换为表单最终提交的值         | ^[Function]`(fileList?: UploadFile[]) => any`  | `fileList => fileList`                            |
+| fileList ^(1.0.0)         | 文件列表，映射为`dataSource`,`ElUpload`的 fileList 属性  | ^[array]`UploadFile[]`                         | `[]`                                       |
+| imageViewerProps ^(1.0.0) | 图片预览器的属性配置，当上传图片时可用于自定义预览行为   | ^[object]`ImageViewerProps`                    | `{ teleported: true, showProgress: true }` |
 
 `onChange`事件与`onUpdate:fileList`事件被占用，请勿使用。其余属性与事件请参考 [https://cn.element-plus.org/zh-CN/component/upload.html](https://cn.element-plus.org/zh-CN/component/upload.html)
 
-## 插槽 ^(2.2.0)
+## 插槽 ^(1.0.0)
 
 组件继承了`ElUpload`的所有插槽。
 
@@ -60,7 +60,7 @@ upload/template
 可以使用`textContent`属性`list-type`属性`drag`属性快速生成本来需要通过插槽实现的交互，具体请参考demo。
 :::
 
-## 获取实例 ^(2.2.0)
+## 获取实例 ^(1.0.0)
 
 用于获取`ElUpload`实例,具体暴露的方法请参考`element-plus`文档。
 
