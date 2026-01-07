@@ -15,10 +15,10 @@ import 'element-plus/theme-chalk/el-image-viewer.css'
 describe('Upload', () => {
   describe('基础功能', async () => {
     it('应该正常渲染', async () => {
-      const { getByRole } = render(() => (
+      const { getByText } = render(() => (
         <Upload action="#" textContent="上传" />
       ))
-      await expect.element(getByRole('button')).toBeInTheDocument()
+      await expect.element(getByText('上传')).toBeInTheDocument()
     })
 
     it('应该支持自定义文本内容', async () => {
