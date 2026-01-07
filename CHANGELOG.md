@@ -2,6 +2,8 @@
 
 
 
+# [1.0.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v0.0.1-beta.0...v1.0.0) (2026-01-07)
+
 ## [0.0.1-beta.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v0.0.1-alpha.1...v0.0.1-beta.0) (2026-01-07)
 
 
