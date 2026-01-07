@@ -1,10 +1,10 @@
 [
   {
-    "text": "Overview 组件总览",
+    "text": "Overview 总览",
     "items": [
       {
-        "link": "/zh/component/overview",
-        "text": "Overview 组件总览"
+        "link": "/zh/component/quick-start",
+        "text": "Quick Start 快速开始"
       }
     ]
   },

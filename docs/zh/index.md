@@ -13,8 +13,8 @@ hero:
       text: 指南
       link: ./guide/introduction
     - theme: brand
-      text: 组件总览
-      link: ./component/overview
+      text: 快速开始
+      link: ./component/quick-start
 
 features:
   - title: 💡 融合的组件风格
