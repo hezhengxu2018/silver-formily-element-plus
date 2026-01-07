@@ -184,24 +184,3 @@ const grid = new Grid({
   columnGap: [8, 12, 16, 20] // 不同断点下的列间距
 })
 ```
-
-### 动态更新配置
-
-可以在运行时更新网格配置：
-
-```typescript
-// 更新列间距
-grid.columnGap = 20
-
-// 更新断点
-grid.breakpoints = [600, 900, 1200, 1600]
-
-// 更新最大列数
-grid.maxColumns = [2, 4, 6, 8]
-```
-
-## 注意事项
-
-1. 确保容器元素具有明确的宽度，可以是固定值或百分比
-2. 如果使用严格自动适应模式 (`strictAutoFit: true`)，元素可能不会完全按照指定的跨度显示
-3. 在Vue中使用时，如果组件已经处理了 Formily 的响应式，则不应直接使用 `createFormGrid`，理由见上。

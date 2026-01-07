@@ -26,7 +26,6 @@ pnpm add @formily/core @formily/json-schema @formily/vue @silver-formily/element
 ### 2. 注册组件与 SchemaField
 
 ```ts
-// schema-field.ts
 import { createSchemaField } from '@formily/vue'
 import { FormItem, Input, Select, Submit } from '@silver-formily/element-plus'
 
@@ -42,24 +41,44 @@ export const { SchemaField } = createSchemaField({
 ```ts
 import { createForm } from '@formily/core'
 
-export const form = createForm({
+const form = createForm({
   effects(form) {
-    form.onFieldValueChange('region', (field) => {
+    onFieldValueChange('region', (field) => {
       if (field.value === 'remote') {
         form.setFieldState('address', state => (state.display = 'none'))
+      }
+      else {
+        form.setFieldState('address', state => (state.display = 'visible'))
       }
     })
   },
 })
 ```
 
-### 4. 编写 Schema 并渲染
+### 4. 完整示例
 
 ```vue
 <script setup lang="ts">
-import { FormProvider } from '@formily/vue'
-import { form } from './form'
-import { SchemaField } from './schema-field'
+import { createForm, onFieldValueChange } from '@formily/core'
+import { createSchemaField, FormProvider } from '@formily/vue'
+import { FormItem, Input, Select, Submit } from '@silver-formily/element-plus'
+
+const { SchemaField } = createSchemaField({
+  components: { FormItem, Input, Select, Submit },
+})
+
+const form = createForm({
+  effects(form) {
+    onFieldValueChange('region', (field) => {
+      if (field.value === 'remote') {
+        form.setFieldState('address', state => (state.display = 'none'))
+      }
+      else {
+        form.setFieldState('address', state => (state.display = 'visible'))
+      }
+    })
+  },
+})
 
 const schema = {
   type: 'object',
@@ -67,6 +86,13 @@ const schema = {
     name: {
       'type': 'string',
       'title': '姓名',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+      'required': true,
+    },
+    address: {
+      'type': 'string',
+      'title': '地址',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
       'required': true,
