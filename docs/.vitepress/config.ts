@@ -10,10 +10,24 @@ import { mdExternalLinkIcon, mdTableWrapper, mdTag, mdTooltip } from 'vitepress-
 import zhComponent from './i18n/zh/pages/component.json'
 import zhNav from './i18n/zh/pages/nav.json'
 
+const SITE_URL = 'https://silver-formily-element-plus.pages.dev'
+
 export default defineConfig<EPThemeConfig>({
   title: 'Silver Formily Element Plus',
   description: 'Element Plus 的 Formily 封装',
-  // head,
+  head: [
+    ['meta', { name: 'description', content: 'Element Plus 的 Formily 封装组件库和使用指南' }],
+    ['meta', { name: 'keywords', content: 'Formily, Element Plus, 表单, 组件库, Vue' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Silver Formily Element Plus' }],
+    ['meta', { property: 'og:title', content: 'Silver Formily Element Plus' }],
+    ['meta', { property: 'og:description', content: 'Formily + Element Plus 组件库文档、示例与最佳实践' }],
+    ['meta', { property: 'og:url', content: SITE_URL }],
+    ['link', { rel: 'canonical', href: SITE_URL }],
+  ],
+  sitemap: {
+    hostname: SITE_URL,
+  },
   themeConfig: {
     search: {
       provider: 'local',
