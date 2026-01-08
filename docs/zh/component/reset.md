@@ -30,7 +30,7 @@ reset/validate
 
 ## API
 
-按钮相关的 API 属性，我们参考 [https://cn.element-plus.org/zh-CN/component/button.html](https://cn.element-plus.org/zh-CN/component/button.html) 即可，剩下是 Reset 组件独有的 API 属性
+属性主要继承自 [Button组件](https://cn.element-plus.org/zh-CN/component/button.html) ，下面是 Reset 组件独有的 API 属性
 
 ### 属性
 
