@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import { createSchemaField } from '@formily/vue'
+import { createSchemaField } from '@silver-formily/vue'
 import { userEvent } from '@vitest/browser/context'
 import { ElButton } from 'element-plus'
 import { afterEach, describe, expect, it, vi } from 'vitest'

@@ -4,11 +4,6 @@ import { Grid } from '@formily/grid'
 import { autorun } from '@formily/reactive'
 import { observer } from '@formily/reactive-vue'
 import {
-  createSchemaField,
-  FormProvider,
-  FragmentComponent,
-} from '@formily/vue'
-import {
   DatePicker,
   Form,
   FormButtonGroup,
@@ -19,6 +14,10 @@ import {
   Select,
   Submit,
 } from '@silver-formily/element-plus'
+import {
+  createSchemaField,
+  FormProvider,
+} from '@silver-formily/vue'
 import { defineComponent, onUnmounted, ref } from 'vue'
 
 function useCollapseGrid(maxRows) {
@@ -77,10 +76,10 @@ const QueryForm = observer(
 
       const renderActions = () => {
         return (
-          <FragmentComponent>
+          <>
             <Submit onSubmit={console.log}>查询</Submit>
             <Reset>重置</Reset>
-          </FragmentComponent>
+          </>
         )
       }
 
@@ -94,7 +93,7 @@ const QueryForm = observer(
         }
         if (type.value === 'collapsible') {
           return (
-            <FragmentComponent>
+            <>
               <FormButtonGroup>
                 <a
                   href=""
@@ -107,7 +106,7 @@ const QueryForm = observer(
                 </a>
               </FormButtonGroup>
               <FormButtonGroup align="right">{renderActions()}</FormButtonGroup>
-            </FragmentComponent>
+            </>
           )
         }
         return (

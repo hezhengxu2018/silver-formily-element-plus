@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
-import { ArrayField } from '@formily/vue'
 import {
   Form,
   FormButtonGroup,
@@ -8,6 +7,7 @@ import {
   Submit,
   Upload,
 } from '@silver-formily/element-plus'
+import { ArrayField } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 import { h } from 'vue'
 

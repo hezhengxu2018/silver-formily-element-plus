@@ -1,5 +1,5 @@
 import { createForm } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'

@@ -1,6 +1,6 @@
 import type { Schema, SchemaKey } from '@formily/json-schema'
 import { observable, reaction } from '@formily/reactive'
-import { useField, useFieldSchema } from '@formily/vue'
+import { useField, useFieldSchema } from '@silver-formily/vue'
 
 export type Tabs = { name: SchemaKey, props: any, schema: Schema }[]
 

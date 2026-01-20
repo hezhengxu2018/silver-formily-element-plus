@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import { omit } from 'lodash-es'
 import { useCleanAttrs } from '../__builtins__'

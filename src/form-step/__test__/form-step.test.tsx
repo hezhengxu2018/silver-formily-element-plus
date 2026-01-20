@@ -1,6 +1,6 @@
 import { createForm } from '@formily/core'
 import { observer } from '@formily/reactive-vue'
-import { createSchemaField, FormProvider } from '@formily/vue'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'

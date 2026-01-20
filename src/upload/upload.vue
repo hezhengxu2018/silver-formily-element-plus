@@ -9,7 +9,7 @@ import {
 } from '@element-plus/icons-vue'
 import { reaction } from '@formily/reactive'
 import { isFn } from '@formily/shared'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { ElButton, ElIcon, ElImageViewer, ElUpload, genFileId } from 'element-plus'
 import { omit } from 'lodash-es'
 import { computed, onBeforeUnmount, ref, useAttrs } from 'vue'

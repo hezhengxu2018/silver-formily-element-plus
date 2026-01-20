@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { createForm } from '@formily/core'
-import { FormProvider } from '@formily/vue'
+import { FormProvider } from '@silver-formily/vue'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import { defineComponent } from 'vue'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IFormTabProps } from './types.ts'
 import { observable, reaction } from '@formily/reactive'
-import { RecursionField, useField } from '@formily/vue'
+import { RecursionField, useField } from '@silver-formily/vue'
 import { ElBadge, ElTabPane, ElTabs } from 'element-plus'
 import { computed, ref, watch } from 'vue'
 import { stylePrefix } from '../__builtins__'

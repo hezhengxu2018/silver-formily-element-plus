@@ -3,7 +3,7 @@ import type { ArrayField } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import { autorun } from '@formily/reactive'
 import { isArr } from '@formily/shared'
-import { RecursionField, useField, useFieldSchema } from '@formily/vue'
+import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import {
   ElCard,
   ElCollapse,

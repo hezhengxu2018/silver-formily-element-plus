@@ -1,9 +1,9 @@
-import type { VueComponent } from '@formily/vue'
+import type { VueComponent } from '@silver-formily/vue'
 import type { Component } from 'vue'
 import { isVoidField } from '@formily/core'
 import { observer } from '@formily/reactive-vue'
 import { each } from '@formily/shared'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { defineComponent, h } from 'vue'
 import { useCleanAttrs } from './utils'
 

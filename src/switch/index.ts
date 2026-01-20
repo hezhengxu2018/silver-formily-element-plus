@@ -1,4 +1,4 @@
-import { connect, mapProps } from '@formily/vue'
+import { connect, mapProps } from '@silver-formily/vue'
 import { ElSwitch } from 'element-plus'
 import { transformComponent } from '../__builtins__'
 

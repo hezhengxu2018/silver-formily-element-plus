@@ -2,7 +2,7 @@
 import type { FormContext } from 'element-plus'
 import type { IFormLayoutProps } from './types'
 import { isEmpty, isValid } from '@formily/shared'
-import { useForm } from '@formily/vue'
+import { useForm } from '@silver-formily/vue'
 import { formContextKey } from 'element-plus'
 import { provide, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs, useThrottleFn } from '../__builtins__'

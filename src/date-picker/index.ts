@@ -1,5 +1,5 @@
 import type { DatePickerProps } from 'element-plus'
-import { connect, mapProps } from '@formily/vue'
+import { connect, mapProps } from '@silver-formily/vue'
 import { ElDatePicker } from 'element-plus'
 import { mapReadPretty, transformComponent } from '../__builtins__'
 import { PreviewText } from '../preview-text'

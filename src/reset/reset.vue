@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { useParentForm } from '@formily/vue'
+import { useParentForm } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 
 defineOptions({

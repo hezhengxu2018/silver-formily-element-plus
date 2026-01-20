@@ -1,6 +1,6 @@
 import type { ArrayField, FieldDataSource } from '@formily/core'
 import { createForm } from '@formily/core'
-import { createSchemaField, Field, FormProvider } from '@formily/vue'
+import { createSchemaField, Field, FormProvider } from '@silver-formily/vue'
 import { ElTableColumn } from 'element-plus'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'

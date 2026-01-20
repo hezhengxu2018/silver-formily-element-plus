@@ -1,5 +1,5 @@
 import { createForm } from '@formily/core'
-import { Field } from '@formily/vue'
+import { Field } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'

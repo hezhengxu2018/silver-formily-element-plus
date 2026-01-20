@@ -2,7 +2,7 @@
 import type { TableInstance } from 'element-plus'
 import type { ISelectTableProps } from './types'
 import { isEqual, isFn, isValid } from '@formily/shared'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import {
   ElLink,
   ElRadio,

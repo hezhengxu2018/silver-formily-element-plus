@@ -1,5 +1,5 @@
 import type { ElInput } from 'element-plus'
-import { connect, mapProps } from '@formily/vue'
+import { connect, mapProps } from '@silver-formily/vue'
 import { Input } from '../input'
 
 export type PasswordProps = typeof ElInput

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createForm } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
 import {
   Cascader,
   DatePicker,
@@ -11,6 +10,7 @@ import {
   Select,
   TimePicker,
 } from '@silver-formily/element-plus'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { h } from 'vue'
 
 function SuccessIcon() {

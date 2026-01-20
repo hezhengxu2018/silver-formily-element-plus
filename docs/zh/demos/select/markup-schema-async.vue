@@ -2,8 +2,8 @@
 import type { DataField } from '@formily/core'
 import { createForm, onFieldReact } from '@formily/core'
 import { action } from '@formily/reactive'
-import { createSchemaField } from '@formily/vue'
 import { Form, FormItem, Select, Submit } from '@silver-formily/element-plus'
+import { createSchemaField } from '@silver-formily/vue'
 
 function useAsyncDataSource(pattern, service) {
   onFieldReact(pattern, (field: DataField) => {

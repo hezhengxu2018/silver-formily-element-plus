@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { ArrayField } from '@formily/core'
-import type { ISchema } from '@formily/vue'
+import type { ISchema } from '@silver-formily/vue'
 import { observable } from '@formily/reactive'
-import { RecursionField, useField, useFieldSchema } from '@formily/vue'
+import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElCollapseItem } from 'element-plus'
 import { useCleanAttrs } from '../__builtins__'
 import { isIndexComponent, isOperationComponent, useIndex } from '../array-base/utils'

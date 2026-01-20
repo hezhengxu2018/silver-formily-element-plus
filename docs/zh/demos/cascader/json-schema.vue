@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
 import { action } from '@formily/reactive'
-import { createSchemaField } from '@formily/vue'
 import { Cascader, Form, FormItem, Submit } from '@silver-formily/element-plus'
+import { createSchemaField } from '@silver-formily/vue'
 
 type IAddress = { name: string, code: string, cities: number, districts: number } | string
 

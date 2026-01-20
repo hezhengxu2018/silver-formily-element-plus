@@ -1,6 +1,5 @@
 <script>
 import { createForm } from '@formily/core'
-import { createSchemaField } from '@formily/vue'
 import {
   Form,
   FormButtonGroup,
@@ -9,6 +8,7 @@ import {
   Select,
   Submit,
 } from '@silver-formily/element-plus'
+import { createSchemaField } from '@silver-formily/vue'
 
 const form = createForm()
 const fields = createSchemaField({ components: { Input, Select, FormItem } })

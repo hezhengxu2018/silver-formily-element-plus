@@ -18,7 +18,7 @@
 
 ```bash
 pnpm config set auto-install-peers true
-pnpm add @formily/core @formily/json-schema @formily/vue @silver-formily/element-plus element-plus
+pnpm add @formily/core @formily/json-schema @silver-formily/vue @silver-formily/element-plus element-plus
 ```
 
 > 如果团队需要锁定 Element Plus 或 Formily 的特定版本，请在 package.json 中明确指定，以避免 peerDependencies 带来的漂移。
@@ -26,8 +26,8 @@ pnpm add @formily/core @formily/json-schema @formily/vue @silver-formily/element
 ### 2. 注册组件与 SchemaField
 
 ```ts
-import { createSchemaField } from '@formily/vue'
 import { FormItem, Input, Select, Submit } from '@silver-formily/element-plus'
+import { createSchemaField } from '@silver-formily/vue'
 
 export const { SchemaField } = createSchemaField({
   components: { FormItem, Input, Select, Submit },
@@ -60,8 +60,8 @@ const form = createForm({
 ```vue
 <script setup lang="ts">
 import { createForm, onFieldValueChange } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
 import { FormItem, Input, Select, Submit } from '@silver-formily/element-plus'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 
 const { SchemaField } = createSchemaField({
   components: { FormItem, Input, Select, Submit },

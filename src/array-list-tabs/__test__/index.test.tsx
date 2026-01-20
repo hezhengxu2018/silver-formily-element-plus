@@ -1,6 +1,6 @@
 import { Close } from '@element-plus/icons-vue'
 import { createForm } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { userEvent } from '@vitest/browser/context'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'

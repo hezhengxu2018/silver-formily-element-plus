@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { AffixProps } from 'element-plus'
 import type { ComputedRef } from 'vue'
-import { useForm } from '@formily/vue'
+import { useForm } from '@silver-formily/vue'
 import { ElAffix, useAttrs } from 'element-plus'
 import { prefixCls } from './utils'
 

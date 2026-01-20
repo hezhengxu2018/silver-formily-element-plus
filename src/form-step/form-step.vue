@@ -2,7 +2,7 @@
 import type { VoidField } from '@formily/core'
 import type { IFormStepProps } from './types'
 import { isObj } from '@formily/shared'
-import { RecursionField, useField, useFieldSchema } from '@formily/vue'
+import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElStep, ElSteps } from 'element-plus'
 import { computed } from 'vue'
 import { stylePrefix } from '../__builtins__'

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Form as FormType, IFormFeedback } from '@formily/core'
 import type { PropType } from 'vue'
-import { FormProvider, useForm } from '@formily/vue'
+import { FormProvider, useForm } from '@silver-formily/vue'
 import { FormLayout } from '../form-layout'
 import { PreviewText } from '../preview-text'
 

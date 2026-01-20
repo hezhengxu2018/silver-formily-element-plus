@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IArrayBaseAdditionProps } from './types'
 import { Plus } from '@element-plus/icons-vue'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { ElLink } from 'element-plus'
 import { compatibleUnderlineProp, getDefaultValue, prefixCls, useArray } from './utils'
 

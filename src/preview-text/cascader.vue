@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Field } from '@formily/core'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { ElSpace, ElTag, ElText } from 'element-plus'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { usePreviewConfig } from './utils'

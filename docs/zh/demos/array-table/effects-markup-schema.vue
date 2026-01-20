@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { createForm, isField, onFieldChange, onFieldReact } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
 import {
   ArrayTable,
   Editable,
@@ -10,6 +9,7 @@ import {
   Submit,
   Switch,
 } from '@silver-formily/element-plus'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 
 const {
   SchemaField,

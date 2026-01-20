@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
-import { Field, FormProvider, VoidField } from '@formily/vue'
 import {
   FormButtonGroup,
   FormItem,
@@ -9,6 +8,7 @@ import {
   Space,
   Submit,
 } from '@silver-formily/element-plus'
+import { Field, FormProvider, VoidField } from '@silver-formily/vue'
 
 const form = createForm()
 

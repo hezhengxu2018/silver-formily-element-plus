@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Field } from '@formily/core'
-import { useField } from '@formily/vue'
+import { useField } from '@silver-formily/vue'
 import { ElTreeSelect } from 'element-plus'
 import { ref, useSlots } from 'vue'
 import { useCleanAttrs } from '../__builtins__'

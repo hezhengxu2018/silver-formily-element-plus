@@ -2,7 +2,7 @@
 import type { ArrayField } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import { autorun, observable } from '@formily/reactive'
-import { RecursionField, useField, useFieldSchema } from '@formily/vue'
+import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElEmpty, ElScrollbar } from 'element-plus'
 import { ref } from 'vue'
 import { ArrayBase } from '../array-base'

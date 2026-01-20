@@ -1,5 +1,5 @@
 import { isVoidField } from '@formily/core'
-import { connect, mapProps } from '@formily/vue'
+import { connect, mapProps } from '@silver-formily/vue'
 import { composeExport } from '../__builtins__'
 import FormBaseItem from './form-item.vue'
 import { determineFeedbackStatus, getFeedbackMessage } from './utils'

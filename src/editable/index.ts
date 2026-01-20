@@ -1,6 +1,6 @@
 import type { ElPopover } from 'element-plus'
 import type { IFormItemProps } from '../form-item/types'
-import { connect, mapProps } from '@formily/vue'
+import { connect, mapProps } from '@silver-formily/vue'
 import { composeExport } from '../__builtins__/shared'
 import { fieldFeedbackMapper } from '../form-item'
 import FEditablePopover from './editable-popover.vue'

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
-import { createSchemaField, FormProvider } from '@formily/vue'
 import { FormItem, Radio, Submit } from '@silver-formily/element-plus'
+import { createSchemaField, FormProvider } from '@silver-formily/vue'
 
 const form = createForm()
 const { SchemaField, SchemaStringField } = createSchemaField({

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
-import { Field, FormProvider } from '@formily/vue'
 import { FormItem, Select, Submit } from '@silver-formily/element-plus'
+import { Field, FormProvider } from '@silver-formily/vue'
 import { ElCheckbox } from 'element-plus'
 
 const form = createForm()

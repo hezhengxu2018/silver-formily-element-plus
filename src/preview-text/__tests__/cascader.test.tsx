@@ -1,5 +1,5 @@
 import { createForm } from '@formily/core'
-import { Field, FormProvider } from '@formily/vue'
+import { Field, FormProvider } from '@silver-formily/vue'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Cascader from '../../cascader'
