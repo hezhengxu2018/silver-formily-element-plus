@@ -30,7 +30,7 @@ importers:
         specifier: ^2.0.8
         version: 2.3.7
       '@silver-formily/vue':
-        specifier: ^2.0.2
+        specifier: ^2
         version: 2.0.2(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))
       element-plus:
         specifier: ^2.1.8
@@ -208,8 +208,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4
       vitepress-theme-element-plus:
-        specifier: ^1.0.1
-        version: 1.0.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        specifier: ^1.1.1
+        version: 1.1.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@20.19.19)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.6.1)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(yaml@2.8.1)
@@ -5951,8 +5951,8 @@ packages:
   vitepress-plugin-nprogress@0.0.4:
     resolution: {integrity: sha512-YzW36kBnjuFH91DOFIA5snyBf4WpF/cYfhAiyNefhqif8QQIKGsbpzvI8VN0M8RHLGr9iQyHhF7dQsm//Xf5Hw==}
 
-  vitepress-theme-element-plus@1.0.1:
-    resolution: {integrity: sha512-7bXvbRnbJyvE9JtM9HhyMsKRIM/wodU0ld3J2lMQD6jpMicazrMF4vT/YH6ZSGxJV2RK4W+hE7k5Het7UM+tXA==}
+  vitepress-theme-element-plus@1.1.1:
+    resolution: {integrity: sha512-GFglMUPnw5YQX/wHGXGeK/aczzA+gFoX/x9fVS64tEVMIyBBb2SG2whkTFtKim0iWZAFnCtSkQmP5VLBOhC/0g==}
     peerDependencies:
       vitepress: 2.0.0-alpha.12
 
@@ -12630,7 +12630,7 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
-  vitepress-theme-element-plus@1.0.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
+  vitepress-theme-element-plus@1.1.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       '@iconify/vue': 4.3.0(vue@3.5.22(typescript@5.9.3))
       vitepress: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)

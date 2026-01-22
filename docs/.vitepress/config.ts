@@ -7,6 +7,7 @@ import { defineConfig } from 'vitepress'
 import { createDemoContainer } from 'vitepress-better-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { mdExternalLinkIcon, mdTableWrapper, mdTag, mdTooltip } from 'vitepress-theme-element-plus/node'
+import pkg from '../../package.json' with { type: 'json' }
 import zhComponent from './i18n/zh/pages/component.json'
 import zhNav from './i18n/zh/pages/nav.json'
 
@@ -29,6 +30,7 @@ export default defineConfig<EPThemeConfig>({
     hostname: SITE_URL,
   },
   themeConfig: {
+    version: pkg.version,
     search: {
       provider: 'local',
     },
