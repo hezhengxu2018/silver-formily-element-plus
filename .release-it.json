@@ -12,7 +12,8 @@
   },
   "npm": {
     "publish": true,
-    "tag": "latest"
+    "tag": "latest",
+    "tokenRef": "NPM_TOKEN"
   },
   "plugins": {
     "@release-it/conventional-changelog": {
