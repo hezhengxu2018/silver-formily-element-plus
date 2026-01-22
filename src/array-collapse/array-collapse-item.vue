@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { ArrayField } from '@formily/core'
-import type { ISchema } from '@silver-formily/vue'
+import type { ISchema } from '@formily/json-schema'
 import { observable } from '@formily/reactive'
+import { isArr } from '@formily/shared'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElCollapseItem } from 'element-plus'
 import { useCleanAttrs } from '../__builtins__'
@@ -34,6 +35,7 @@ const { props: collapseItemProps } = useCleanAttrs()
     <template #title>
       <div style="flex: 1;display: flex;align-items: center;">
         <RecursionField
+          v-if="!isArr(schema.items)"
           :schema="schema.items"
           :name="index"
           :filter-properties="(schema: ISchema) => isIndexComponent(schema)"

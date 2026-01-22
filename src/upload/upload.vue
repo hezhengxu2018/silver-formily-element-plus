@@ -43,7 +43,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['update:modelValue'])
 
 const uploadRef = ref<UploadInstance>()
 const attrs = useAttrs() as UploadProps
@@ -131,7 +131,7 @@ const dispose = reaction(() => {
   return fieldRef.value?.dataSource ?? []
 }, () => {
   const emitValue = props.formatValue(fieldRef.value.dataSource as UploadFile[])
-  emit('change', emitValue)
+  emit('update:modelValue', emitValue)
 })
 onBeforeUnmount(() => {
   dispose()

@@ -3,7 +3,7 @@ import type { TreeNodeData } from 'element-plus'
 export interface TreeValueTypeProps {
   nodeKey: string
   data?: TreeNodeData[]
-  value?: any
+  modelValue?: any
   valueType?: 'all' | 'parent' | 'child' | 'path'
   includeHalfChecked?: boolean
   optionAsValue?: boolean

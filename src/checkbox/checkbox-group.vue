@@ -12,10 +12,6 @@ defineOptions({
 })
 
 const props = defineProps({
-  value: {
-    type: Array as PropType<Array<any>>,
-    default: () => [],
-  },
   options: {
     type: Array as PropType<Array<CheckboxProps>>,
     default: () => [],
@@ -26,7 +22,6 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['change'])
 const OptionType = computed(() => {
   return props.optionType === 'button' ? ElCheckboxButton : ElCheckbox
 })
@@ -55,7 +50,7 @@ const { props: checkboxProps } = useCleanAttrs()
 </script>
 
 <template>
-  <ElCheckboxGroup v-bind="checkboxProps" :model-value="props.value" @update:model-value="(value) => emits('change', value)">
+  <ElCheckboxGroup v-bind="checkboxProps">
     <template v-if="!slots.option">
       <component :is="OptionType" v-for="(option, index) of compatiableProps" :key="index" v-bind="option">
         {{ isPlainObj(props.options[index]) ? props.options[index]?.label : option.label }}

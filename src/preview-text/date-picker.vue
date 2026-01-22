@@ -10,7 +10,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
+  modelValue?: any
 }>()
 const { props: attrs } = useCleanAttrs()
 const prefixCls = `${stylePrefix}-preview-text`
@@ -65,24 +65,24 @@ const format = computed(() => attrs.value.format || getFormatByType(type.value))
 
 <template>
   <div :class="prefixCls">
-    <template v-if="props.value">
+    <template v-if="props.modelValue">
       <template v-if="type.endsWith('range')">
         <ElText v-bind="textProps">
-          {{ props.value[0] ? dayjs(props.value[0]).format(format) : placeholder }}
+          {{ props.modelValue[0] ? dayjs(props.modelValue[0]).format(format) : placeholder }}
           {{ attrs.rangeSeparator ?? '~' }}
-          {{ props.value[1] ? dayjs(props.value[1]).format(format) : placeholder }}
+          {{ props.modelValue[1] ? dayjs(props.modelValue[1]).format(format) : placeholder }}
         </ElText>
       </template>
       <template v-else-if="type.endsWith('s')">
         <ElSpace v-bind="spaceProps">
-          <ElTag v-for="i of props.value" :key="i" v-bind="tagProps">
+          <ElTag v-for="i of props.modelValue" :key="i" v-bind="tagProps">
             {{ dayjs(i).format(format) }}
           </ElTag>
         </ElSpace>
       </template>
       <template v-else>
         <ElText v-bind="textProps">
-          {{ dayjs(props.value).format(format) }}
+          {{ dayjs(props.modelValue).format(format) }}
         </ElText>
       </template>
     </template>

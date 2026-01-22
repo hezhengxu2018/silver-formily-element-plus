@@ -71,7 +71,7 @@ async function log(values) {
         </SchemaVoidField>
         <SchemaVoidField
           name="tab3"
-          :visible="false"
+          :x-visible="false"
           x-component="FormCollapse.Item"
           :x-component-props="{ title: 'A3' }"
         >

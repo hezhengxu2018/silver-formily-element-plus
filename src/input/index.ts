@@ -6,7 +6,6 @@ import FInput from './input.vue'
 const InnerInput = connect(
   FInput,
   mapProps({
-    value: 'modelValue',
     readOnly: 'readonly',
   }),
   mapReadPretty(PreviewText.Input),
@@ -17,7 +16,6 @@ const TextArea = connect(
   mapProps((props) => {
     return {
       ...props,
-      modelValue: props.value,
       readonly: props.readOnly,
       type: 'textarea',
     }

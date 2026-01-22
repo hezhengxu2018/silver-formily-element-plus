@@ -2,6 +2,7 @@
 import type { ArrayField } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import { autorun, observable } from '@formily/reactive'
+import { isArr } from '@formily/shared'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElEmpty, ElScrollbar } from 'element-plus'
 import { ref } from 'vue'
@@ -23,7 +24,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  value: {
+  modelValue: {
     type: Array,
     default: () => [],
   },
@@ -96,11 +97,11 @@ function getTabTitle(item) {
 
 <template>
   <div :class="prefixCls">
-    <ArrayBase :key="props.value.length" :key-map="keyMap">
+    <ArrayBase :key="props.modelValue.length" :key-map="keyMap">
       <ul :class="`${prefixCls}_list`">
         <ElScrollbar :class="`${prefixCls}_list--scroll-wrapper`">
           <ArrayBase.Item
-            v-for="(item, index) in props.value"
+            v-for="(item, index) in props.modelValue"
             :key="index"
             :index="index"
             :record="item"
@@ -128,6 +129,7 @@ function getTabTitle(item) {
                   </template>
                   <template v-else>
                     <RecursionField
+                      v-if="!isArr(schema.items)"
                       :schema="schema.items"
                       :name="index"
                       :filter-properties="(schema: ISchema) => isTabTitleComponent(schema, props.tabTitleField)"
@@ -138,6 +140,7 @@ function getTabTitle(item) {
               </div>
               <!-- remove icon -->
               <RecursionField
+                v-if="!isArr(schema.items)"
                 :schema="schema.items"
                 :name="index"
                 :filter-properties="(schema: ISchema) => isRemoveComponent(schema)"
@@ -154,11 +157,11 @@ function getTabTitle(item) {
           />
         </template>
       </ul>
-      <div v-if="props.value.length === 0" :class="`${prefixCls}-tabpane`">
+      <div v-if="props.modelValue.length === 0" :class="`${prefixCls}-tabpane`">
         <ElEmpty :image-size="100" />
       </div>
       <ArrayBase.Item
-        v-for="(item, index) in props.value"
+        v-for="(item, index) in props.modelValue"
         :key="getKey(item, index)"
         :index="index"
         :record="item"

@@ -10,12 +10,6 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<{
-  value: any
-}>()
-
-const emit = defineEmits(['change'])
-
 const slots = useSlots()
 
 const { props: attrs } = useCleanAttrs()
@@ -34,10 +28,8 @@ fieldRef.value?.inject({
 <template>
   <ElTreeSelect
     ref="treeSelectRef"
-    :model-value="props.value"
     :loading="fieldRef.value?.loading"
     v-bind="attrs"
-    @update:model-value="emit('change', $event)"
   >
     <template v-for="(_, name) of slots" #[name]="slotData">
       <slot :name="name" v-bind="{ field: fieldRef, ...slotData }" />

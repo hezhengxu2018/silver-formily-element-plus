@@ -14,7 +14,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<{
   nodeKey: string
-  value?: any
+  modelValue?: any
   valueType?: string
   data?: any[]
   props?: {
@@ -35,23 +35,31 @@ const props = withDefaults(defineProps<{
 
 const prefixCls = `${stylePrefix}-preview-tree`
 const fieldRef = useField<ArrayField>()
-const { props: attrs } = useCleanAttrs()
+const { props: attrs } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
 const { textProps, placeholder } = usePreviewConfig()
 
 const dataSource = computed(() => {
   return fieldRef.value.dataSource ?? props.data ?? []
 })
 
+const resolvedValue = computed(() => {
+  if (props.modelValue !== undefined)
+    return props.modelValue
+  if (props.modelValue !== undefined)
+    return props.modelValue
+  return fieldRef.value?.value
+})
+
 const previewData = computed(() => {
-  if (!props.value || !Array.isArray(props.value) || props.value.length === 0) {
+  if (!resolvedValue.value || !Array.isArray(resolvedValue.value) || resolvedValue.value.length === 0) {
     return []
   }
   switch (props.valueType) {
     case 'path': {
-      return props.value
+      return resolvedValue.value
     }
     default: {
-      const selectedPath = getSelectedPath(dataSource.value, props.value, props.nodeKey, props.props)
+      const selectedPath = getSelectedPath(dataSource.value, resolvedValue.value, props.nodeKey, props.props)
       return selectedPath
     }
   }

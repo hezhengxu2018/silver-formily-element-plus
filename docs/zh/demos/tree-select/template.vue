@@ -89,6 +89,7 @@ async function log(value) {
       :decorator="[FormItem]"
       :component="[TreeSelect]"
       :data-source="data"
+      initial-value="1-1-1"
     />
     <Submit @submit="log">
       提交

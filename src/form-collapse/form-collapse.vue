@@ -6,7 +6,7 @@ import { isFn } from '@formily/shared'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElCollapse, ElCollapseItem } from 'element-plus'
 import { computed } from 'vue'
-import { stylePrefix } from '../__builtins__'
+import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { createFormCollapse, usePanels } from './utils'
 
 defineOptions({
@@ -20,6 +20,7 @@ const props = defineProps({
   },
 })
 const prefixCls = `${stylePrefix}-form-collapse`
+const { props: collapseAttrs } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
 
 const field = useField()
 const schema = useFieldSchema()
@@ -51,7 +52,7 @@ const panelErrorCounts = observable.computed(() => {
   <ElCollapse
     :class="prefixCls"
     :model-value="takeActiveKeys(panels.value)"
-    v-bind="$attrs"
+    v-bind="collapseAttrs"
     @change="(key) => {
       formCollapseRef.setActiveKeys(key)
     }"

@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<ISelectTableProps>(), {
   ignoreSelectable: true,
 })
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['update:modelValue'])
 
 const elTableProps = useAttrs()
 const field = useField()
@@ -47,7 +47,7 @@ const elTableRef = ref<TableInstance>()
 const rowKey = props.rowKey
 function getInitialSelectedList() {
   if (props.mode === 'multiple') {
-    return props.value?.map((item) => {
+    return props.modelValue?.map((item) => {
       if (!props.optionAsValue) {
         return {
           [rowKey]: item,
@@ -57,7 +57,7 @@ function getInitialSelectedList() {
     }) ?? []
   }
   else {
-    return props.optionAsValue ? [props.value] : [{ [rowKey]: props.value }]
+    return props.optionAsValue ? [props.modelValue] : [{ [rowKey]: props.modelValue }]
   }
 }
 const initialSelectedList = getInitialSelectedList()
@@ -69,7 +69,7 @@ const radioSelectedKey = ref()
 
 const currentSelectLength = computed(() => {
   if (props.mode === 'multiple') {
-    return Array.isArray(props.value) ? props.value.length : 0
+    return Array.isArray(props.modelValue) ? props.modelValue.length : 0
   }
   else {
     return isValid(radioSelectedKey.value) ? 1 : 0
@@ -101,7 +101,7 @@ watch(
 )
 
 watch(
-  () => [props.value, props.loading],
+  () => [props.modelValue, props.loading],
   async ([value, loading]) => {
     if (loading) {
       return
@@ -167,23 +167,23 @@ function onSelect(newSelection: Record<string, any>[]) {
   }
 
   if (props.optionAsValue) {
-    emit('change', selectedFlatDataSource.value)
+    emit('update:modelValue', selectedFlatDataSource.value)
   }
   else {
     const selectedKeys = selectedFlatDataSource.value.map(
       item => item[rowKey],
     )
-    emit('change', selectedKeys)
+    emit('update:modelValue', selectedKeys)
   }
 }
 
 function onRadioClick(item) {
   radioSelectedKey.value = item[rowKey]
   if (props.optionAsValue) {
-    emit('change', item)
+    emit('update:modelValue', item)
   }
   else {
-    emit('change', item[rowKey])
+    emit('update:modelValue', item[rowKey])
   }
 }
 
@@ -211,12 +211,12 @@ function onRowClick(row: Record<string, any>, _, event: Event) {
 
 function onClearSelectionClick() {
   if (props.mode === 'multiple') {
-    emit('change', [])
+    emit('update:modelValue', [])
     selectedFlatDataSource.value = []
   }
   else {
     radioSelectedKey.value = null
-    emit('change', null)
+    emit('update:modelValue', null)
   }
 }
 

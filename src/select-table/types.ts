@@ -11,7 +11,7 @@ export interface ISelectTableProps {
   rowKey?: string
   clickRowToSelect?: boolean
   showAlertToolbar?: boolean
-  value?: any
+  modelValue?: any
   data?: Record<string, any>[]
   selectable?: (row: Record<string, any>, index: number, field: GeneralField) => boolean
   ignoreSelectable?: boolean

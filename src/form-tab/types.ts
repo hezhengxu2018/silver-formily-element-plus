@@ -6,7 +6,7 @@ export interface IFormTab {
 
 export interface IFormTabProps {
   formTab?: IFormTab
-  value?: string | number
+  modelValue?: string | number
 }
 
 export interface IFormTabPaneProps {

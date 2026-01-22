@@ -11,7 +11,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value: any
+  modelValue: any
 }>()
 const prefixCls = `${stylePrefix}-preview-text`
 const fieldRef = useField<Field>()
@@ -37,14 +37,14 @@ function findLabel(value: any, dataSource: any[]): any {
 
 <template>
   <div :class="prefixCls">
-    <template v-if="!Array.isArray(props.value)">
+    <template v-if="!Array.isArray(props.modelValue)">
       <ElText v-bind="textProps">
         {{ placeholder }}
       </ElText>
     </template>
-    <template v-else-if="isMultiple && Array.isArray(props.value[0])">
+    <template v-else-if="isMultiple && Array.isArray(props.modelValue[0])">
       <ElSpace v-bind="spaceProps">
-        <ElTag v-for="(item, key) of props.value" :key="key" v-bind="tagProps">
+        <ElTag v-for="(item, key) of props.modelValue" :key="key" v-bind="tagProps">
           <template v-if="isShowAllLevels">
             {{ item.map(val => findLabel(val, dataSource) || placeholder).join(` ${attrs.separator ?? '/'} `) }}
           </template>
@@ -57,10 +57,10 @@ function findLabel(value: any, dataSource: any[]): any {
     <template v-else>
       <ElText v-bind="textProps">
         <template v-if="isShowAllLevels">
-          {{ props.value.map(val => findLabel(val, dataSource) || placeholder).join(` ${attrs.separator ?? '/'} `) }}
+          {{ props.modelValue.map(val => findLabel(val, dataSource) || placeholder).join(` ${attrs.separator ?? '/'} `) }}
         </template>
         <template v-else>
-          {{ findLabel(props.value[props.value.length - 1], dataSource) || placeholder }}
+          {{ findLabel(props.modelValue[props.modelValue.length - 1], dataSource) || placeholder }}
         </template>
       </ElText>
     </template>

@@ -21,7 +21,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  value: {},
+  modelValue: {},
   defaultOpenPanelCount: {
     type: Number,
     default: 5,
@@ -33,7 +33,7 @@ const schemaRef = useFieldSchema()
 const field = fieldRef.value
 const schema = schemaRef.value
 
-const { props: collapseProps } = useCleanAttrs()
+const { props: collapseProps } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
 const activeKeys = ref<number[] | number>([])
 
 const { getKey, keyMap } = ArrayBase.useKey(schemaRef.value)
@@ -101,7 +101,7 @@ function handleCollapseChange(keys: number[] | number) {
         )
       }"
     >
-      <template v-if="!Array.isArray(props.value) || props.value.length === 0">
+      <template v-if="!Array.isArray(props.modelValue) || props.modelValue.length === 0">
         <ElCard :class="[`${prefixCls}-item`]" shadow="never" v-bind="collapseProps" :header="collapseProps.title || field.title">
           <ElEmpty />
         </ElCard>

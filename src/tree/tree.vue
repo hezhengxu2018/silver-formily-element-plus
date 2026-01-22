@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<TreeValueTypeProps>(), {
 })
 
 const emit = defineEmits<{
-  change: [value: any]
+  'update:modelValue': [value: any]
 }>()
 
 const slots = useSlots()
@@ -58,17 +58,17 @@ async function handleCheck() {
 
   if (props.optionAsValue) {
     isFn(props.optionFormatter)
-      ? emit('change', nodes.map((element, index, array) => {
+      ? emit('update:modelValue', nodes.map((element, index, array) => {
           return props.optionFormatter(element, index, array)
         }))
-      : emit('change', nodes)
+      : emit('update:modelValue', nodes)
   }
   else {
-    emit('change', value)
+    emit('update:modelValue', value)
   }
 }
 
-watch(() => props.value, (newValue) => {
+watch(() => props.modelValue, (newValue) => {
   if (newValue !== undefined) {
     checkedKeys.value = getInputKeys(newValue, {
       optionAsValue: props.optionAsValue,

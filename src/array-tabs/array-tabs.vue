@@ -48,7 +48,7 @@ const dispose = reaction(() => {
 onUnmounted(() => {
   dispose()
 })
-const { props: elTabProps } = useCleanAttrs(['value'])
+const { props: elTabProps } = useCleanAttrs(['value', 'modelValue', 'onUpdate:modelValue'])
 </script>
 
 <template>

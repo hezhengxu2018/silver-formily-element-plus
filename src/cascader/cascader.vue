@@ -9,12 +9,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
   options?: CascaderOption[]
-}>()
-
-const emit = defineEmits<{
-  (e: 'change', value: any): void
 }>()
 
 const { props: cascaderProps } = useCleanAttrs()
@@ -24,8 +19,6 @@ const { props: cascaderProps } = useCleanAttrs()
   <ElCascader
     v-bind="cascaderProps"
     :options="props.options"
-    :model-value="props.value"
-    @update:model-value="value => emit('change', value)"
   >
     <template v-if="$slots.default" #default="{ node, data }">
       <slot :node="node" :data="data" />

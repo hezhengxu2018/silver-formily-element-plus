@@ -10,7 +10,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
+  modelValue?: any
 }>()
 const { props: attrs } = useCleanAttrs()
 const prefixCls = `${stylePrefix}-preview-text`
@@ -32,16 +32,16 @@ function formatTimeValue(value: any): string | void {
 
 <template>
   <div :class="prefixCls">
-    <template v-if="isArr(props.value)">
+    <template v-if="isArr(props.modelValue)">
       <ElText v-bind="textProps">
-        {{ formatTimeValue(props.value[0]) || placeholder }}
+        {{ formatTimeValue(props.modelValue[0]) || placeholder }}
         {{ attrs.rangeSeparator ?? '~' }}
-        {{ formatTimeValue(props.value[1]) || placeholder }}
+        {{ formatTimeValue(props.modelValue[1]) || placeholder }}
       </ElText>
     </template>
     <template v-else>
       <ElText v-bind="textProps">
-        {{ formatTimeValue(props.value) || placeholder }}
+        {{ formatTimeValue(props.modelValue) || placeholder }}
       </ElText>
     </template>
   </div>

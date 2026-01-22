@@ -6,7 +6,7 @@ import FCascader from './cascader.vue'
 
 export const Cascader = connect(
   observer(FCascader),
-  mapProps({ dataSource: 'options', value: 'modelValue', disabled: true }),
+  mapProps({ dataSource: 'options', disabled: true }),
   mapReadPretty(PreviewText.Cascader),
 )
 

@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   bodyStyle?: Record<string, string>
   bodyClass?: string
   shadow?: 'always' | 'hover' | 'never'
-  value: any
+  modelValue: any
 }>(), {
   shadow: 'never',
 })
@@ -53,7 +53,7 @@ autorun(() => {
       </ElCard>
 
       <!-- 数据项渲染 -->
-      <template v-if="isArr(props.value)">
+      <template v-if="isArr(props.modelValue)">
         <ArrayBase.Item
           v-for="(item, index) of dataSource"
           :key="getKey(item, index)"

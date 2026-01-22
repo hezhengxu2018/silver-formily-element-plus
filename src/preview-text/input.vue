@@ -10,7 +10,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
+  modelValue?: any
 }>()
 
 const slots = defineSlots<{
@@ -30,10 +30,10 @@ const { spaceProps, textProps, placeholder } = usePreviewConfig()
     <slot v-if="slots.prefix" name="prefix" />
     <ElText v-bind="textProps">
       <template v-if="isFn(attrs.formatter)">
-        {{ attrs.formatter(props.value) }}
+        {{ attrs.formatter(props.modelValue) }}
       </template>
-      <template v-else-if="isValid(props.value)">
-        {{ props.value === '' ? '&nbsp;' : props.value }}
+      <template v-else-if="isValid(props.modelValue)">
+        {{ props.modelValue === '' ? '&nbsp;' : props.modelValue }}
       </template>
       <template v-else>
         {{ placeholder }}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ArrayField } from '@formily/core'
-import type { Schema } from '@silver-formily/vue'
+import type { Schema } from '@formily/json-schema'
 import type { TableInstance } from 'element-plus'
 import type { IArrayTableProps } from './types'
 import { autorun, observable, reaction } from '@formily/reactive'
@@ -22,7 +22,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<IArrayTableProps>(), {
-  value: () => [],
+  modelValue: () => [],
   pagination: true,
 })
 const { props: elTableProps } = useCleanAttrs()
@@ -197,7 +197,7 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
       <ElPagination
         v-if="props.pagination" v-model:current-page="currentPage" v-model:page-size="pageSize"
         :class="`${prefixCls}-pagination`" background layout="total, sizes, prev, pager, next"
-        :total="props.value.length" v-bind="paginationProps"
+        :total="props.modelValue.length" v-bind="paginationProps"
       />
       <template v-for="(itemSchema, key) of schemaRef.properties" :key="key">
         <RecursionField v-if="isAdditionComponent(itemSchema)" :schema="itemSchema" name="addition" />

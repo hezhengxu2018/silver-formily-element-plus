@@ -1,4 +1,3 @@
-import type { VueComponent } from '@silver-formily/vue'
 import type { Component } from 'vue'
 import { isVoidField } from '@formily/core'
 import { observer } from '@formily/reactive-vue'
@@ -29,7 +28,7 @@ export function transformComponent<T extends Record<string, any>>(tag: any, tran
 }
 
 // fork from https://github.com/alibaba/formily/blob/7c64c671252adf85471ac5aabfddbaf4fc537354/packages/vue/src/shared/connect.ts#L65
-export function mapReadPretty<T extends VueComponent, C extends VueComponent>(
+export function mapReadPretty<T extends Component, C extends Component>(
   component: C,
   readPrettyProps?: Record<string, any>,
 ) {

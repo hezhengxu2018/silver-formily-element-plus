@@ -1,7 +1,7 @@
 import type { PaginationProps } from 'element-plus'
 
 export interface IArrayTableProps {
-  value?: any[]
+  modelValue?: any[]
   pagination?: boolean
   paginationProps?: Partial<PaginationProps>
 }

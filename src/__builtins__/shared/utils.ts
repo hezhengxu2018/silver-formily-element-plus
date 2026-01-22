@@ -9,7 +9,7 @@ export function useCleanAttrs(removeAttrsList: string[] = []): {
 } {
   const attrs = useAttrs()
   const props = computed(() => {
-    const DEFAULT_REMOVE_ATTRS = ['modelValue', 'value', 'onChange', 'attrs', 'on', 'readOnly']
+    const DEFAULT_REMOVE_ATTRS = ['value', 'onChange', 'attrs', 'on', 'readOnly']
     if (isPlainObj(attrs.value.attrs)) {
       return omit({ ...attrs.value, ...attrs.value.attrs }, DEFAULT_REMOVE_ATTRS.concat(removeAttrsList))
     }

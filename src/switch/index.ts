@@ -1,17 +1,11 @@
 import { connect, mapProps } from '@silver-formily/vue'
 import { ElSwitch } from 'element-plus'
-import { transformComponent } from '../__builtins__'
 
 export type SwitchProps = typeof ElSwitch
 
-const TransformElSwitch = transformComponent<SwitchProps>(ElSwitch, {
-  change: 'update:modelValue',
-})
-
 export const Switch = connect(
-  TransformElSwitch,
+  ElSwitch,
   mapProps({
-    value: 'modelValue',
     readOnly: 'readonly',
   }),
 )

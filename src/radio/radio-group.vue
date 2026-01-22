@@ -4,16 +4,13 @@ import type { PropType } from 'vue'
 import { isPlainObj } from '@formily/shared'
 import { ElRadio, ElRadioButton, ElRadioGroup, version } from 'element-plus'
 import { computed, useSlots } from 'vue'
-import { lt } from '../__builtins__'
+import { lt, useCleanAttrs } from '../__builtins__'
 
 defineOptions({
   name: 'FRadioGroup',
 })
 
 const props = defineProps({
-  value: {
-    default: undefined,
-  },
   options: {
     type: Array as PropType<Array<RadioProps | string | number>>,
     default: () => [],
@@ -24,7 +21,8 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['change'])
+const { props: radioProps } = useCleanAttrs()
+
 const OptionType = computed(() => {
   return props.optionType === 'button' ? ElRadioButton : ElRadio
 })
@@ -64,7 +62,7 @@ const slots = useSlots()
 </script>
 
 <template>
-  <ElRadioGroup :model-value="props.value" @update:model-value="(value) => emits('change', value)">
+  <ElRadioGroup v-bind="radioProps">
     <template v-if="!slots.option">
       <component :is="OptionType" v-for="(option, index) of compatiableProps" :key="index" v-bind="option">
         {{ getOptionLabel(option, index) }}

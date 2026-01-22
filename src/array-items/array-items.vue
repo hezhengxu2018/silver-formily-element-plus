@@ -37,7 +37,7 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
   await field.move(oldIndex, newIndex)
   triggerUpdateKey.value++
 }
-const { props: arrayItemsProps } = useCleanAttrs(['value'])
+const { props: arrayItemsProps } = useCleanAttrs(['value', 'modelValue', 'onUpdate:modelValue'])
 </script>
 
 <template>

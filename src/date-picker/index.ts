@@ -1,15 +1,8 @@
 import type { DatePickerProps } from 'element-plus'
 import { connect, mapProps } from '@silver-formily/vue'
 import { ElDatePicker } from 'element-plus'
-import { mapReadPretty, transformComponent } from '../__builtins__'
+import { mapReadPretty } from '../__builtins__'
 import { PreviewText } from '../preview-text'
-
-const TransformElDatePicker = transformComponent<DatePickerProps>(
-  ElDatePicker,
-  {
-    change: 'update:modelValue',
-  },
-)
 
 function getDefaultFormat(type: DatePickerProps['type'] = 'date', formatType = 'format') {
   if (type === 'week' && formatType === 'format') {
@@ -44,10 +37,9 @@ function getDefaultFormat(type: DatePickerProps['type'] = 'date', formatType = '
 }
 
 export const DatePicker = connect(
-  TransformElDatePicker,
+  ElDatePicker,
   mapProps(
     {
-      value: 'modelValue',
       readOnly: 'readonly',
       disabled: true,
       editable: true,

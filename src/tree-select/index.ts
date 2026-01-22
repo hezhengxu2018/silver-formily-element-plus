@@ -5,7 +5,7 @@ import FTreeSelect from './tree-select.vue'
 
 export const TreeSelect = connect(
   FTreeSelect,
-  mapProps({ value: 'modelValue', readOnly: 'readonly', dataSource: 'data' }),
+  mapProps({ readOnly: 'readonly', dataSource: 'data' }),
   mapReadPretty(PreviewText.Select),
 )
 

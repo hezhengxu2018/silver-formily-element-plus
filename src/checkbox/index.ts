@@ -15,7 +15,6 @@ const CheckboxGroup = connect(
 const InnerCheckbox = connect(
   ElCheckbox,
   mapProps({
-    value: 'modelValue',
     disabled: true,
   }),
 )

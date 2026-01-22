@@ -11,7 +11,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
+  modelValue?: any
 }>()
 
 const prefixCls = `${stylePrefix}-preview-text`
@@ -24,18 +24,18 @@ const { spaceProps, textProps, tagProps, placeholder } = usePreviewConfig()
 
 <template>
   <div :class="prefixCls">
-    <template v-if="!isValid(props.value)">
+    <template v-if="!isValid(props.modelValue)">
       <ElText v-bind="textProps">
         {{ placeholder }}
       </ElText>
     </template>
     <template v-else-if="!attrs.multiple">
       <ElText v-bind="textProps">
-        {{ dataSource.find(i => i.value === props.value)?.label ?? props.value }}
+        {{ dataSource.find(i => i.value === props.modelValue)?.label ?? props.modelValue }}
       </ElText>
     </template>
     <ElSpace v-else v-bind="spaceProps">
-      <ElTag v-for="(item, key) of props.value" :key="key" v-bind="tagProps">
+      <ElTag v-for="(item, key) of props.modelValue" :key="key" v-bind="tagProps">
         {{ dataSource.find(i => i.value === item)?.label ?? item }}
       </ElTag>
     </ElSpace>

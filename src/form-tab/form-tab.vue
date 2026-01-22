@@ -13,13 +13,13 @@ defineOptions({
 })
 
 const props = defineProps<IFormTabProps>()
-const emit = defineEmits(['input'])
+const emit = defineEmits(['update:modelValue'])
 
 const field = useField()
 const prefixCls = `${stylePrefix}-form-tab`
 const formTabRef = computed(() => props.formTab ?? createFormTab())
 const tabs = useTabs()
-const _activeKey = ref(props?.value ?? formTabRef.value.activeKey ?? tabs?.[0]?.name)
+const _activeKey = ref(props?.modelValue ?? formTabRef.value.activeKey ?? tabs?.[0]?.name)
 
 reaction(() => {
   return tabs.length
@@ -45,7 +45,7 @@ function handleTabChange(key: string) {
   /* istanbul ignore if -- @preserve */
   if (typeof key !== 'string')
     return
-  emit('input', key)
+  emit('update:modelValue', key)
   formTabRef.value.setActiveKey?.(key)
 }
 </script>

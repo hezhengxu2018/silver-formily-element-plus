@@ -10,12 +10,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-  value?: any
   options?: Array<OptionType | OptionGroupType>
-}>()
-
-const emit = defineEmits<{
-  (e: 'change', value: any): void
 }>()
 
 const slots = defineSlots<{
@@ -44,7 +39,7 @@ function isGroup(option: OptionType | OptionGroupType): option is OptionGroupTyp
 </script>
 
 <template>
-  <ElSelect v-bind="selectProps" :model-value="props.value" @update:model-value="(val) => emit('change', val)">
+  <ElSelect v-bind="selectProps">
     <template v-for="option of props.options">
       <template v-if="isGroup(option)">
         <ElOptionGroup v-bind="omit(option, 'options')" :key="option.label">
