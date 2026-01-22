@@ -2,6 +2,18 @@
 
 
 
+# [2.0.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v1.0.1...v2.0.0) (2026-01-22)
+
+
+### Features
+
+* 从@formily/vue升级至@silver-formily/vue;完成属性与事件的相应改动 ([7562ff6](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/7562ff6be49b3feccf9599f6e96e65327ee4cf92))
+
+
+### BREAKING CHANGES
+
+* 从@formily/vue升级至@silver-formily/vue
+
 ## [1.0.1](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v1.0.0...v1.0.1) (2026-01-07)
 
 # [1.0.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v0.0.1-beta.0...v1.0.0) (2026-01-07)
