@@ -3,7 +3,7 @@ import { ElSwitch } from 'element-plus'
 
 export type SwitchProps = typeof ElSwitch
 
-export const Switch = connect(
+export const Switch = connect<typeof ElSwitch>(
   ElSwitch,
   mapProps({
     readOnly: 'readonly',

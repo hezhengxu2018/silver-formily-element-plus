@@ -5,7 +5,7 @@ import { PreviewText } from '../preview-text'
 
 export type TimePickerProps = typeof ElTimePicker
 
-export const TimePicker = connect(
+export const TimePicker = connect<typeof ElTimePicker>(
   ElTimePicker,
   mapProps({ readOnly: 'readonly' }),
   mapReadPretty(PreviewText.TimePicker),

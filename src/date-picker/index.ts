@@ -36,7 +36,7 @@ function getDefaultFormat(type: DatePickerProps['type'] = 'date', formatType = '
   }
 }
 
-export const DatePicker = connect(
+export const DatePicker = connect<typeof ElDatePicker>(
   ElDatePicker,
   mapProps(
     {

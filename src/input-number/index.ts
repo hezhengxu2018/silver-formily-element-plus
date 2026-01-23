@@ -5,7 +5,7 @@ import { PreviewText } from '../preview-text'
 
 export type InputNumberProps = typeof ElInputNumber
 
-export const InputNumber = connect(
+export const InputNumber = connect<typeof ElInputNumber>(
   ElInputNumber,
   mapProps(
     {
