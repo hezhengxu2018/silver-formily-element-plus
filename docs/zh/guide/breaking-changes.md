@@ -6,6 +6,10 @@
 
 - 从 2.x 版本起，组件库的vue绑定库从 `@formily/vue` 迁移至 `@silver-formily/vue`。安装 `peerDependencies` 时请注意。使用时 Field、SchemaField等组件也需要从 `@silver-formily/vue` 中引入。具体的使用方式请参考[官方文档](https://vue.silver-formily.org/)
 
+::: warning 注意
+`@silver-formily/vue` 对的绑定方式也做了修改，不再是`value` / `onChange`的方式。使用自定义组件时请务必注意。
+:::
+
 ::: tip 提示
 如果你还没有做好迁移`@formily/vue`的准备，可以继续使用 `@silver-formily/element-plus` 的 1.x 版本。
 :::
