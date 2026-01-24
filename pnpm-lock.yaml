@@ -193,11 +193,8 @@ importers:
         specifier: 2.0.0-alpha.12
         version: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       vitepress-better-demo-plugin:
-        specifier: ^0.3.1
-        version: 0.3.1(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
-      vitepress-demo-plugin:
-        specifier: ^1.5.0
-        version: 1.5.0(shiki@3.13.0)(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        specifier: ^0.6.0
+        version: 0.6.0(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       vitepress-demoblock:
         specifier: ^1.0.4
         version: 1.0.4
@@ -208,8 +205,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4
       vitepress-theme-element-plus:
-        specifier: ^1.1.1
-        version: 1.1.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        specifier: ^1.1.2
+        version: 1.1.2(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@20.19.19)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.6.1)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(yaml@2.8.1)
@@ -5919,8 +5916,8 @@ packages:
       yaml:
         optional: true
 
-  vitepress-better-demo-plugin@0.3.1:
-    resolution: {integrity: sha512-tSqZB4PXFx7VV+2An6aIwKTP8qh6Zfw6fbpGs8TbZbH8Cy9s44XmJrC7QvusfesjLuiuaIXkyPw9PYgrnKaZHQ==}
+  vitepress-better-demo-plugin@0.6.0:
+    resolution: {integrity: sha512-MRjpgXxKCUMkGecqlHVEVlkOQpjRH9WX8gSx6eExjZun3FAwlsFVRjOcNLFsQeqmPGrE0GuiGjG9gooB/6EVsA==}
     peerDependencies:
       element-plus: ^2.2.0
       vitepress: '*'
@@ -5928,13 +5925,6 @@ packages:
     peerDependenciesMeta:
       element-plus:
         optional: true
-
-  vitepress-demo-plugin@1.5.0:
-    resolution: {integrity: sha512-f9qFNbJpNkpEzojxVmnin265vM4IuGF781AmBJcCUCBrh7e5FUxoXyyArJtKNup7/0ygnAzzAg+5nB4pK9OoiA==}
-    peerDependencies:
-      shiki: '*'
-      vitepress: '*'
-      vue: ^3.2.0
 
   vitepress-demoblock@1.0.4:
     resolution: {integrity: sha512-k7Asrpp5X5cGl2SeMJFcafKdHSQQR7lXsZPpkUvRepZR7DKtmYq6tjfff6UInmaVYTdDvfJkobo/5KSxX0mPlA==}
@@ -5951,8 +5941,8 @@ packages:
   vitepress-plugin-nprogress@0.0.4:
     resolution: {integrity: sha512-YzW36kBnjuFH91DOFIA5snyBf4WpF/cYfhAiyNefhqif8QQIKGsbpzvI8VN0M8RHLGr9iQyHhF7dQsm//Xf5Hw==}
 
-  vitepress-theme-element-plus@1.1.1:
-    resolution: {integrity: sha512-GFglMUPnw5YQX/wHGXGeK/aczzA+gFoX/x9fVS64tEVMIyBBb2SG2whkTFtKim0iWZAFnCtSkQmP5VLBOhC/0g==}
+  vitepress-theme-element-plus@1.1.2:
+    resolution: {integrity: sha512-KNbZgCwSVyqjXyHK/J+h77LM6NXgHNh0Oo+mkxDmvczOGo/lGUQk2T6iMLiw6TzC2hdA6M6cns7TDNUpV/vKCQ==}
     peerDependencies:
       vitepress: 2.0.0-alpha.12
 
@@ -12597,7 +12587,7 @@ snapshots:
       tsx: 4.20.6
       yaml: 2.8.1
 
-  vitepress-better-demo-plugin@0.3.1(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
+  vitepress-better-demo-plugin@0.6.0(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       '@stackblitz/sdk': 1.11.0
       codesandbox: 2.2.3
@@ -12607,12 +12597,6 @@ snapshots:
       element-plus: 2.13.0(vue@3.5.22(typescript@5.9.3))
     transitivePeerDependencies:
       - supports-color
-
-  vitepress-demo-plugin@1.5.0(shiki@3.13.0)(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
-    dependencies:
-      shiki: 3.13.0
-      vitepress: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
-      vue: 3.5.22(typescript@5.9.3)
 
   vitepress-demoblock@1.0.4: {}
 
@@ -12630,7 +12614,7 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
-  vitepress-theme-element-plus@1.1.1(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
+  vitepress-theme-element-plus@1.1.2(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       '@iconify/vue': 4.3.0(vue@3.5.22(typescript@5.9.3))
       vitepress: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)

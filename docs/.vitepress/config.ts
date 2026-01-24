@@ -86,6 +86,7 @@ export default defineConfig<EPThemeConfig>({
       md.use(mdContainer, 'demo', createDemoContainer(md, {
         demoDir: path.resolve(import.meta.dirname, '../zh/demos'),
         autoImportWrapper: false,
+        ssg: true,
       }))
     },
   },
