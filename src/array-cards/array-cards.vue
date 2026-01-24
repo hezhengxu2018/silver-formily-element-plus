@@ -33,10 +33,10 @@ const schema = schemaRef.value
 const prefixCls = `${stylePrefix}-array-cards`
 const { getKey, keyMap } = ArrayBase.useKey(schemaRef.value)
 
-const dataSource = ref(field.value)
+const dataSource = ref(isArr(field.value) ? field.value : [])
 
 autorun(() => {
-  dataSource.value = [...field.value]
+  dataSource.value = isArr(field.value) ? [...field.value] : []
 })
 </script>
 

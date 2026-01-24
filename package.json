@@ -36,7 +36,7 @@
     "@formily/reactive": "^2.0.8",
     "@formily/reactive-vue": "^2.0.8",
     "@formily/shared": "^2.0.8",
-    "@silver-formily/vue": "^2",
+    "@silver-formily/vue": "^2.0.4",
     "element-plus": "^2.1.8",
     "vue": "^3.3.0"
   },
@@ -96,7 +96,6 @@
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitepress": "2.0.0-alpha.12",
     "vitepress-better-demo-plugin": "^0.6.0",
-    "vitepress-demoblock": "^1.0.4",
     "vitepress-plugin-group-icons": "^1.6.5",
     "vitepress-plugin-nprogress": "^0.0.4",
     "vitepress-theme-element-plus": "^1.1.2",

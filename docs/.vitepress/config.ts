@@ -107,6 +107,7 @@ export default defineConfig<EPThemeConfig>({
       },
     })],
     ssr: { noExternal: [
+      '@silver-formily/vue',
       'vitepress-theme-element-plus',
       'vitepress-better-demo-plugin',
     ] },

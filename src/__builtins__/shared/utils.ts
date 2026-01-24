@@ -2,7 +2,7 @@ import type { Component, ComputedRef, Slot, VNode } from 'vue'
 import { isPlainObj } from '@formily/shared'
 import { useAttrs } from 'element-plus'
 import { omit } from 'lodash-es'
-import { computed, Fragment } from 'vue'
+import { Comment, computed, Fragment, Text } from 'vue'
 
 export function useCleanAttrs(removeAttrsList: string[] = []): {
   props: ComputedRef<Record<string, any>>

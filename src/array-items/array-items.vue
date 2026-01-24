@@ -22,11 +22,11 @@ const schema = schemaRef.value
 
 const prefixCls = `${stylePrefix}-array-items`
 const { getKey, keyMap } = useKey(schemaRef.value)
-const dataSource = ref(field.value)
+const dataSource = ref(isArr(field.value) ? field.value : [])
 const triggerUpdateKey = ref(0)
 
 autorun(() => {
-  dataSource.value = [...field.value]
+  dataSource.value = isArr(field.value) ? [...field.value] : []
 })
 
 async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {

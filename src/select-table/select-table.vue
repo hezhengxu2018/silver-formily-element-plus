@@ -83,13 +83,16 @@ watch(
       selectedFlatDataSource.value.map(item => item[rowKey]),
     )
     await nextTick()
+    if (!elTableRef.value) {
+      return
+    }
     for (const item of props.dataSource) {
       if (selectedKeys.includes(item[rowKey])) {
         if (props.mode === 'multiple') {
-          elTableRef.value.toggleRowSelection(item, true, props.ignoreSelectable)
+          elTableRef.value?.toggleRowSelection(item, true, props.ignoreSelectable)
         }
         else {
-          elTableRef.value.setCurrentRow(item)
+          elTableRef.value?.setCurrentRow(item)
           onRadioClick(item)
         }
       }
@@ -111,6 +114,9 @@ watch(
     }
     else {
       await nextTick()
+      if (!elTableRef.value) {
+        return
+      }
       const currentDisplayDataKeys = elTableRef.value
         ?.getSelectionRows()
         .map(item => item[rowKey])

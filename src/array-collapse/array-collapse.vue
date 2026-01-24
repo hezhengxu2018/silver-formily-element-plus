@@ -38,10 +38,10 @@ const activeKeys = ref<number[] | number>([])
 
 const { getKey, keyMap } = ArrayBase.useKey(schemaRef.value)
 
-const dataSource = ref(field.value)
+const dataSource = ref(isArr(field.value) ? field.value : [])
 
 autorun(() => {
-  isArr(field.value) && (dataSource.value = [...field.value])
+  dataSource.value = isArr(field.value) ? [...field.value] : []
 })
 
 function range(count: number) {

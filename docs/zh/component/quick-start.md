@@ -28,7 +28,7 @@ npm install --save @silver-formily/element-plus
 
 ::: warning 注意
 
-`@silver-formily/element-plus` 目前仅提供了esm格式的导出，没有提供cjs和umd格式的导出，而且部分组件在开发时强烈依赖浏览器环境，服务器端渲染支持很差。
+`@silver-formily/element-plus` 目前仅提供了esm格式的导出，没有提供cjs和umd格式的导出。
 
 :::
 
