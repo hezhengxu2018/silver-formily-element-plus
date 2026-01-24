@@ -95,7 +95,7 @@
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitepress": "2.0.0-alpha.12",
-    "vitepress-better-demo-plugin": "^0.6.0",
+    "vitepress-better-demo-plugin": "^0.6.1",
     "vitepress-plugin-group-icons": "^1.6.5",
     "vitepress-plugin-nprogress": "^0.0.4",
     "vitepress-theme-element-plus": "^1.1.2",
