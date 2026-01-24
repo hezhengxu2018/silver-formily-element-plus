@@ -2,6 +2,14 @@
 
 
 
+## [2.0.1](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.0.0...v2.0.1) (2026-01-24)
+
+
+### Bug Fixes
+
+* 添加类型参数以增强连接组件的类型安全 ([5da1bd0](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/5da1bd02aacbdd8e79ac1b3085df87400792457d))
+* 修复ssr环境下渲染报错的问题 ([a991f52](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/a991f520787760310ddf3bb45bbeffcaeed89841))
+
 # [2.0.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v1.0.1...v2.0.0) (2026-01-22)
 
 
