@@ -86,11 +86,28 @@ export default defineConfig<EPThemeConfig>({
       md.use(mdContainer, 'demo', createDemoContainer(md, {
         demoDir: path.resolve(import.meta.dirname, '../zh/demos'),
         autoImportWrapper: false,
-        ssg: true,
       }))
     },
   },
+  postRender(context) {
+    if (context.teleports) {
+      const body = Object.entries(context.teleports).reduce(
+        (all, [key, value]) => {
+          if (key.startsWith('#el-popper-container-')) {
+            return `${all}<div id="${key.slice(1)}">${value}</div>`
+          }
+          return all
+        },
+        context.teleports.body || '',
+      )
+      context.teleports = { ...context.teleports, body }
+    }
+    return context
+  },
   vite: {
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
+    },
     resolve: {
       alias: [
         {
@@ -112,8 +129,8 @@ export default defineConfig<EPThemeConfig>({
       'vitepress-better-demo-plugin',
     ] },
     optimizeDeps: {
-      include: ['@formily/core', '@silver-formily/vue', '@formily/reactive-vue', '@formily/reactive', '@formily/shared', 'lodash-es', '@element-plus/icons-vue', 'vue-draggable-plus', '@formily/grid', 'element-plus', 'dayjs'],
-      exclude: ['vitepress-theme-element-plus'],
+      include: ['@formily/core', '@formily/reactive-vue', '@formily/reactive', '@formily/shared', 'lodash-es', '@element-plus/icons-vue', 'vue-draggable-plus', '@formily/grid', 'element-plus', 'dayjs'],
+      exclude: ['vitepress-theme-element-plus', '@silver-formily/vue'],
     },
   },
 })

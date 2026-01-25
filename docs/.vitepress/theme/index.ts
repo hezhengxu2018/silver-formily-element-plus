@@ -1,4 +1,4 @@
-import ElementPlus from 'element-plus'
+import ElementPlus, { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus'
 import {
   VitepressEpDemoBox,
   VitepressEpDemoPlaceholder,
@@ -11,6 +11,8 @@ export default {
   ...Theme,
   enhanceApp({ app }) {
     app.use(ElementPlus)
+    app.provide(ID_INJECTION_KEY, { prefix: 0, current: 0 })
+    app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
     app.component('VitepressDemoBox', VitepressEpDemoBox)
     app.component('VitepressDemoPlaceholder', VitepressEpDemoPlaceholder)
   },

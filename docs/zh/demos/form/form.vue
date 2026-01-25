@@ -53,20 +53,18 @@ export default {
         :x-validator="[{ min: 5 }, { format: 'url' }]"
         :required="true"
       />
+    </SchemaField>
+    <SchemaField>
       <SchemaStringField
         name="select"
         title="选择框"
         x-decorator="FormItem"
         x-component="Select"
+        :x-validator="[{ min: 2 }]"
         :enum="[
-          {
-            label: '选项1',
-            value: 1,
-          },
-          {
-            label: '选项2',
-            value: 2,
-          },
+          { label: '选项一', value: 'one' },
+          { label: '选项二', value: 'two' },
+          { label: '选项三', value: 'three' },
         ]"
         :required="true"
       />

@@ -28,6 +28,7 @@ async function log(value) {
         <SchemaVoidField
           x-component="FormLayout"
           :x-component-props="{
+            tag: 'div',
             labelCol: 6,
             wrapperCol: 10,
           }"
