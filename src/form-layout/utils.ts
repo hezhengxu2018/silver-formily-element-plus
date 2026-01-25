@@ -1,4 +1,4 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { IFormLayoutProps } from './types'
 import { isArr, isValid } from '@formily/shared'
 import { computed, inject, ref } from 'vue'
@@ -77,6 +77,9 @@ export const formLayoutDeepContext: InjectionKey<Ref<IFormLayoutProps>> = Symbol
 export const formLayoutShallowContext: InjectionKey<Ref<IFormLayoutProps>>
   = Symbol('formLayoutShallowContext')
 
+export const formLayoutIdContext: InjectionKey<ComputedRef<string>>
+  = Symbol('formLayoutIdContext')
+
 export function useFormDeepLayout(): Ref<IFormLayoutProps> {
   return inject(formLayoutDeepContext, ref({}))
 }
@@ -93,6 +96,10 @@ export function useFormLayout(): Ref<IFormLayoutProps> {
   })
 
   return formLayout
+}
+
+export function useFormLayoutId(): ComputedRef<string> {
+  return inject(formLayoutIdContext, computed(() => ''))
 }
 
 export const FORM_LAYOUT_PROPS_KEYS: ReadonlyArray<keyof IFormLayoutProps> = [

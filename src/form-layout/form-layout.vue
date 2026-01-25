@@ -2,11 +2,10 @@
 import type { FormContext } from 'element-plus'
 import type { IFormLayoutProps } from './types'
 import { isEmpty, isValid } from '@formily/shared'
-import { useForm } from '@silver-formily/vue'
-import { formContextKey } from 'element-plus'
-import { provide, ref, watch } from 'vue'
+import { formContextKey, useId } from 'element-plus'
+import { computed, provide, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs, useThrottleFn } from '../__builtins__'
-import { filterValidFormLayoutProps, formLayoutDeepContext, formLayoutShallowContext, useFormDeepLayout, useResponsiveFormLayout } from './utils'
+import { filterValidFormLayoutProps, formLayoutDeepContext, formLayoutIdContext, formLayoutShallowContext, useFormDeepLayout, useResponsiveFormLayout } from './utils'
 
 defineOptions({
   name: 'FFormLayout',
@@ -27,6 +26,13 @@ const props = withDefaults(defineProps<IFormLayoutProps>(), {
 const formPrefixCls = `${stylePrefix}-form`
 const { props: attrs } = useCleanAttrs()
 const rootHTMLRef = ref<HTMLElement>()
+const isFormTag = props.tag === 'form'
+const formLayoutBaseId = useId()
+const formLayoutId = computed(() => attrs.value.id ?? `formily-${formLayoutBaseId.value}`)
+const formLayoutDomId = computed(() => (isFormTag ? formLayoutId.value : attrs.value.id))
+if (isFormTag) {
+  provide(formLayoutIdContext, formLayoutId)
+}
 
 const formLayoutDeepConfig = useFormDeepLayout()
 const { props: responsiveProps } = useResponsiveFormLayout(props, rootHTMLRef)
@@ -62,14 +68,12 @@ provide(formContextKey, {
   hideRequiredAsterisk: props.hideRequiredAsterisk,
   requireAsteriskPosition: props.requireAsteriskPosition,
 } as FormContext)
-
-const formRef = useForm()
 </script>
 
 <template>
   <component
     :is="props.tag"
-    :id="formRef?.id && `formily-${formRef?.id}`"
+    :id="formLayoutDomId"
     ref="rootHTMLRef"
     :class="formPrefixCls"
     v-bind="attrs"
