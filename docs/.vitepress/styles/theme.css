@@ -8,3 +8,7 @@
   width: 150px;
   height: auto;
 }
+
+.vitepress-ep-demo-plugin__container>.vitepress-ep-demo-plugin-preview:has(.el-affix) {
+  overflow-x: unset;
+}
