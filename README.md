@@ -2,34 +2,31 @@
 
 [![codecov](https://codecov.io/gh/hezhengxu2018/silver-formily-element-plus/graph/badge.svg?token=LZF15NPLJU)](https://codecov.io/gh/hezhengxu2018/silver-formily-element-plus)
 
-Another @formily/element-plus component library.
+简体中文 | [English](README.en-US.md)
 
-## Features
+基于 Element Plus 的 Formily 组件库封装，提供一致的组件风格、灵活的配置能力以及更丰富的表单场景。
 
-### 💡 Unified Component Style
+## 文档
 
-The component style leans more towards Element Plus, while the component configuration options lean towards Formily. For conflicting configuration items between the two, we take a balanced approach to ensure flexibility and style consistency.
+https://element-plus.silver-formily.org/
 
-### 🔌 Flexible Dependencies
+## 特性
 
-Both Formily and Element Plus versions are treated as peerDependencies, allowing you to choose the Element Plus version that best suits your project needs.
+- 💡 统一的组件风格
+- 🔌 灵活的依赖策略（Formily 与 Element Plus 作为 peerDependencies）
+- 🔑 完整的表单组件与扩展场景组件
+- ♿️ 更好的无障碍支持与 FormItem 体验
+- ✅ 新组件具备完善测试保障
+- 📝 基于 Vue 模板语法，易读且性能友好
 
-### 🔑 Complete Form Components
+## 安装
 
-Complements Element Plus form components while adding additional scenario components to meet various business needs.
+~~~bash
+pnpm add @silver-formily/element-plus
+~~~
 
-### ♿️ Better Accessibility
+本包依赖 Formily、Element Plus、Vue、@silver-formily/vue 等 peerDependencies。请查看文档或 package.json 获取兼容版本与配置说明。
 
-Enhanced component accessibility. Special focus on FormItem component reconstruction to provide more friendly component access support and visual feedback.
+## 开源协议
 
-### ✅ Comprehensive Testing
-
-All new components come with comprehensive component testing, ensuring component quality and confidence in refactoring.
-
-### 📝 Vue Template Syntax Based
-
-New components are developed using Vue template syntax whenever possible, providing better readability and runtime optimization, making the code more maintainable and performant.
-
-## Contributor Guide
-
-Please review [`AGENTS.md`](AGENTS.md) for repository structure, workflows, and PR expectations before submitting changes.
+MIT

@@ -11,7 +11,7 @@ import pkg from '../../package.json' with { type: 'json' }
 import zhComponent from './i18n/zh/pages/component.json'
 import zhNav from './i18n/zh/pages/nav.json'
 
-const SITE_URL = 'https://silver-formily-element-plus.pages.dev'
+const SITE_URL = 'https://element-plus.silver-formily.org'
 
 export default defineConfig<EPThemeConfig>({
   title: 'Silver Formily Element Plus',
