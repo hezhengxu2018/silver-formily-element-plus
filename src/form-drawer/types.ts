@@ -32,12 +32,12 @@ export type FormDrawerSlotContent = SlotsType<FormDrawerSlots> | {
 }
 
 // #region iformdrawer
-export interface IFormDrawer {
-  forOpen: (middleware: IMiddleware<IFormProps>) => IFormDrawer
-  forConfirm: (middleware: IMiddleware<Form>) => IFormDrawer
-  forCancel: (middleware: IMiddleware<Form>) => IFormDrawer
-  [key: `for${string}`]: (middleware: IMiddleware<IFormProps>) => IFormDrawer
-  open: (props?: IFormProps) => Promise<any>
+export interface IFormDrawer<T extends object = any> {
+  forOpen: (middleware: IMiddleware<IFormProps<T>>) => IFormDrawer<T>
+  forConfirm: (middleware: IMiddleware<Form<T>>) => IFormDrawer<T>
+  forCancel: (middleware: IMiddleware<Form<T>>) => IFormDrawer<T>
+  [key: `for${string}`]: (middleware: IMiddleware<IFormProps<T>> | IMiddleware<Form<T>>) => IFormDrawer<T>
+  open: (props?: IFormProps<T>) => Promise<any>
   close: () => void
 }
 // #endregion iformdrawer

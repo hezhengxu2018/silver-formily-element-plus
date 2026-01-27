@@ -106,9 +106,9 @@ interface FormDrawer {
 | --------------- | ------------ | ------------------------------------------- |
 | `open`          | 打开抽屉     | `(IFormProps)=>Primise<IFormProps.values>`  |
 | `forOpen`       | 打开抽屉事件 | `(IMiddleware<IFormProps>)=>IFormDrawer`    |
-| `forConfirm`    | 确认事件     | `(IMiddleware<IFormProps>)=>IFormDrawer`    |
-| `forCancel`     | 取消事件     | `(IMiddleware<IFormProps>)=>IFormDrawer`    |
-| `for${Dynamic}` | 自定义事件   | `(IMiddleware<IFormProps>)=>IFormDrawer`    |
+| `forConfirm`    | 确认事件     | `(IMiddleware<Form>)=>IFormDrawer`          |
+| `forCancel`     | 取消事件     | `(IMiddleware<Form>)=>IFormDrawer`          |
+| `for${Dynamic}` | 自定义事件   | `(IMiddleware<Form>)=>IFormDrawer`          |
 
 ::: tip 提示
 自定义事件中的`Dynamic`的值为`dynamicMiddlewareNames`中传入的字符串，通过作用域插槽中的resolve方法来触发对应的事件。 传入`dynamicMiddlewareNames`中的字符串在调用方法时会被转成Pascal Case命名风格，比如传入`['save-draft']`应该调用`'forSaveDraft'`。

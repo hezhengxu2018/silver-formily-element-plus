@@ -11,21 +11,21 @@ import { createApp, h, ref } from 'vue'
 import { getTransitionDuration, isVueOptions, loading } from '../__builtins__'
 import DialogContent from './dialog-content.vue'
 
-export function FormDialog(
+export function FormDialog<T extends object = any>(
   title: IFormDialogProps | string,
   content?: Component | FormDialogSlotContent,
   dynamicMiddlewareNames?: string[],
-): IFormDialog {
+): IFormDialog<T> {
   const env: {
     root?: HTMLElement
-    form?: Form
+    form?: Form<T>
     promise?: Promise<any>
     instance?: any
     app?: App<Element>
-    openMiddlewares: IMiddleware<IFormProps>[]
-    confirmMiddlewares: IMiddleware<Form>[]
-    cancelMiddlewares: IMiddleware<Form>[]
-    [key: `${string}Middlewares`]: IMiddleware<Form>[] | IMiddleware<IFormProps>[] | undefined
+    openMiddlewares: IMiddleware<IFormProps<T>>[]
+    confirmMiddlewares: IMiddleware<Form<T>>[]
+    cancelMiddlewares: IMiddleware<Form<T>>[]
+    [key: `${string}Middlewares`]: IMiddleware<Form<T>>[] | IMiddleware<IFormProps<T>>[] | undefined
   } = {
     root: document.createElement('div'),
     form: null,
@@ -93,19 +93,19 @@ export function FormDialog(
   }
 
   const formDialog = {
-    forOpen: (middleware: IMiddleware<IFormProps>) => {
+    forOpen: (middleware: IMiddleware<IFormProps<T>>) => {
       isFn(middleware) && env.openMiddlewares.push(middleware)
       return formDialog
     },
-    forConfirm: (middleware: IMiddleware<Form>) => {
+    forConfirm: (middleware: IMiddleware<Form<T>>) => {
       isFn(middleware) && env.confirmMiddlewares.push(middleware)
       return formDialog
     },
-    forCancel: (middleware: IMiddleware<Form>) => {
+    forCancel: (middleware: IMiddleware<Form<T>>) => {
       isFn(middleware) && env.cancelMiddlewares.push(middleware)
       return formDialog
     },
-    open: (payload: IFormProps) => {
+    open: (payload: IFormProps<T>) => {
       /* istanbul ignore if -- @preserve */
       if (env.promise)
         return env.promise
@@ -113,7 +113,7 @@ export function FormDialog(
       env.promise = new Promise((res, rej) => {
         loading(props.loadingText, () => applyMiddleware(payload, env.openMiddlewares))
           .then((resPayload) => {
-            env.form = env.form || createForm(resPayload)
+            env.form = env.form || createForm(resPayload as IFormProps<T>)
             render(true, (type: string) => {
               env.form.submit(async () => {
                 await (isValid(type) ? applyMiddleware(env.form, env[`${type}Middlewares`]) : applyMiddleware(env.form, env.confirmMiddlewares))
@@ -145,14 +145,14 @@ export function FormDialog(
   if (isArr(dynamicMiddlewareNames)) {
     for (const middlewareName of dynamicMiddlewareNames) {
       const _middlewareName = camelCase(middlewareName)
-      formDialog[`for${pascalCase(_middlewareName)}`] = (middleware: IMiddleware<Form>) => {
+      formDialog[`for${pascalCase(_middlewareName)}`] = (middleware: IMiddleware<Form<T>>) => {
         isFn(middleware) && env[`${_middlewareName}Middlewares`].push(middleware)
         return formDialog
       }
     }
   }
 
-  return formDialog as never
+  return formDialog as IFormDialog<T>
 }
 
 export default FormDialog

@@ -32,12 +32,12 @@ export type FormDialogSlotContent = SlotsType<FormDialogSlots> | {
 }
 
 // #region iformdialog
-export interface IFormDialog {
-  forOpen: (middleware: IMiddleware<IFormProps>) => IFormDialog
-  forConfirm: (middleware: IMiddleware<IFormProps>) => IFormDialog
-  forCancel: (middleware: IMiddleware<IFormProps>) => IFormDialog
-  [key: `for${string}`]: (middleware: IMiddleware<IFormProps>) => IFormDialog
-  open: (props?: IFormProps) => Promise<any>
+export interface IFormDialog<T extends object = any> {
+  forOpen: (middleware: IMiddleware<IFormProps<T>>) => IFormDialog<T>
+  forConfirm: (middleware: IMiddleware<Form<T>>) => IFormDialog<T>
+  forCancel: (middleware: IMiddleware<Form<T>>) => IFormDialog<T>
+  [key: `for${string}`]: (middleware: IMiddleware<IFormProps<T>> | IMiddleware<Form<T>>) => IFormDialog<T>
+  open: (props?: IFormProps<T>) => Promise<any>
   close: () => void
 }
 // #endregion iformdialog

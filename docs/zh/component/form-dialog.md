@@ -60,8 +60,8 @@ form-dialog/template-slot
 ``` ts
 interface FormDialog {
   (
-    title: IFormDrawerProps | string,
-    content?: Component | FormDrawerSlotContent,
+    title: IFormDialogProps | string,
+    content?: Component | FormDialogSlotContent,
     dynamicMiddlewareNames?: string[]
   ): IFormDialog
 }
@@ -109,9 +109,9 @@ interface FormDialog {
 | --------------- | --------------- | ------------------------------------------ |
 | `open`          | 打开弹框        | `(IFormProps)=>Promise<IFormProps.values>` |
 | `forOpen`       | 打开弹框事件    | `(IMiddleware<IFormProps>)=>IFormDialog`   |
-| `forConfirm`    | 确认事件        | `(IMiddleware<IFormProps>)=>IFormDialog`   |
-| `forCancel`     | 取消事件        | `(IMiddleware<IFormProps>)=>IFormDialog`   |
-| `for${Dynamic}` | 自定义事件      | `(IMiddleware<IFormProps>)=>IFormDialog`   |
+| `forConfirm`    | 确认事件        | `(IMiddleware<Form>)=>IFormDialog`         |
+| `forCancel`     | 取消事件        | `(IMiddleware<Form>)=>IFormDialog`         |
+| `for${Dynamic}` | 自定义事件      | `(IMiddleware<Form>)=>IFormDialog`         |
 
 ::: tip 提示
 自定义事件中的`Dynamic`的值为`dynamicMiddlewareNames`中传入的字符串，通过作用域插槽中的resolve方法来触发对应的事件。 传入`dynamicMiddlewareNames`中的字符串在调用方法时会被转成Pascal Case命名风格，比如传入`['save-draft']`应该调用`'forSaveDraft'`。
