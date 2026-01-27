@@ -1,3 +1,4 @@
+import type { IComponentMapper } from '@silver-formily/vue'
 import type { Component } from 'vue'
 import { isVoidField } from '@formily/core'
 import { observer } from '@formily/reactive-vue'
@@ -28,11 +29,11 @@ export function transformComponent<T extends Record<string, any>>(tag: any, tran
 }
 
 // fork from https://github.com/alibaba/formily/blob/7c64c671252adf85471ac5aabfddbaf4fc537354/packages/vue/src/shared/connect.ts#L65
-export function mapReadPretty<T extends Component, C extends Component>(
-  component: C,
+export function mapReadPretty(
+  component: Component,
   readPrettyProps?: Record<string, any>,
-) {
-  return (target: T) => {
+): IComponentMapper {
+  const mapper = (target: Component) => {
     return observer(
       defineComponent({
         name: target.name ? `Read${target.name}` : `ReadComponent`,
@@ -59,4 +60,6 @@ export function mapReadPretty<T extends Component, C extends Component>(
       }),
     )
   }
+
+  return mapper as unknown as IComponentMapper
 }

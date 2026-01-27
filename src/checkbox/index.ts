@@ -4,7 +4,7 @@ import { composeExport, mapReadPretty } from '../__builtins__'
 import { PreviewText } from '../preview-text'
 import FCheckboxGroup from './checkbox-group.vue'
 
-const CheckboxGroup = connect(
+const CheckboxGroup = connect<typeof FCheckboxGroup>(
   FCheckboxGroup,
   mapProps({ dataSource: 'options', disabled: true }),
   mapReadPretty(PreviewText.Select, {
@@ -12,7 +12,7 @@ const CheckboxGroup = connect(
   }),
 )
 
-const InnerCheckbox = connect(
+const InnerCheckbox = connect<typeof ElCheckbox>(
   ElCheckbox,
   mapProps({
     disabled: true,

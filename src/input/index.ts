@@ -3,7 +3,7 @@ import { composeExport, mapReadPretty } from '../__builtins__'
 import { PreviewText } from '../preview-text'
 import FInput from './input.vue'
 
-const InnerInput = connect(
+const InnerInput = connect<typeof FInput>(
   FInput,
   mapProps({
     readOnly: 'readonly',
@@ -11,7 +11,7 @@ const InnerInput = connect(
   mapReadPretty(PreviewText.Input),
 )
 
-const TextArea = connect(
+const TextArea = connect<typeof FInput>(
   FInput,
   mapProps((props) => {
     return {

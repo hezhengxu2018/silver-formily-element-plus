@@ -24,7 +24,7 @@ export function fieldFeedbackMapper(props, field) {
   }
 }
 
-const Item = connect(
+const Item = connect<typeof FormBaseItem>(
   FormBaseItem,
   mapProps(
     {

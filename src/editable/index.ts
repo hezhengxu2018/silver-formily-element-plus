@@ -10,7 +10,7 @@ import './style.scss'
 export type EditableProps = IFormItemProps
 export type EditablePopoverProps = typeof ElPopover
 
-const EditableInner = connect(FEditable, mapProps(
+const EditableInner = connect<typeof FEditable>(FEditable, mapProps(
   {
     required: true,
     description: 'extra',
@@ -18,7 +18,7 @@ const EditableInner = connect(FEditable, mapProps(
   fieldFeedbackMapper,
 ))
 
-const EditablePopover = connect(FEditablePopover, mapProps(
+const EditablePopover = connect<typeof FEditablePopover>(FEditablePopover, mapProps(
   {
     required: true,
     description: 'extra',

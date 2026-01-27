@@ -4,7 +4,7 @@ import { Input } from '../input'
 
 export type PasswordProps = typeof ElInput
 
-export const Password = connect(
+export const Password = connect<typeof Input>(
   Input,
   mapProps(props => ({
     ...props,

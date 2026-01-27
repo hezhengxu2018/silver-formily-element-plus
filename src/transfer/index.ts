@@ -3,7 +3,7 @@ import { ElTransfer } from 'element-plus'
 
 export type TransferProps = typeof ElTransfer
 
-export const Transfer = connect(
+export const Transfer = connect<typeof ElTransfer>(
   ElTransfer,
   mapProps({ dataSource: 'data' }),
 )

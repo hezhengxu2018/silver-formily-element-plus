@@ -2,7 +2,7 @@ import { connect, mapProps } from '@silver-formily/vue'
 import InnerSelectTable from './select-table.vue'
 import './style.scss'
 
-const SelectTable = connect(
+const SelectTable = connect<typeof InnerSelectTable>(
   InnerSelectTable,
   mapProps({ dataSource: 'dataSource', loading: 'loading' }),
 )
