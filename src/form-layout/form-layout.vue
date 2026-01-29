@@ -3,7 +3,7 @@ import type { FormContext } from 'element-plus'
 import type { IFormLayoutProps } from './types'
 import { isEmpty, isValid } from '@formily/shared'
 import { formContextKey, useId } from 'element-plus'
-import { computed, provide, ref, watch } from 'vue'
+import { computed, provide, reactive, ref, toRef, watch } from 'vue'
 import { stylePrefix, useCleanAttrs, useThrottleFn } from '../__builtins__'
 import { filterValidFormLayoutProps, formLayoutDeepContext, formLayoutIdContext, formLayoutShallowContext, useFormDeepLayout, useResponsiveFormLayout } from './utils'
 
@@ -14,14 +14,14 @@ defineOptions({
 
 const props = withDefaults(defineProps<IFormLayoutProps>(), {
   tag: 'form',
-  colon: true,
-  labelWrap: true,
-  wrapperWrap: false,
-  fullness: false,
+  colon: undefined,
+  labelWrap: undefined,
+  fullness: undefined,
   size: 'default',
   layout: 'horizontal',
   shallow: true,
   statusIcon: true,
+  asterisk: undefined,
 })
 const formPrefixCls = `${stylePrefix}-form`
 const { props: attrs } = useCleanAttrs()
@@ -41,7 +41,7 @@ const deepLayout = ref({
   ...formLayoutDeepConfig.value,
   ...(props.shallow
     ? {
-        ...(isValid(props.size) && { size: props.size }),
+        size: props.size,
         ...(isValid(props.colon) && { colon: props.colon }),
       }
     : filterValidFormLayoutProps(props)),
@@ -63,11 +63,13 @@ watch(() => [props, responsiveProps], updateLayout, {
   immediate: true,
 })
 
-provide(formContextKey, {
-  statusIcon: props.statusIcon,
-  hideRequiredAsterisk: props.hideRequiredAsterisk,
-  requireAsteriskPosition: props.requireAsteriskPosition,
-} as FormContext)
+const formContext = reactive({
+  size: toRef(props, 'size'),
+  statusIcon: toRef(props, 'statusIcon'),
+  hideRequiredAsterisk: toRef(props, 'hideRequiredAsterisk'),
+  requireAsteriskPosition: toRef(props, 'requireAsteriskPosition'),
+})
+provide(formContextKey, formContext as FormContext)
 </script>
 
 <template>

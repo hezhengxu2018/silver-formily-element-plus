@@ -62,7 +62,6 @@ form-layout/template-grid
 | labelWrap               | 标签内容换行            | ^[boolean]                                                                             | `false`      |
 | labelWidth              | 标签宽度(px)            | ^[number]                                                                              | -            |
 | wrapperWidth            | 组件容器宽度(px)        | ^[number]                                                                              | -            |
-| wrapperWrap             | 组件容器换行            | ^[boolean]                                                                             | `false`      |
 | labelCol                | 标签宽度(24 column)     | ^[number] \| ^[array]`number[]`                                                           | -          |
 | wrapperCol              | 组件容器宽度(24 column) | ^[number] \| ^[array]`number[]`                                                           | -          |
 | fullness                | 组件容器宽度 100%       | ^[boolean]                                                                             | `false`      |

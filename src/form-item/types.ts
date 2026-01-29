@@ -14,7 +14,6 @@ export interface IFormItemProps {
   labelWrap?: boolean
   labelWidth?: number
   wrapperWidth?: number
-  wrapperWrap?: boolean
   labelCol?: number
   wrapperCol?: number
   fullness?: boolean

@@ -23,23 +23,36 @@ defineOptions({
   name: 'FFormItem',
 })
 const props = withDefaults(defineProps<IFormItemProps>(), {
-  colon: true,
-  feedbackLayout: 'loose',
-  fullness: false,
+  asterisk: undefined,
+  colon: undefined,
+  labelWrap: undefined,
+  fullness: undefined,
 })
 const slots = useSlots()
 const ns = useNamespace('form-item')
 const prefixCls = `${stylePrefix}-form-item`
-const formItemConfig: Partial<ICalculatedFormLayoutProps> = Object.fromEntries(
-  Object.entries(pick(props, FORM_LAYOUT_PROPS_KEYS))
-    .filter(([_, value]) => isValid(value)),
+const formItemConfig = computed<Partial<ICalculatedFormLayoutProps>>(() =>
+  Object.fromEntries(
+    Object.entries(pick(props, FORM_LAYOUT_PROPS_KEYS))
+      .filter(([_, value]) => isValid(value)),
+  ),
 )
 const formlayoutConfig = useFormLayout()
-const formlayout = computed(() => Object.assign({}, formlayoutConfig.value, formItemConfig))
-
+const formlayout = computed(() => Object.assign({
+  colon: true,
+  feedbackLayout: 'loose',
+  fullness: false,
+  labelWrap: true,
+}, formlayoutConfig.value, formItemConfig.value))
 const field = useField<Field>()
 
-const _size = useFormSize(undefined, { formItem: false })
+const inheritedSize = useFormSize(undefined, { formItem: false })
+const formItemSize = computed(() => {
+  if (isValid(formlayout.value.size)) {
+    return formlayout.value.size
+  }
+  return inheritedSize.value
+})
 
 const labelId = useId().value
 const inputIds = ref<string[]>([])
@@ -91,8 +104,7 @@ const isRequired = computed(() =>
 
 const formItemClasses = computed(() => [
   ns.b(),
-  // eslint-disable-next-line unicorn/explicit-length-check
-  ns.m(props.size || _size.value || 'default'),
+  ns.m(formItemSize.value || 'default'),
   ns.is(props.feedbackStatus),
   ns.is('validating', validateState.value === 'validating'),
   ns.is('success', validateState.value === 'success'),
@@ -111,7 +123,7 @@ const formItemClasses = computed(() => [
 const validateClasses = computed(() => [
   `${prefixCls}-feedback`,
   ns.is(props.feedbackStatus),
-  ns.is('loose', props.feedbackLayout === 'loose'),
+  ns.is('loose', formlayout.value.feedbackLayout === 'loose'),
 ])
 
 const hasLabel = computed<boolean>(() => {
@@ -160,7 +172,7 @@ const _validateState = ref<FormItemValidateState>('')
 const context: FormItemContext = reactive({
   $el: formItemRef,
   labelWidth: formlayout.value?.labelWidth,
-  size: _size,
+  size: formItemSize,
   validateState: _validateState.value,
   labelId,
   inputIds,
@@ -193,8 +205,8 @@ watch(() => props.feedbackStatus, (val) => {
 })
 
 provide(formLayoutShallowContext, ref({
-  ...(isValid(props.size) && { size: props.size }),
-  ...(isValid(props.colon) && { colon: props.colon }),
+  ...(isValid(formlayout.value.size) && { size: formlayout.value.size }),
+  ...(isValid(formlayout.value.colon) && { colon: formlayout.value.colon }),
 }))
 provide(formItemContextKey, context)
 </script>
@@ -242,7 +254,7 @@ provide(formItemContextKey, context)
             <InfoFilled />
           </ElIcon>
         </ElTooltip>
-        <span v-if="props.colon" :class="`${prefixCls}-colon`">:</span>
+        <span v-if="formlayout.colon" :class="`${prefixCls}-colon`">:</span>
       </div>
     </component>
     <!-- content -->
@@ -269,7 +281,7 @@ provide(formItemContextKey, context)
         ]" :style="contentStyle"
       >
         <ElTooltip
-          v-if="props.feedbackLayout === 'popover'"
+          v-if="formlayout.feedbackLayout === 'popover'"
           ref="feedbackTooltipRef"
           :visible="!!props.feedbackText"
           effect="light"
@@ -291,7 +303,7 @@ provide(formItemContextKey, context)
         </ElTooltip>
         <slot v-else />
         <TransitionGroup :name="`${ns.namespace.value}-zoom-in-top`">
-          <div v-if="props.feedbackText && props.feedbackLayout !== 'popover'" :class="validateClasses">
+          <div v-if="props.feedbackText && formlayout.feedbackLayout !== 'popover'" :class="validateClasses">
             {{ props.feedbackText }}
           </div>
           <template v-if="isValid(props.extra)">

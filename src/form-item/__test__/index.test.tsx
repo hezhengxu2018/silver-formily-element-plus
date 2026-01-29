@@ -1,11 +1,11 @@
 import { InfoFilled } from '@element-plus/icons-vue'
 import { createForm } from '@formily/core'
-import { Field, FormProvider } from '@silver-formily/vue'
+import { createSchemaField, Field, FormProvider } from '@silver-formily/vue'
 import { ElIcon } from 'element-plus'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import { stylePrefix } from '../../__builtins__'
-import { FormItem, FormLayout, Input } from '../../index'
+import { DatePicker, FormItem, FormLayout, Input } from '../../index'
 import 'element-plus/theme-chalk/index.css'
 
 describe('FormItem', () => {
@@ -102,6 +102,66 @@ describe('FormItem', () => {
       const labelElement = container.querySelector('.el-form-item__label')
       await vi.waitFor(() => {
         expect(labelElement.textContent).toBe('无冒号')
+      })
+    })
+
+    it('应该识别 template 布尔属性 colon', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout colon={'' as any}>
+            <Field
+              name="colonTemplate"
+              title="模板冒号"
+              decorator={[FormItem]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const labelElement = container.querySelector('.el-form-item__label')
+      await vi.waitFor(() => {
+        return labelElement.textContent.includes(':')
+      })
+    })
+
+    it('应该继承 FormLayout 的 colon 设置', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout colon={false}>
+            <Field
+              name="layoutColon"
+              title="布局冒号"
+              decorator={[FormItem]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const labelElement = container.querySelector('.el-form-item__label')
+      await vi.waitFor(() => {
+        expect(labelElement.textContent).toBe('布局冒号')
+      })
+    })
+
+    it('FormItem colon 应该覆盖 FormLayout 的设置', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout colon={false}>
+            <Field
+              name="layoutColonOverride"
+              title="覆盖冒号"
+              decorator={[FormItem, { colon: true }]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const labelElement = container.querySelector('.el-form-item__label')
+      await vi.waitFor(() => {
+        expect(labelElement.textContent).toBe('覆盖冒号:')
       })
     })
   })
@@ -264,17 +324,212 @@ describe('FormItem', () => {
   })
 
   describe('撑满设置', () => {
-    it('应该撑满容器，当设置 fullness=true', async () => {
-      render(() => (
+    it('应该撑满容器，当 FormItem 设置 fullness=true', async () => {
+      const { container } = render(() => (
         <FormProvider form={createForm()}>
-          <FormItem
-            label="撑满容器"
-            fullness={true}
-          >
-            <Input placeholder="请输入" />
-          </FormItem>
+          <FormLayout>
+            <Field
+              name="fullnessFormItem"
+              title="撑满容器"
+              decorator={[FormItem, { fullness: true }]}
+              component={[DatePicker]}
+            />
+          </FormLayout>
         </FormProvider>
       ))
+
+      const content = container.querySelector('.el-form-item__content')
+      await expect.element(content).toHaveClass('is-fullness')
+    })
+
+    it('应该继承 FormLayout 的 fullness 设置', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout fullness={true}>
+            <Field
+              name="fullnessLayout"
+              title="撑满容器"
+              decorator={[FormItem]}
+              component={[DatePicker]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const content = container.querySelector('.el-form-item__content')
+      await expect.element(content).toHaveClass('is-fullness')
+    })
+
+    it('应该识别 template 布尔属性 fullness', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout fullness={'' as any}>
+            <Field
+              name="fullnessTemplate"
+              title="撑满容器"
+              decorator={[FormItem]}
+              component={[DatePicker]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const content = container.querySelector('.el-form-item__content')
+      await expect.element(content).toHaveClass('is-fullness')
+    })
+
+    it('默认情况下 DatePicker 不会撑满 FormLayout', async () => {
+      const containerWidth = 600
+      const { container } = render(() => (
+        <div style={`width: ${containerWidth}px;`}>
+          <FormProvider form={createForm()}>
+            <FormLayout>
+              <Field
+                name="defaultFullness"
+                title="默认宽度"
+                decorator={[FormItem]}
+                component={[DatePicker]}
+              />
+            </FormLayout>
+          </FormProvider>
+        </div>
+      ))
+
+      await vi.waitFor(() => {
+        const picker = container.querySelector('.el-date-editor') as HTMLElement
+        const width = picker?.getBoundingClientRect().width ?? 0
+        expect(width).toBeGreaterThan(200)
+        expect(width).toBeLessThan(containerWidth)
+      })
+    })
+
+    it('FormLayout fullness 能让 DatePicker 撑满容器', async () => {
+      const containerWidth = 600
+      const { container } = render(() => (
+        <div style={`width: ${containerWidth}px;`}>
+          <FormProvider form={createForm()}>
+            <FormLayout fullness>
+              <Field
+                name="layoutFullness"
+                title="撑满容器"
+                decorator={[FormItem]}
+                component={[DatePicker]}
+              />
+            </FormLayout>
+          </FormProvider>
+        </div>
+      ))
+
+      await vi.waitFor(() => {
+        const picker = container.querySelector('.el-date-editor') as HTMLElement
+        const content = container.querySelector('.el-form-item__content') as HTMLElement
+        const width = picker?.getBoundingClientRect().width ?? 0
+        const contentWidth = content?.getBoundingClientRect().width ?? 0
+        expect(Math.abs(width - contentWidth)).toBeLessThan(1)
+      })
+    })
+
+    it('Schema 模式下 FormLayout fullness 同样生效', async () => {
+      const containerWidth = 600
+      const { SchemaField } = createSchemaField({
+        components: {
+          FormLayout,
+          FormItem,
+          DatePicker,
+        },
+      })
+      const schema = {
+        type: 'object',
+        properties: {
+          layout: {
+            'type': 'void',
+            'x-component': 'FormLayout',
+            'x-component-props': {
+              fullness: true,
+            },
+            'properties': {
+              schemaDate: {
+                'type': 'string',
+                'title': 'Schema DatePicker',
+                'x-decorator': 'FormItem',
+                'x-component': 'DatePicker',
+              },
+            },
+          },
+        },
+      }
+
+      const { container } = render(() => (
+        <div style={`width: ${containerWidth}px;`}>
+          <FormProvider form={createForm()}>
+            <SchemaField schema={schema} />
+          </FormProvider>
+        </div>
+      ))
+
+      await vi.waitFor(() => {
+        const picker = container.querySelector('.el-date-editor') as HTMLElement
+        const content = container.querySelector('.el-form-item__content') as HTMLElement
+        const width = picker?.getBoundingClientRect().width ?? 0
+        const contentWidth = content?.getBoundingClientRect().width ?? 0
+        expect(Math.abs(width - contentWidth)).toBeLessThan(1)
+      })
+    })
+
+    it('FormItem fullness 应该覆盖 FormLayout 的 fullness 设置', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout fullness>
+            <Field
+              name="fullnessOverride"
+              title="覆盖撑满"
+              decorator={[FormItem, { fullness: false }]}
+              component={[DatePicker]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const content = container.querySelector('.el-form-item__content')
+      await expect.element(content).not.toHaveClass('is-fullness')
+    })
+  })
+
+  describe('尺寸设置', () => {
+    it('应该继承 FormLayout 的 size 设置', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout size="small">
+            <Field
+              name="inheritSize"
+              title="继承尺寸"
+              decorator={[FormItem]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const formItem = container.querySelector('.el-form-item')
+      await expect.element(formItem).toHaveClass('el-form-item--small')
+    })
+
+    it('FormItem size 应该覆盖 FormLayout 的 size', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout size="small">
+            <Field
+              name="overrideSize"
+              title="覆盖尺寸"
+              decorator={[FormItem, { size: 'large' }]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      const formItem = container.querySelector('.el-form-item')
+      await expect.element(formItem).toHaveClass('el-form-item--large')
     })
   })
 

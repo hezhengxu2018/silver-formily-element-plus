@@ -6,7 +6,6 @@ export interface IFormLayoutProps {
   labelWrap?: boolean
   labelWidth?: number
   wrapperWidth?: number
-  wrapperWrap?: boolean
   labelCol?: number | number[]
   wrapperCol?: number | number[]
   fullness?: boolean
@@ -33,7 +32,6 @@ export interface ICalculatedFormLayoutProps {
   labelWrap?: boolean
   labelWidth?: number | string
   wrapperWidth?: number | string
-  wrapperWrap?: boolean
   labelCol?: number
   wrapperCol?: number
   fullness?: boolean

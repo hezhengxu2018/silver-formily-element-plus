@@ -59,7 +59,6 @@ form-item/size
 | labelWrap        | `boolean`                                               | 标签换行，超出部分显示省略号，hover 显示 tooltip | `false`|
 | labelWidth       | `number`                                                | 标签固定宽度                                | -           |
 | wrapperWidth     | `number`                                                | 内容固定宽度                                | -           |
-| wrapperWrap      | `boolean`                                               | 内容换行，超出部分显示省略号，hover 显示 tooltip | `false`|
 | labelCol         | `number`                                                | 标签网格所占列数，和内容列数加起来总和为 24 | -           |
 | wrapperCol       | `number`                                                | 内容网格所占列数，和标签列数加起来总和为 24 | -           |
 | fullness         | `boolean`                                               | 内容是否撑满                                | `false`     |

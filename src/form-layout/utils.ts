@@ -109,7 +109,6 @@ export const FORM_LAYOUT_PROPS_KEYS: ReadonlyArray<keyof IFormLayoutProps> = [
   'labelWrap',
   'labelWidth',
   'wrapperWidth',
-  'wrapperWrap',
   'labelCol',
   'wrapperCol',
   'fullness',
@@ -120,6 +119,7 @@ export const FORM_LAYOUT_PROPS_KEYS: ReadonlyArray<keyof IFormLayoutProps> = [
   'breakpoints',
   'hideRequiredAsterisk',
   'statusIcon',
+  'requireAsteriskPosition',
 ] as const
 
 export function filterValidFormLayoutProps(props: IFormLayoutProps): IFormLayoutProps {

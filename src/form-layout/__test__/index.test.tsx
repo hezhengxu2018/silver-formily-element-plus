@@ -106,6 +106,18 @@ describe('FormLayout', () => {
 
       await expect.element(getByTestId('size')).toHaveTextContent('small')
     })
+
+    it('应该支持设置 fullness', async () => {
+      const { getByTestId } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout fullness>
+            <FormLayoutTest displayKey={['fullness']} />
+          </FormLayout>
+        </FormProvider>
+      ))
+
+      await expect.element(getByTestId('fullness')).toHaveTextContent('true')
+    })
   })
 
   describe('嵌套布局', () => {

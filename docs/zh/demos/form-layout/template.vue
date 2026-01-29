@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createForm } from '@formily/core'
-import { FormItem, FormLayout, Input, Select } from '@silver-formily/element-plus'
+import { DatePicker, FormItem, FormLayout, Input } from '@silver-formily/element-plus'
 import { Field, FormProvider } from '@silver-formily/vue'
 
 const form = createForm()
@@ -14,6 +14,7 @@ const form = createForm()
       label-align="left"
       :label-col="6"
       :wrapper-col="10"
+      fullness
     >
       <Field
         name="input"
@@ -31,7 +32,7 @@ const form = createForm()
         name="select"
         title="选择框"
         :decorator="[FormItem]"
-        :component="[Select]"
+        :component="[DatePicker]"
         :required="true"
       />
     </FormLayout>
