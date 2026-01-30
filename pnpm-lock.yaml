@@ -199,8 +199,8 @@ importers:
         specifier: ^1.6.5
         version: 1.6.5(vite@7.1.8(@types/node@20.19.19)(jiti@2.6.1)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(yaml@2.8.1))
       vitepress-plugin-nprogress:
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.1.1
+        version: 0.1.1
       vitepress-theme-element-plus:
         specifier: ^1.1.4
         version: 1.1.4(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
@@ -5931,8 +5931,8 @@ packages:
       vite:
         optional: true
 
-  vitepress-plugin-nprogress@0.0.4:
-    resolution: {integrity: sha512-YzW36kBnjuFH91DOFIA5snyBf4WpF/cYfhAiyNefhqif8QQIKGsbpzvI8VN0M8RHLGr9iQyHhF7dQsm//Xf5Hw==}
+  vitepress-plugin-nprogress@0.1.1:
+    resolution: {integrity: sha512-rpiFJjAUkF2judTaqfk36L+Y8mJxoHWgkUgp2HMBGIfy60HDADGSxgIPQ//bpsSLdtiRq+YPKugYXl+Yr03Pfw==}
 
   vitepress-theme-element-plus@1.1.4:
     resolution: {integrity: sha512-/o+zNI8oHfQglFJ6iUo9bAC1/kyQFq0hX/TUF72kweCo4RViqa/U3fznXoabAfEKuNB0wH/089jJ+j44HW9QkA==}
@@ -12601,7 +12601,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress-plugin-nprogress@0.0.4:
+  vitepress-plugin-nprogress@0.1.1:
     dependencies:
       nprogress: 0.2.0
 

@@ -97,7 +97,7 @@
     "vitepress": "2.0.0-alpha.12",
     "vitepress-better-demo-plugin": "^0.6.2",
     "vitepress-plugin-group-icons": "^1.6.5",
-    "vitepress-plugin-nprogress": "^0.0.4",
+    "vitepress-plugin-nprogress": "^0.1.1",
     "vitepress-theme-element-plus": "^1.1.4",
     "vitest": "^3.2.4",
     "vitest-browser-vue": "^0.2.0",
