@@ -42,7 +42,7 @@ const formlayout = computed(() => Object.assign({
   colon: true,
   feedbackLayout: 'loose',
   fullness: false,
-  labelWrap: true,
+  labelWrap: false,
 }, formlayoutConfig.value, formItemConfig.value))
 const field = useField<Field>()
 

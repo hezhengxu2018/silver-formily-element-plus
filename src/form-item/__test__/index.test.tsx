@@ -186,6 +186,22 @@ describe('FormItem', () => {
       expect(labelElement).toHaveStyle({ width: '300px' })
     })
 
+    it('默认应该隐藏溢出的标签文案，当未设置 labelWrap', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormLayout>
+            <Field
+              name="overflow"
+              title="固定label宽度(labelWidth)溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出溢出"
+              decorator={[FormItem, { labelWidth: 300 }]}
+              component={[Input]}
+            />
+          </FormLayout>
+        </FormProvider>
+      ))
+      expect(container.querySelector('.is-warp')).not.toBeInTheDocument()
+    })
+
     it('应该允许标签换行，当设置 labelWrap=true', async () => {
       const { container } = render(() => (
         <FormProvider form={createForm()}>
