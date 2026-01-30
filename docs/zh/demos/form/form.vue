@@ -53,8 +53,6 @@ export default {
         :x-validator="[{ min: 5 }, { format: 'url' }]"
         :required="true"
       />
-    </SchemaField>
-    <SchemaField>
       <SchemaStringField
         name="select"
         title="选择框"
