@@ -36,7 +36,7 @@
     "@formily/reactive": "^2.0.8",
     "@formily/reactive-vue": "^2.0.8",
     "@formily/shared": "^2.0.8",
-    "@silver-formily/vue": "^2.0.4",
+    "@silver-formily/vue": "^2.1.0",
     "element-plus": "^2.1.8",
     "vue": "^3.3.0"
   },

@@ -30,8 +30,8 @@ importers:
         specifier: ^2.0.8
         version: 2.3.7
       '@silver-formily/vue':
-        specifier: ^2.0.4
-        version: 2.0.4(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))
+        specifier: ^2.1.0
+        version: 2.1.0(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))
       element-plus:
         specifier: ^2.1.8
         version: 2.13.0(vue@3.5.22(typescript@5.9.3))
@@ -1515,8 +1515,8 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
-  '@silver-formily/vue@2.0.4':
-    resolution: {integrity: sha512-paycGmBoy7ElKomwg8qzJoDQHr8TqwyCIDBSqa5TGfRwWS4doZmypSYYVO1KVDvBhCUU0/mmGbpJ1FMKEJ6tzw==}
+  '@silver-formily/vue@2.1.0':
+    resolution: {integrity: sha512-i8tLZNa7x2ks8Myr68krLXWjr3zLvOVVll6W7Znf8Eb5OB/T5SiX4Bqllw58Y10v1mhDr5c4RAvtvF9QO/mr6Q==}
     peerDependencies:
       '@formily/core': ^2
       '@formily/json-schema': ^2
@@ -7481,7 +7481,7 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@silver-formily/vue@2.0.4(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))':
+  '@silver-formily/vue@2.1.0(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@formily/core': 2.3.7
       '@formily/json-schema': 2.3.7(typescript@5.9.3)

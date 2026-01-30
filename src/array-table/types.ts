@@ -4,4 +4,5 @@ export interface IArrayTableProps {
   modelValue?: any[]
   pagination?: boolean
   paginationProps?: Partial<PaginationProps>
+  height?: string | number
 }
