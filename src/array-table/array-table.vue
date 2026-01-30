@@ -30,6 +30,7 @@ const paginationProps = computed(() => omit(props.paginationProps, ['pageSize', 
 const fieldRef = useField<ArrayField>()
 const field = fieldRef.value
 const schemaRef = useFieldSchema()
+const additionSchemas = computed<Record<string, Schema>>(() => schemaRef.value?.properties ?? {})
 const { getKey, keyMap } = ArrayBase.useKey(schemaRef.value)
 
 const elTableRef = ref<TableInstance>()
@@ -199,7 +200,7 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
         :class="`${prefixCls}-pagination`" background layout="total, sizes, prev, pager, next"
         :total="props.modelValue.length" v-bind="paginationProps"
       />
-      <template v-for="(itemSchema, key) of schemaRef.properties" :key="key">
+      <template v-for="(itemSchema, key) of additionSchemas" :key="key">
         <RecursionField v-if="isAdditionComponent(itemSchema)" :schema="itemSchema" name="addition" />
       </template>
     </ArrayBase>
