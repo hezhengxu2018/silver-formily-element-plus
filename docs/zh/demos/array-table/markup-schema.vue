@@ -48,6 +48,7 @@ function range(count) {
         :x-component-props="{
           stripe: true,
           paginationProps: { pageSize: 10 },
+          virtualRender: false,
         }"
       >
         <SchemaObjectField>
@@ -123,7 +124,7 @@ function range(count) {
       @click="
         () => {
           form.setInitialValues({
-            array: range(100000),
+            array: range(100),
           })
         }
       "

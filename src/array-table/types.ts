@@ -5,4 +5,5 @@ export interface IArrayTableProps {
   pagination?: boolean
   paginationProps?: Partial<PaginationProps>
   height?: string | number
+  virtualRender?: boolean
 }

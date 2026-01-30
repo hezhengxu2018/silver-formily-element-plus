@@ -25,6 +25,7 @@ defineOptions({
 const props = withDefaults(defineProps<IArrayTableProps>(), {
   modelValue: () => [],
   pagination: true,
+  virtualRender: true,
 })
 const { props: elTableProps } = useCleanAttrs()
 const paginationProps = computed(() => omit(props.paginationProps, ['pageSize', 'currentPage']))
@@ -80,18 +81,23 @@ reaction(() => {
 const dataSource = ref([])
 const pageSize = ref(props.paginationProps?.pageSize ?? 10)
 const currentPage = ref(props.paginationProps?.currentPage ?? 1)
+const virtualRenderEnabled = computed(() => props.virtualRender !== false)
+const fullData = ref<any[]>([])
 
 function updateDataSource() {
   /* istanbul ignore if -- @preserve */
   if (!isArr(field.value)) {
+    fullData.value = []
     dataSource.value = []
     return
   }
+  const allRows = field.value.slice()
+  fullData.value = allRows
   if (props.pagination === false) {
-    dataSource.value = [...field.value]
+    dataSource.value = allRows
     return
   }
-  dataSource.value = field.value.slice((currentPage.value - 1) * pageSize.value, (currentPage.value) * pageSize.value)
+  dataSource.value = allRows.slice((currentPage.value - 1) * pageSize.value, (currentPage.value) * pageSize.value)
 }
 watch([pageSize, currentPage], updateDataSource)
 autorun(updateDataSource)
@@ -137,6 +143,16 @@ const stateManagerColumns = computed(() => {
 const baseIndex = computed(() => {
   return (currentPage.value - 1) * pageSize.value
 })
+const visibleRangeStart = computed(() => {
+  if (props.pagination === false)
+    return 0
+  return (currentPage.value - 1) * pageSize.value
+})
+const visibleRangeEnd = computed(() => {
+  if (props.pagination === false)
+    return fullData.value.length
+  return visibleRangeStart.value + dataSource.value.length
+})
 
 async function onAddItemClick() {
   if (props.pagination === false) {
@@ -159,6 +175,14 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
   const { oldIndex, newIndex } = evt
   await field.move(oldIndex, newIndex)
   triggerUpdateKey.value++
+}
+
+function shouldRenderShadowRow(index: number) {
+  if (virtualRenderEnabled.value)
+    return false
+  if (props.pagination === false)
+    return false
+  return index < visibleRangeStart.value || index >= visibleRangeEnd.value
 }
 </script>
 
@@ -197,6 +221,26 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
       <!-- 状态管理器 -->
       <template v-for="(column, key) of stateManagerColumns" :key="key">
         <RecursionField :name="column.name" :schema="column.schema" :only-render-self="true" />
+      </template>
+      <template v-if="!virtualRenderEnabled">
+        <div style="display: none">
+          <template v-for="(row, rowIndex) in fullData" :key="`shadow-row-${getKey(row) ?? rowIndex}`">
+            <ArrayBase.Item
+              v-if="shouldRenderShadowRow(rowIndex)"
+              :key="getKey(row) ?? rowIndex"
+              :index="rowIndex"
+              :record="row"
+            >
+              <template v-for="(column, colIndex) of stateManagerColumns.value" :key="`shadow-col-${rowIndex}-${colIndex}`">
+                <RecursionField
+                  :schema="column.schema"
+                  :name="rowIndex"
+                  only-render-properties
+                />
+              </template>
+            </ArrayBase.Item>
+          </template>
+        </div>
       </template>
       <ElPagination
         v-if="props.pagination" v-model:current-page="currentPage" v-model:page-size="pageSize"
