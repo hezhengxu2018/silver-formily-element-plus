@@ -4,8 +4,7 @@ import { userEvent } from '@vitest/browser/context'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import InputNumber from '../index'
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-input-number.css'
+import 'element-plus/theme-chalk/index.css'
 
 describe('InputNumber', () => {
   describe('基础功能', () => {

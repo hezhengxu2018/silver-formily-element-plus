@@ -7,6 +7,7 @@ import { defineComponent } from 'vue'
 import FormGridItem from '../form-grid-column.vue'
 import FormGrid from '../form-grid.vue'
 import { useFormGrid } from '../hooks'
+import 'element-plus/theme-chalk/index.css'
 import '../style.scss'
 
 const FormGridTest = defineComponent({

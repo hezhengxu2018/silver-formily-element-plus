@@ -4,10 +4,7 @@ import { userEvent } from '@vitest/browser/context'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import DatePicker from '../index'
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-input.css'
-import 'element-plus/theme-chalk/el-button.css'
-import 'element-plus/theme-chalk/el-date-picker.css'
+import 'element-plus/theme-chalk/index.css'
 
 describe('DatePicker', () => {
   describe('基础功能', () => {

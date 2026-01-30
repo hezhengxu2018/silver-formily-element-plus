@@ -1,14 +1,10 @@
 import { createForm } from '@formily/core'
 import { Field, FormProvider } from '@silver-formily/vue'
 import { userEvent } from '@vitest/browser/context'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Cascader from '../index'
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-input.css'
-import 'element-plus/theme-chalk/el-tag.css'
-import 'element-plus/theme-chalk/el-cascader.css'
-import 'element-plus/theme-chalk/el-cascader-panel.css'
+import 'element-plus/theme-chalk/index.css'
 
 const options = [
   {
@@ -146,8 +142,13 @@ describe('Cascader', () => {
 
       const cascaderDOM = document.querySelector('.el-cascader')
       await userEvent.click(cascaderDOM)
-      const firstCheckbox = document.querySelector('.el-checkbox__original')
-      await userEvent.click(firstCheckbox)
+
+      let firstCheckbox: HTMLElement | null = null
+      await vi.waitFor(() => {
+        firstCheckbox = document.querySelector('.el-cascader__dropdown .el-checkbox') as HTMLElement | null
+        expect(firstCheckbox).toBeTruthy()
+      })
+      await userEvent.click(firstCheckbox!)
 
       expect(form.values.cascader).toHaveLength(4)
     })

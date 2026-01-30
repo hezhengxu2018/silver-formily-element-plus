@@ -14,9 +14,7 @@ import {
   factor,
   useFormLayout,
 } from '../utils'
-
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-form.css'
+import 'element-plus/theme-chalk/index.css'
 
 const FormLayoutTest = defineComponent({
   props: {

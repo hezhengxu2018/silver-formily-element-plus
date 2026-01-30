@@ -3,8 +3,7 @@ import { Field, FormProvider } from '@silver-formily/vue'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Radio from '../index'
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-radio.css'
+import 'element-plus/theme-chalk/index.css'
 
 describe('radio-group', () => {
   describe('基础数据展示及交互', async () => {

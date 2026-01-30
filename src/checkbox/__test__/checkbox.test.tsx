@@ -1,8 +1,10 @@
 import { createForm } from '@formily/core'
 import { Field, FormProvider } from '@silver-formily/vue'
+import { userEvent } from '@vitest/browser/context'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Checkbox from '../index'
+import 'element-plus/theme-chalk/index.css'
 
 describe('checkbox', () => {
   describe('单选框基础功能', () => {
@@ -22,9 +24,13 @@ describe('checkbox', () => {
           />
         </FormProvider>
       ))
-      await expect.element(getByRole('checkbox')).toBeChecked()
-      await getByRole('checkbox').click()
-      await expect.element(getByRole('checkbox')).not.toBeChecked()
+      const checkbox = getByRole('checkbox')
+      const checkboxElement = checkbox.element()
+      const checkboxWrapper = checkboxElement.closest('.el-checkbox') as HTMLElement | null
+      expect(checkboxWrapper).toBeTruthy()
+      await expect.element(checkbox).toBeChecked()
+      await userEvent.click(checkboxWrapper as HTMLElement)
+      await expect.element(checkbox).not.toBeChecked()
       expect(form.values.checkbox).toBe(false)
     })
 
@@ -42,11 +48,15 @@ describe('checkbox', () => {
           />
         </FormProvider>
       ))
-      await expect.element(getByRole('checkbox')).toBeDisabled()
-      await expect.element(getByRole('checkbox')).toBeChecked()
+      const checkbox = getByRole('checkbox')
+      const checkboxElement = checkbox.element()
+      const checkboxWrapper = checkboxElement.closest('.el-checkbox') as HTMLElement | null
+      expect(checkboxWrapper).toBeTruthy()
+      await expect.element(checkbox).toBeDisabled()
+      await expect.element(checkbox).toBeChecked()
       form.setFieldState('checkbox', field => field.disabled = false)
-      await getByRole('checkbox').click()
-      await expect.element(getByRole('checkbox')).not.toBeChecked()
+      await userEvent.click(checkboxWrapper as HTMLElement)
+      await expect.element(checkbox).not.toBeChecked()
     })
 
     it('应该支持自定义标签内容', async () => {

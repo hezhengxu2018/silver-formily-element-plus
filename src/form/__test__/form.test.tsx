@@ -4,8 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import { Input } from '../../index'
 import Form from '../form.vue'
-import 'element-plus/theme-chalk/base.css'
-import 'element-plus/theme-chalk/el-form.css'
+import 'element-plus/theme-chalk/index.css'
 
 describe('Form', () => {
   it('应该支持基础渲染', async () => {
