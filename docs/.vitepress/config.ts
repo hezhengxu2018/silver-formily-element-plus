@@ -2,7 +2,6 @@ import type { EPThemeConfig } from 'vitepress-theme-element-plus'
 import path from 'node:path'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import mdContainer from 'markdown-it-container'
-import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vitepress'
 import { createDemoContainer } from 'vitepress-better-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
@@ -117,13 +116,7 @@ export default defineConfig<EPThemeConfig>({
         },
       ],
     },
-    plugins: [groupIconVitePlugin(), VueMacros({
-      setupComponent: false,
-      setupSFC: false,
-      plugins: {
-        vueJsx: vueJsx(),
-      },
-    })],
+    plugins: [groupIconVitePlugin(), vueJsx()],
     ssr: { noExternal: [
       '@silver-formily/vue',
       'vitepress-theme-element-plus',

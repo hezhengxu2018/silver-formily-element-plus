@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import glob from 'fast-glob'
-import VueMacros from 'unplugin-vue-macros/rollup'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
@@ -82,13 +81,7 @@ export default defineConfig({
       exclude: ['./**/style.ts', './**/*.test.{ts,tsx}'],
       cleanVueFileName: true,
     }),
-    VueMacros({
-      setupComponent: false,
-      setupSFC: false,
-      plugins: {
-        vue: vue(),
-        vueJsx: vueJsx(),
-      },
-    }),
+    vue(),
+    vueJsx(),
   ],
 })

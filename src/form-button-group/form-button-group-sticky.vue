@@ -18,7 +18,7 @@ const target = computed(() => {
   if (formLayoutId.value) {
     return `#${formLayoutId.value}`
   }
-  return formRef?.id ? `#formily-${formRef.id}` : undefined
+  return formRef.value?.id ? `#formily-${formRef.value.id}` : undefined
 })
 </script>
 
