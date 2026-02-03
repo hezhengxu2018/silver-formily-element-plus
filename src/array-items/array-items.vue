@@ -42,7 +42,7 @@ const { props: arrayItemsProps } = useCleanAttrs(['value', 'modelValue', 'onUpda
 
 <template>
   <div :class="prefixCls" v-bind="arrayItemsProps">
-    <ArrayBase :key-map="keyMap">
+    <ArrayBase :key="triggerUpdateKey" :key-map="keyMap">
       <VueDraggable
         :class="`${prefixCls}-list`"
         :model-value="dataSource"
