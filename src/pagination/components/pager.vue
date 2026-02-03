@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { ArrayField } from '@formily/core'
 import { DArrowLeft, DArrowRight, MoreFilled } from '@element-plus/icons-vue'
-import { observable } from '@formily/reactive'
-import { useObserver } from '@formily/reactive-vue'
+import { formilyComputed, useObserver } from '@silver-formily/reactive-vue'
 import { useField } from '@silver-formily/vue'
 import { CHANGE_EVENT, ElBadge, useLocale, useNamespace } from 'element-plus'
 import { computed, ref, watchEffect } from 'vue'
@@ -161,7 +160,7 @@ useObserver()
 const fieldRef = useField<ArrayField>()
 const field = fieldRef.value
 const path = field.address.entire
-const errorPageIndexList = observable.computed(() => {
+const errorPageIndexList = formilyComputed(() => {
   const errorPageSet = field.form
     .queryFeedbacks({
       type: 'error',
@@ -178,17 +177,17 @@ const errorPageIndexList = observable.computed(() => {
   return errorPageList
 })
 
-const isPrevMoreError = observable.computed(() => {
+const isPrevMoreError = formilyComputed(() => {
   return errorPageIndexList.value.some(pageIdx => (pageIdx < pagers.value[0] - 1) && pageIdx !== 0)
 })
-const isNextMoreError = observable.computed(() => {
+const isNextMoreError = formilyComputed(() => {
   return errorPageIndexList.value.some(pageIdx => (pageIdx > pagers.value.at(-1) - 1) && pageIdx !== errorPageIndexList.value.length - 1)
 })
 </script>
 
 <template>
   <ul :class="nsPager.b()" @click="onPagerClick" @keyup.enter="onEnter">
-    <ElBadge v-if="pageCount > 1" is-dot :value="1" :hidden="errorPageIndexList.value[0] !== 0">
+    <ElBadge v-if="pageCount > 1" is-dot :value="1" :hidden="errorPageIndexList[0] !== 0">
       <li
         :class="[
           nsPager.is('active', currentPage === 1),
@@ -199,7 +198,7 @@ const isNextMoreError = observable.computed(() => {
         1
       </li>
     </ElBadge>
-    <ElBadge v-if="showPrevMore" is-dot :value="1" :hidden="!isPrevMoreError.value">
+    <ElBadge v-if="showPrevMore" is-dot :value="1" :hidden="!isPrevMoreError">
       <li
         :class="prevMoreKls" :tabindex="tabindex"
         :aria-label="t('el.pagination.prevPages', { pager: pagerCount - 2 })" @mouseenter="onMouseEnter(true)"
@@ -211,7 +210,7 @@ const isNextMoreError = observable.computed(() => {
     </ElBadge>
     <ElBadge
       v-for="pager in pagers" :key="pager" is-dot :value="1"
-      :hidden="!errorPageIndexList.value.includes(pager - 1)"
+      :hidden="!errorPageIndexList.includes(pager - 1)"
     >
       <li
         :class="[
@@ -223,7 +222,7 @@ const isNextMoreError = observable.computed(() => {
         {{ pager }}
       </li>
     </ElBadge>
-    <ElBadge v-if="showNextMore" is-dot :value="1" :hidden="!isNextMoreError.value">
+    <ElBadge v-if="showNextMore" is-dot :value="1" :hidden="!isNextMoreError">
       <li
         :class="nextMoreKls" :tabindex="tabindex"
         :aria-label="t('el.pagination.nextPages', { pager: pagerCount - 2 })" @mouseenter="onMouseEnter()"
@@ -236,7 +235,7 @@ const isNextMoreError = observable.computed(() => {
     <ElBadge
       is-dot
       :value="1"
-      :hidden="errorPageIndexList.value[errorPageIndexList.value.length - 1] !== pageCount - 1"
+      :hidden="errorPageIndexList[errorPageIndexList.length - 1] !== pageCount - 1"
     >
       <li
         :class="[

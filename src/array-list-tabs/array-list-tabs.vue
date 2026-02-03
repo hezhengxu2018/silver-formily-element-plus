@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ArrayField } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
-import { autorun, observable } from '@formily/reactive'
+import { autorun } from '@formily/reactive'
 import { isArr } from '@formily/shared'
+import { formilyComputed } from '@silver-formily/reactive-vue'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElEmpty, ElScrollbar } from 'element-plus'
 import { ref } from 'vue'
@@ -38,7 +39,7 @@ const schema = schemaRef.value
 const activeIndex = ref(0)
 const { getKey, keyMap } = ArrayBase.useKey(schemaRef.value)
 
-const errorCountList = observable.computed(() => {
+const errorCountList = formilyComputed(() => {
   if (props.showTitleFieldInTab) {
     return field.value.map((item, index) => {
       const path = field.path.concat(index)
@@ -120,9 +121,9 @@ function getTabTitle(item) {
               <div :class="`${prefixCls}_list-item--content`">
                 <ElBadge
                   :class="[`${prefixCls}-errors-badge`]"
-                  :value="errorCountList.value[index]"
+                  :value="errorCountList[index]"
                   :offset="[5, 0]"
-                  :hidden="errorCountList.value[index] === 0"
+                  :hidden="errorCountList[index] === 0"
                 >
                   <template v-if="!props.showTitleFieldInTab">
                     <span :class="`${prefixCls}_list-item--title`">{{ getTabTitle(item) }}</span>

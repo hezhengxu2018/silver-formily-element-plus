@@ -2,6 +2,7 @@
 import type { VoidField } from '@formily/core'
 import type { IFormStepProps } from './types'
 import { isObj } from '@formily/shared'
+import { useObserver } from '@silver-formily/reactive-vue'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElStep, ElSteps } from 'element-plus'
 import { computed } from 'vue'
@@ -16,6 +17,8 @@ defineOptions({
 const props = withDefaults(defineProps<IFormStepProps>(), {
   formStep: () => createFormStep(),
 })
+
+useObserver()
 
 const field = useField<VoidField>().value
 const prefixCls = `${stylePrefix}-form-step`

@@ -1,4 +1,4 @@
-import { observer } from '@formily/reactive-vue'
+import { observer } from '@silver-formily/reactive-vue'
 import { composeExport } from '../__builtins__'
 import FFormTab from './form-tab.vue'
 import { createFormTab } from './utils'

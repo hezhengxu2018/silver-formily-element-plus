@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { IFormCollapse } from './utils'
-import { observable } from '@formily/reactive'
 import { isFn } from '@formily/shared'
+import { formilyComputed } from '@silver-formily/reactive-vue'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElBadge, ElCollapse, ElCollapseItem } from 'element-plus'
 import { computed } from 'vue'
@@ -24,7 +24,7 @@ const { props: collapseAttrs } = useCleanAttrs(['modelValue', 'onUpdate:modelVal
 
 const field = useField()
 const schema = useFieldSchema()
-const panels = observable.computed(() => usePanels(field.value, schema.value))
+const panels = formilyComputed(() => usePanels(field.value, schema.value))
 const formCollapseRef = computed(
   () => props.formCollapse ?? createFormCollapse(),
 )
@@ -37,7 +37,7 @@ function takeActiveKeys(panelList) {
   return panelList.map(item => item.name)
 }
 
-const panelErrorCounts = observable.computed(() => {
+const panelErrorCounts = formilyComputed(() => {
   return panels.value.map((item) => {
     const panelErrors = field.value.form.queryFeedbacks({
       type: 'error',
@@ -51,26 +51,26 @@ const panelErrorCounts = observable.computed(() => {
 <template>
   <ElCollapse
     :class="prefixCls"
-    :model-value="takeActiveKeys(panels.value)"
+    :model-value="takeActiveKeys(panels)"
     v-bind="collapseAttrs"
     @change="(key) => {
       formCollapseRef.setActiveKeys(key)
     }"
   >
-    <template v-for="({ props: itemProps, schema: itemSchema, name }, index) of panels.value" :key="name">
+    <template v-for="({ props: itemProps, schema: itemSchema, name }, index) of panels" :key="name">
       <ElCollapseItem v-bind="itemProps" :name="name">
         <template #default>
           <RecursionField :schema="itemSchema" :name="name" />
         </template>
         <template #title>
           <ElBadge
-            v-if="panelErrorCounts.value[index] !== 0"
+            v-if="panelErrorCounts[index] !== 0"
             :class="`${prefixCls}-errors-badge`"
-            :value="panelErrorCounts.value[index]"
+            :value="panelErrorCounts[index]"
           >
             <component
               :is="() => isFn(itemSchema['x-content']?.title)
-                ? itemSchema['x-content']?.title(panelErrorCounts.value[index])
+                ? itemSchema['x-content']?.title(panelErrorCounts[index])
                 : itemSchema['x-content']?.title"
               v-if="itemSchema['x-content']?.title"
             />
@@ -79,7 +79,7 @@ const panelErrorCounts = observable.computed(() => {
           <template v-else>
             <component
               :is="() => isFn(itemSchema['x-content']?.title)
-                ? itemSchema['x-content']?.title(panelErrorCounts.value[index])
+                ? itemSchema['x-content']?.title(panelErrorCounts[index])
                 : itemSchema['x-content']?.title"
               v-if="itemSchema['x-content']?.title"
             />

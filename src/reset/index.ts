@@ -1,4 +1,4 @@
-import { observer } from '@formily/reactive-vue'
+import { observer } from '@silver-formily/reactive-vue'
 import FReset from './reset.vue'
 
 export const Reset = observer(FReset)

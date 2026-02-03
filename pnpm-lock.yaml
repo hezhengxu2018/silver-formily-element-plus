@@ -23,18 +23,18 @@ importers:
       '@formily/reactive':
         specifier: ^2.0.8
         version: 2.3.7
-      '@formily/reactive-vue':
-        specifier: ^2.0.8
-        version: 2.3.7(vue@3.5.22(typescript@5.9.3))
       '@formily/shared':
         specifier: ^2.0.8
         version: 2.3.7
+      '@silver-formily/reactive-vue':
+        specifier: ^1
+        version: 1.0.0(@formily/reactive@2.3.7)(vue@3.5.22(typescript@5.9.3))
       '@silver-formily/vue':
         specifier: ^2.1.0
         version: 2.1.0(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))
       element-plus:
         specifier: ^2.1.8
-        version: 2.13.0(vue@3.5.22(typescript@5.9.3))
+        version: 2.13.2(vue@3.5.22(typescript@5.9.3))
       vue:
         specifier: ^3.3.0
         version: 3.5.22(typescript@5.9.3)
@@ -188,7 +188,7 @@ importers:
         version: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       vitepress-better-demo-plugin:
         specifier: ^0.6.2
-        version: 0.6.2(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        version: 0.6.2(element-plus@2.13.2(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       vitepress-plugin-group-icons:
         specifier: ^1.6.5
         version: 1.6.5(vite@7.1.8(@types/node@20.19.19)(jiti@2.6.1)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(yaml@2.8.1))
@@ -1441,6 +1441,12 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@silver-formily/reactive-vue@1.0.0':
+    resolution: {integrity: sha512-BX6lN9FO10l1z+ACrKyHWoMx0dcwSl/QbS6TRrh0cV/CveX2C7qgystnyMkTWY1h2Ouf2kRI7gFlh+pPG01tNQ==}
+    peerDependencies:
+      '@formily/reactive': ^2
+      vue: ^3
 
   '@silver-formily/vue@2.1.0':
     resolution: {integrity: sha512-i8tLZNa7x2ks8Myr68krLXWjr3zLvOVVll6W7Znf8Eb5OB/T5SiX4Bqllw58Y10v1mhDr5c4RAvtvF9QO/mr6Q==}
@@ -2695,8 +2701,8 @@ packages:
   electron-to-chromium@1.5.228:
     resolution: {integrity: sha512-nxkiyuqAn4MJ1QbobwqJILiDtu/jk14hEAWaMiJmNPh1Z+jqoFlBFZjdXwLWGeVSeu9hGLg6+2G9yJaW8rBIFA==}
 
-  element-plus@2.13.0:
-    resolution: {integrity: sha512-qjxS+SBChvqCl6lU6ShiliLMN6WqFHiXQENYbAY3GKNflG+FS3jqn8JmQq0CBZq4koFqsi95NT1M6SL4whZfrA==}
+  element-plus@2.13.2:
+    resolution: {integrity: sha512-Zjzm1NnFXGhV4LYZ6Ze9skPlYi2B4KAmN18FL63A3PZcjhDfroHwhtM6RE8BonlOPHXUnPQynH0BgaoEfvhrGw==}
     peerDependencies:
       vue: ^3.3.0
 
@@ -3853,6 +3859,9 @@ packages:
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
+  lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
+
   lodash-unified@1.0.3:
     resolution: {integrity: sha512-WK9qSozxXOD7ZJQlpSqOT+om2ZfcT4yO+03FuzAHD0wF6S0l0090LRPDx3vhTTLZ8cFKpBn+IOcVXK6qOcIlfQ==}
     peerDependencies:
@@ -3901,6 +3910,9 @@ packages:
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   log-symbols@2.2.0:
     resolution: {integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==}
@@ -7110,6 +7122,11 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
+  '@silver-formily/reactive-vue@1.0.0(@formily/reactive@2.3.7)(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@formily/reactive': 2.3.7
+      vue: 3.5.22(typescript@5.9.3)
+
   '@silver-formily/vue@2.1.0(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@formily/core': 2.3.7
@@ -8551,7 +8568,7 @@ snapshots:
 
   electron-to-chromium@1.5.228: {}
 
-  element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)):
+  element-plus@2.13.2(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.2(vue@3.5.22(typescript@5.9.3))
@@ -8562,9 +8579,9 @@ snapshots:
       '@vueuse/core': 10.11.1(vue@3.5.22(typescript@5.9.3))
       async-validator: 4.2.5
       dayjs: 1.11.19
-      lodash: 4.17.21
-      lodash-es: 4.17.21
-      lodash-unified: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.21)(lodash@4.17.21)
+      lodash: 4.17.23
+      lodash-es: 4.17.23
+      lodash-unified: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.23)(lodash@4.17.23)
       memoize-one: 6.0.0
       normalize-wheel-es: 1.2.0
       vue: 3.5.22(typescript@5.9.3)
@@ -9843,11 +9860,13 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
-  lodash-unified@1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.21)(lodash@4.17.21):
+  lodash-es@4.17.23: {}
+
+  lodash-unified@1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.23)(lodash@4.17.23):
     dependencies:
       '@types/lodash-es': 4.17.12
-      lodash: 4.17.21
-      lodash-es: 4.17.21
+      lodash: 4.17.23
+      lodash-es: 4.17.23
 
   lodash.camelcase@4.3.0: {}
 
@@ -9876,6 +9895,8 @@ snapshots:
   lodash.upperfirst@4.3.1: {}
 
   lodash@4.17.21: {}
+
+  lodash@4.17.23: {}
 
   log-symbols@2.2.0:
     dependencies:
@@ -11860,14 +11881,14 @@ snapshots:
       tsx: 4.20.6
       yaml: 2.8.1
 
-  vitepress-better-demo-plugin@0.6.2(element-plus@2.13.0(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
+  vitepress-better-demo-plugin@0.6.2(element-plus@2.13.2(vue@3.5.22(typescript@5.9.3)))(vitepress@2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       '@stackblitz/sdk': 1.11.0
       codesandbox: 2.2.3
       vitepress: 2.0.0-alpha.12(@types/node@20.19.19)(async-validator@4.2.5)(change-case@5.4.4)(jiti@2.6.1)(nprogress@0.2.0)(postcss@8.5.6)(sass-embedded@1.93.2)(sass@1.93.2)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       vue: 3.5.22(typescript@5.9.3)
     optionalDependencies:
-      element-plus: 2.13.0(vue@3.5.22(typescript@5.9.3))
+      element-plus: 2.13.2(vue@3.5.22(typescript@5.9.3))
     transitivePeerDependencies:
       - supports-color
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IFormTabProps } from './types.ts'
-import { observable, reaction } from '@formily/reactive'
+import { reaction } from '@formily/reactive'
+import { formilyComputed } from '@silver-formily/reactive-vue'
 import { RecursionField, useField } from '@silver-formily/vue'
 import { ElBadge, ElTabPane, ElTabs } from 'element-plus'
 import { computed, ref, watch } from 'vue'
@@ -32,7 +33,7 @@ watch(() => formTabRef.value.activeKey, (val) => {
   _activeKey.value = val
 })
 
-const errorList = observable.computed(() => {
+const errorList = formilyComputed(() => {
   return tabs.map((tab) => {
     return field.value.form.queryFeedbacks({
       type: 'error',
@@ -66,9 +67,9 @@ function handleTabChange(key: string) {
       </template>
       <template #label>
         <ElBadge
-          v-if="errorList.value[key] !== 0"
+          v-if="errorList[key] !== 0"
           :class="prefixCls"
-          :value="errorList.value[key]"
+          :value="errorList[key]"
         >
           {{ tabProps.label }}
         </ElBadge>

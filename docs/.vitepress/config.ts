@@ -123,7 +123,7 @@ export default defineConfig<EPThemeConfig>({
       'vitepress-better-demo-plugin',
     ] },
     optimizeDeps: {
-      include: ['@formily/core', '@formily/reactive-vue', '@formily/reactive', '@formily/shared', 'lodash-es', '@element-plus/icons-vue', 'vue-draggable-plus', '@formily/grid', 'element-plus', 'dayjs'],
+      include: ['@formily/core', '@silver-formily/reactive-vue', '@formily/reactive', '@formily/shared', 'lodash-es', '@element-plus/icons-vue', 'vue-draggable-plus', '@formily/grid', 'element-plus', 'dayjs'],
       exclude: ['vitepress-theme-element-plus'],
     },
   },
