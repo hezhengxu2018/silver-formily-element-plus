@@ -3,8 +3,9 @@ import type { ArrayField } from '@formily/core'
 import type { Schema } from '@formily/json-schema'
 import type { TableInstance } from 'element-plus'
 import type { IArrayTableProps } from './types'
-import { autorun, observable, reaction } from '@formily/reactive'
+import { autorun, reaction } from '@formily/reactive'
 import { isArr, isEqual } from '@formily/shared'
+import { formilyComputed } from '@silver-formily/reactive-vue'
 import { RecursionField, useField, useFieldSchema } from '@silver-formily/vue'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
 import { omit } from 'lodash-es'
@@ -95,7 +96,7 @@ function updateDataSource() {
 watch([pageSize, currentPage], updateDataSource)
 autorun(updateDataSource)
 
-const sources = observable.computed(() => {
+const sources = formilyComputed(() => {
   const schema = schemaRef.value.items
   const items = isArr(schema) ? schema : [schema]
   return items.reduce((columns, schema) => {
@@ -104,8 +105,9 @@ const sources = observable.computed(() => {
   }, []).filter(item => item.display !== 'none')
 })
 
-const columns = observable.computed(() => {
-  return sources.value
+const columns = computed(() => {
+  const currentSources = sources.value ?? []
+  return currentSources
     .map((source, index) => ({ source, index }))
     .filter(({ source }) => source.display === 'visible' && isColumnComponent(source.schema))
     .map(({ source, index: key }) => {
@@ -125,8 +127,9 @@ const columns = observable.computed(() => {
     })
 })
 
-const stateManagerColumns = observable.computed(() => {
-  return sources.value.filter((column) => {
+const stateManagerColumns = computed(() => {
+  const currentSources = sources.value ?? []
+  return currentSources.filter((column) => {
     return column.display !== 'none' && isColumnComponent(column.schema)
   })
 })
@@ -167,12 +170,12 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
         :animation="150" @end="handleDragEnd"
       >
         <ElTable ref="elTableRef" v-loading="field.loading" :row-key="getKey" :data="dataSource" v-bind="elTableProps">
-          <template v-for="(column, colIndex) of columns.value" :key="column.key">
+          <template v-for="(column, colIndex) of columns" :key="column.key">
             <ElTableColumn v-bind="column.props">
               <template #default="{ row, $index }">
                 <ArrayBase.Item :key="getKey(row)" :index="$index + baseIndex" :record="row">
                   <RecursionField
-                    :key="`${getKey(row)}`" :schema="sources.value[colIndex].schema"
+                    :key="`${getKey(row)}`" :schema="sources[colIndex].schema"
                     :name="$index + baseIndex" only-render-properties
                   />
                 </ArrayBase.Item>
@@ -192,7 +195,7 @@ async function handleDragEnd(evt: { oldIndex: number, newIndex: number }) {
       </VueDraggable>
 
       <!-- 状态管理器 -->
-      <template v-for="(column, key) of stateManagerColumns.value" :key="key">
+      <template v-for="(column, key) of stateManagerColumns" :key="key">
         <RecursionField :name="column.name" :schema="column.schema" :only-render-self="true" />
       </template>
       <ElPagination
