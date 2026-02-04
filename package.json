@@ -27,6 +27,7 @@
     "commit": "czg",
     "lint-staged": "lint-staged",
     "release": "release-it",
+    "prepublishOnly": "pnpm run build",
     "postinstall": "husky"
   },
   "peerDependencies": {
