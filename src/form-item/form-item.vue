@@ -147,6 +147,8 @@ async function validate(): FormValidationResult {
 const clearValidate: FormItemContext['clearValidate'] = () => {}
 /* istanbul ignore next -- @preserve */
 const resetField: FormItemContext['resetField'] = async () => {}
+/* istanbul ignore next -- @preserve */
+const setInitialValue: FormItemContext['setInitialValue'] = () => {}
 
 const addInputId: FormItemContext['addInputId'] = (id: string) => {
   /* istanbul ignore else -- @preserve */
@@ -189,6 +191,7 @@ const context: FormItemContext = reactive({
   fieldValue: field.value?.value,
   validateMessage: '',
   propString: '',
+  setInitialValue,
 })
 watch(() => props.feedbackStatus, (val) => {
   if (val === 'pending') {
