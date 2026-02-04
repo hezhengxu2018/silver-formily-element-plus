@@ -2,6 +2,28 @@
 
 
 
+# [2.1.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.0.1...v2.1.0) (2026-02-04)
+
+
+### Bug Fixes
+
+* **array-items:** 修复drag后item无法删除的问题 ([0c7f58d](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/0c7f58d3d4af06a206e82c4397c647b55e2a440e))
+* **array-table:** 迁移array-table的响应式 ([0208598](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/020859887f00dbc1f24aad6bd8ec221e7710b473))
+* **form-button-group-sticky:** 使用更稳定的id生成方式，方便后期接入ssr ([266cdca](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/266cdca6a7108983bbd86440acb8ba29bf41ce6d))
+* **form-item:** 修复fullness/colon的继承与覆盖的问题 ([5de4ffa](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/5de4ffa98cf611e21bfedd69585d3805fd641379))
+* **form-item:** 更新 labelWrap 默认值，默认隐藏溢出的标签文案 ([09b5401](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/09b540102e3947b2cf03a5f2d363a2e9050c1f3c))
+* 更新FormDialog和FormDrawer接口以支持泛型类型 ([0ade383](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/0ade383a1aeeb4766ff51d71f3f62ea720da028c))
+
+
+### Features
+
+* 升级vue响应式绑定库 ([8a26adc](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/8a26adc54663bd2a163939685164fd6c71cbe8c2))
+
+
+### BREAKING CHANGES
+
+* 从@formily/reactive-vue升级为@silver-formily/reactive-vue
+
 ## [2.0.1](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.0.0...v2.0.1) (2026-01-24)
 
 
