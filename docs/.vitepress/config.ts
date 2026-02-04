@@ -35,6 +35,16 @@ export default defineConfig<EPThemeConfig>({
     },
     footer: {
       message: 'Released under the MIT License.',
+      blogroll: [
+        { title: 'Formily', children: [
+          { text: 'Core', link: 'https://core.formilyjs.org/' },
+          { text: 'Reactive', link: 'https://reactive.formilyjs.org/' },
+        ] },
+        { title: 'Silver Formily', children: [
+          { text: 'Vue', link: 'https://vue.silver-formily.org' },
+          { text: 'Reactive Vue', link: 'https://reactive-vue.silver-formily.org' },
+        ] },
+      ],
     },
     logo: '/formily-logo.svg',
   },
@@ -42,11 +52,6 @@ export default defineConfig<EPThemeConfig>({
     root: {
       label: 'English',
       lang: 'en',
-      themeConfig: {
-        footer: {
-          message: 'Released under the MIT License.',
-        },
-      },
     },
     zh: {
       label: '简体中文',

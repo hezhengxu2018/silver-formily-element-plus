@@ -16,9 +16,9 @@
 
 :::
 
-::: warning 注意
+:::tip 提示
 
-由于现在formily的decorator的使用不支持插槽，form-item组件中原有通过插槽支持的功能现在只能通过传入VNode实现。
+从`2.1.0`版本开始，项目的vue封装已经升级到了 `@silver-formily/vue@2.2.1` 这意味着你可以通过 decoratorContent 来向 FormItem 插入内容，虽然这不是官方的实现也没有 formily 的响应式，但是在大部分情况下应该都够用。具体的使用方式可以参考 `@silver-formily/vue` [文档中的例子](https://vue.silver-formily.org/questions/#%E5%A6%82%E4%BD%95%E5%90%91%E8%A3%85%E9%A5%B0%E5%99%A8%E4%BC%A0%E9%80%92%E6%8F%92%E6%A7%BD)
 
 :::
 
