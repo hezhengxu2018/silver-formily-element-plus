@@ -32,6 +32,26 @@ preview-text/preview-config
 
 :::
 
+### Template 写法
+
+Template 写法既可以直接用 `PreviewText` 包裹若干 `Field`，也可以借助 `VoidField` 复用一整组配置，一次性覆盖 `placeholder`、`textProps`、`tagProps` 与 `spaceProps`，同时和按钮交互联动切换阅读态。
+
+也可以自行添加class或者style，这些属性均可以被正常继承，改写样式。
+
+:::demo
+
+preview-text/preview-config-template-direct
+
+:::
+
+#### 直接使用 PreviewText 包裹
+
+:::demo
+
+preview-text/preview-config-template
+
+:::
+
 ## API
 
 ### PreviewText.Input

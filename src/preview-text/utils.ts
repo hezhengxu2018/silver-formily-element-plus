@@ -3,9 +3,9 @@ import { computed, inject } from 'vue'
 
 export interface PreviewTextProps {
   placeholder?: string
-  tagProps?: Partial<TagProps>
-  spaceProps?: Partial<SpaceProps>
-  textProps?: Partial<TextProps>
+  tagProps?: Partial<TagProps> | Record<string, any>
+  spaceProps?: Partial<SpaceProps> | Record<string, any>
+  textProps?: Partial<TextProps> | Record<string, any>
 }
 
 export const previewTextConfigKey = Symbol('previewTextConfig')
