@@ -69,6 +69,10 @@
         "text": "Radio 单选框"
       },
       {
+        "link": "/zh/component/segmented",
+        "text": "Segmented 分段选择器"
+      },
+      {
         "link": "/zh/component/select",
         "text": "Select 下拉选择框"
       },
