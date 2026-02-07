@@ -40,10 +40,10 @@ describe('Slider', () => {
       </FormProvider>
     ))
 
-    await expect.element(getByRole('spinbutton')).toHaveValue('50')
+    await expect.element(getByRole('spinbutton')).toHaveValue(50)
 
     form.setValues({ slider: 30 })
-    await expect.element(getByRole('spinbutton')).toHaveValue('30')
+    await expect.element(getByRole('spinbutton')).toHaveValue(30)
   })
 
   it('应该支持禁用状态', async () => {
@@ -53,12 +53,12 @@ describe('Slider', () => {
       </FormProvider>
     ))
 
-    const slider = container.querySelector('.el-slider')
-    expect(slider).toHaveClass('is-disabled')
+    const runway = container.querySelector('.el-slider__runway')
+    expect(runway).toHaveClass('is-disabled')
   })
 
   it('应该支持区间与刻度', async () => {
-    const { container, getByText } = render(() => (
+    const { container } = render(() => (
       <FormProvider form={createForm()}>
         <Field
           name="slider"
@@ -82,7 +82,12 @@ describe('Slider', () => {
     ))
 
     expect(container.querySelectorAll('.el-slider__button').length).toBe(2)
-    await expect.element(getByText('20')).toBeInTheDocument()
-    await expect.element(getByText('60')).toBeInTheDocument()
+
+    const marks = Array.from(container.querySelectorAll('.el-slider__marks-text')).map(
+      element => element.textContent?.trim(),
+    )
+
+    expect(marks).toContain('20')
+    expect(marks).toContain('60')
   })
 })

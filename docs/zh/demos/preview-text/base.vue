@@ -3,7 +3,7 @@ import { createForm } from '@formily/core'
 import { FormItem, FormLayout, PreviewText } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
 
-const { SchemaField, SchemaStringField } = createSchemaField({
+const { SchemaField, SchemaNumberField, SchemaStringField } = createSchemaField({
   components: {
     FormItem,
     PreviewText,
@@ -50,6 +50,16 @@ const form = createForm()
           title="时间预览"
           x-component="PreviewText.TimePicker"
           :default="['2020-11-23 22:15:20', '2020-11-23 23:15:20']"
+        />
+        <SchemaNumberField
+          x-decorator="FormItem"
+          title="评分预览"
+          x-component="PreviewText.Rate"
+          :x-component-props="{
+            allowHalf: true,
+            showText: true,
+          }"
+          :default="3.5"
         />
         <SchemaStringField
           x-decorator="FormItem"

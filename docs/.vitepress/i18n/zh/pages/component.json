@@ -104,6 +104,10 @@
         "text": "Switch 开关"
       },
       {
+        "link": "/zh/component/rate",
+        "text": "Rate 评分"
+      },
+      {
         "link": "/zh/component/slider",
         "text": "Slider 滑块"
       },

@@ -78,6 +78,10 @@ preview-text/preview-config-template
 
 参考 [https://cn.element-plus.org/zh-CN/component/time-picker.html](https://cn.element-plus.org/zh-CN/component/time-picker.html)
 
+### PreviewText.Rate
+
+参考 [https://cn.element-plus.org/zh-CN/component/rate.html](https://cn.element-plus.org/zh-CN/component/rate.html)
+
 ### PreviewText
 
 | 属性名      | 类型                  | 描述                  | 默认值                                      |

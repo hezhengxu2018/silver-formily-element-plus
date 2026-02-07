@@ -3,6 +3,7 @@ import Cascader from './cascader.vue'
 import DatePicker from './date-picker.vue'
 import Input from './input.vue'
 import Preview from './preview.vue'
+import Rate from './rate.vue'
 import Select from './select.vue'
 import TimePicker from './time-picker.vue'
 import Tree from './tree.vue'
@@ -13,6 +14,7 @@ export const PreviewText = composeExport(Preview, {
   Select,
   Cascader,
   DatePicker,
+  Rate,
   TimePicker,
   Tree,
 })
