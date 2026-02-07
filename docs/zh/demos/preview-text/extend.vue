@@ -8,6 +8,7 @@ import {
   FormItem,
   Input,
   PreviewText,
+  Segmented,
   Select,
   TimePicker,
   Tree,
@@ -19,6 +20,7 @@ const { SchemaField, SchemaVoidField, SchemaStringField, SchemaArrayField } = cr
   components: {
     FormItem,
     Input,
+    Segmented,
     Select,
     DatePicker,
     Cascader,
@@ -29,6 +31,12 @@ const { SchemaField, SchemaVoidField, SchemaStringField, SchemaArrayField } = cr
 })
 
 const form = createForm({ readPretty: true })
+
+const segmentedOptions = [
+  { value: 'day', label: '按天' },
+  { value: 'week', label: '按周' },
+  { value: 'month', label: '按月' },
+]
 
 const options = [
   {
@@ -371,6 +379,20 @@ const warpText = `aaaaa   bbbbbb
             value: '222',
           },
         ]"
+      />
+      <SchemaStringField
+        x-decorator="FormItem"
+        title="分段选择预览"
+        x-component="Segmented"
+        :default="segmentedOptions[0].value"
+        :enum="segmentedOptions"
+      />
+      <SchemaStringField
+        x-decorator="FormItem"
+        title="字符串选项预览"
+        x-component="Segmented"
+        default="周"
+        :enum="['日', '周', '月']"
       />
       <SchemaStringField
         x-decorator="FormItem"
