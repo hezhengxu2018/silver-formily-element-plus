@@ -2,6 +2,20 @@
 
 
 
+# [2.2.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.1.0...v2.2.0) (2026-02-07)
+
+
+### Bug Fixes
+
+* **form-item:** 修复类型声明错误 ([861cb2e](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/861cb2ed6af706c95343d245700b15c25f5d8e2d))
+
+
+### Features
+
+* **rate:** 新增rate组件及相应的文档 ([e2b9490](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/e2b9490d93575dcdc4764ea25e6fd415c9a8cac7))
+* **segmented:** 添加分段选择器组件 ([a0ffc76](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/a0ffc7641e6726547e2c11dd128b51ce2666aab9))
+* **silder:** 添加Silder组件及文档 ([ee8b50d](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/ee8b50d208751f5ffafefccc2e6352df14a5d608))
+
 # [2.1.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.0.1...v2.1.0) (2026-02-04)
 
 
