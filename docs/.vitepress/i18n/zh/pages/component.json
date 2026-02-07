@@ -70,7 +70,8 @@
       },
       {
         "link": "/zh/component/segmented",
-        "text": "Segmented 分段选择器"
+        "text": "Segmented 分段选择器",
+        "promotion": "2.2.0"
       },
       {
         "link": "/zh/component/select",
@@ -105,11 +106,13 @@
       },
       {
         "link": "/zh/component/rate",
-        "text": "Rate 评分"
+        "text": "Rate 评分",
+        "promotion": "2.2.0"
       },
       {
         "link": "/zh/component/slider",
-        "text": "Slider 滑块"
+        "text": "Slider 滑块",
+        "promotion": "2.2.0"
       },
       {
         "link": "/zh/component/date-picker",
