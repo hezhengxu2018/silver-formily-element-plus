@@ -18,6 +18,10 @@ preview-text/base
 
 ## 扩展案例
 
+:::tip 提示
+只要组件的PreviewText使用的是Input，都可以使用formatter属性对组件的阅读态进行格式化。哪怕组件本身没有这个属性，例如 `Slider`。
+:::
+
 :::demo
 
 preview-text/extend

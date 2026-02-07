@@ -104,6 +104,10 @@
         "text": "Switch 开关"
       },
       {
+        "link": "/zh/component/slider",
+        "text": "Slider 滑块"
+      },
+      {
         "link": "/zh/component/date-picker",
         "text": "DatePicker 日期选择器"
       },

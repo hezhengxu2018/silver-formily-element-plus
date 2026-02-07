@@ -1,6 +1,30 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, ref } from 'vue'
+import { render } from 'vitest-browser-vue'
+import { defineComponent, h, nextTick, ref } from 'vue'
 import { useDebounceFn, useResizeObserver, useThrottleFn } from '../hooks'
+
+function renderUseResizeObserver(
+  target: Parameters<typeof useResizeObserver>[0],
+  callback: Parameters<typeof useResizeObserver>[1],
+  options?: Parameters<typeof useResizeObserver>[2],
+) {
+  let result: ReturnType<typeof useResizeObserver> | null = null
+
+  const TestComponent = defineComponent({
+    setup() {
+      result = useResizeObserver(target, callback, options)
+      return () => null
+    },
+  })
+
+  render(() => h(TestComponent))
+
+  if (!result) {
+    throw new Error('useResizeObserver did not initialize')
+  }
+
+  return result
+}
 
 describe('useDebounceFn', () => {
   beforeEach(() => {
@@ -181,14 +205,14 @@ describe('useResizeObserver', () => {
 
   it('应该检测 ResizeObserver 支持性', () => {
     const callback = vi.fn()
-    const { isSupported } = useResizeObserver(mockElement, callback)
+    const { isSupported } = renderUseResizeObserver(mockElement, callback)
 
     expect(isSupported).toBe(true)
   })
 
   it('应该观察元素', () => {
     const callback = vi.fn()
-    const { isSupported } = useResizeObserver(mockElement, callback)
+    const { isSupported } = renderUseResizeObserver(mockElement, callback)
 
     expect(isSupported).toBe(true)
     // 在浏览器模式下，ResizeObserver 会被正常创建
@@ -198,7 +222,7 @@ describe('useResizeObserver', () => {
     const callback = vi.fn()
     const options = { box: 'border-box' as ResizeObserverBoxOptions }
 
-    const { isSupported } = useResizeObserver(mockElement, callback, options)
+    const { isSupported } = renderUseResizeObserver(mockElement, callback, options)
 
     expect(isSupported).toBe(true)
   })
@@ -207,7 +231,7 @@ describe('useResizeObserver', () => {
     const callback = vi.fn()
     const elementRef = ref(mockElement)
 
-    const { isSupported } = useResizeObserver(elementRef, callback)
+    const { isSupported } = renderUseResizeObserver(elementRef, callback)
 
     expect(isSupported).toBe(true)
     await nextTick()
@@ -217,7 +241,7 @@ describe('useResizeObserver', () => {
     const callback = vi.fn()
     const elementRef = ref(null)
 
-    const { isSupported } = useResizeObserver(elementRef, callback)
+    const { isSupported } = renderUseResizeObserver(elementRef, callback)
 
     expect(isSupported).toBe(true)
     await nextTick()
@@ -225,7 +249,7 @@ describe('useResizeObserver', () => {
 
   it('应该在调用 stop 时断开观察', () => {
     const callback = vi.fn()
-    const { stop, isSupported } = useResizeObserver(mockElement, callback)
+    const { stop, isSupported } = renderUseResizeObserver(mockElement, callback)
 
     expect(isSupported).toBe(true)
 
@@ -240,7 +264,7 @@ describe('useResizeObserver', () => {
     const callback = vi.fn()
     const elementRef = ref(mockElement)
 
-    const { isSupported } = useResizeObserver(elementRef, callback)
+    const { isSupported } = renderUseResizeObserver(elementRef, callback)
     expect(isSupported).toBe(true)
 
     const newElement = document.createElement('span')
@@ -255,7 +279,7 @@ describe('useResizeObserver', () => {
 
   it('应该正确处理元素尺寸变化', async () => {
     const callback = vi.fn()
-    const { isSupported } = useResizeObserver(mockElement, callback)
+    const { isSupported } = renderUseResizeObserver(mockElement, callback)
 
     expect(isSupported).toBe(true)
 
@@ -272,7 +296,7 @@ describe('useResizeObserver', () => {
     const callback = vi.fn()
     const elementRef = ref<HTMLElement | null>(null)
 
-    const { isSupported } = useResizeObserver(elementRef, callback)
+    const { isSupported } = renderUseResizeObserver(elementRef, callback)
     expect(isSupported).toBe(true)
 
     // 设置有效元素

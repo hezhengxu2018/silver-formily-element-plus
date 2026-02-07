@@ -10,18 +10,20 @@ import {
   PreviewText,
   Segmented,
   Select,
+  Slider,
   TimePicker,
   Tree,
 } from '@silver-formily/element-plus'
 import { createSchemaField } from '@silver-formily/vue'
 import { ElButton } from 'element-plus'
 
-const { SchemaField, SchemaVoidField, SchemaStringField, SchemaArrayField } = createSchemaField({
+const { SchemaField, SchemaVoidField, SchemaStringField, SchemaNumberField, SchemaArrayField } = createSchemaField({
   components: {
     FormItem,
     Input,
     Segmented,
     Select,
+    Slider,
     DatePicker,
     Cascader,
     TimePicker,
@@ -393,6 +395,39 @@ const warpText = `aaaaa   bbbbbb
         x-component="Segmented"
         default="周"
         :enum="['日', '周', '月']"
+      />
+      <SchemaNumberField
+        x-decorator="FormItem"
+        title="滑块预览"
+        x-component="Slider"
+        :x-component-props="{
+          style: {
+            width: '240px',
+          },
+          showInput: true,
+        }"
+        :default="30"
+      />
+      <SchemaArrayField
+        x-decorator="FormItem"
+        title="滑块范围预览格式化"
+        x-component="Slider"
+        :x-component-props="{
+          style: {
+            width: '240px',
+          },
+          range: true,
+          marks: {
+            0: '0',
+            20: '20',
+            40: '40',
+            60: '60',
+            80: '80',
+            100: '100',
+          },
+          formatter: (value) => `${value?.[0]}% ~ ${value?.[1]}%`,
+        }"
+        :default="[20, 60]"
       />
       <SchemaStringField
         x-decorator="FormItem"
