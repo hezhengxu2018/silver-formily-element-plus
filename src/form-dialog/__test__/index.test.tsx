@@ -118,6 +118,161 @@ describe('FormDialog', () => {
     })
   })
 
+  it('应该在输入框回车时提交当前对话框', async () => {
+    const confirmSpy = vi.fn()
+
+    const TestComponent = () => {
+      const handleOpen = () => {
+        FormDialog('测试标题', () => (
+          <SchemaField>
+            <SchemaStringField
+              name="input"
+              title="输入框"
+              x-decorator="FormItem"
+              x-component="Input"
+            />
+          </SchemaField>
+        ))
+          .forConfirm((form, next) => {
+            confirmSpy(form.values)
+            next()
+          })
+          .open()
+          .catch(console.log)
+      }
+
+      return <ElButton onClick={handleOpen}>打开回车对话框</ElButton>
+    }
+
+    const { getByText } = render(() => <TestComponent />, {
+      global: {
+        stubs: {
+          Transition: false,
+        },
+      },
+    })
+
+    await getByText('打开回车对话框').click()
+    const input = document.querySelector('input') as HTMLInputElement
+    input.focus()
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+
+    await vi.waitFor(() => expect(confirmSpy).toHaveBeenCalledTimes(1))
+  })
+
+  it('应该只让最近打开的对话框响应回车', async () => {
+    const firstConfirm = vi.fn()
+    const secondConfirm = vi.fn()
+
+    const TestComponent = () => {
+      const openSecondDialog = () => {
+        FormDialog('二级对话框', () => (
+          <SchemaField>
+            <SchemaStringField
+              name="second-input"
+              title="输入框2"
+              x-decorator="FormItem"
+              x-component="Input"
+            />
+          </SchemaField>
+        ))
+          .forConfirm((form, next) => {
+            secondConfirm(form.values)
+            next()
+          })
+          .open()
+          .catch(console.log)
+      }
+
+      const handleOpen = () => {
+        FormDialog('一级对话框', () => (
+          <div>
+            <SchemaField>
+              <SchemaStringField
+                name="first-input"
+                title="输入框1"
+                x-decorator="FormItem"
+                x-component="Input"
+              />
+            </SchemaField>
+            <ElButton class="open-second" onClick={openSecondDialog}>打开二级对话框</ElButton>
+          </div>
+        ))
+          .forConfirm((form, next) => {
+            firstConfirm(form.values)
+            next()
+          })
+          .open()
+          .catch(console.log)
+      }
+
+      return <ElButton onClick={handleOpen}>打开一级对话框</ElButton>
+    }
+
+    const { getByText } = render(() => <TestComponent />, {
+      global: {
+        stubs: {
+          Transition: false,
+        },
+      },
+    })
+
+    await getByText('打开一级对话框').click()
+    await getByText('打开二级对话框').click()
+
+    await vi.waitFor(() => expect(document.querySelectorAll('input').length).toBeGreaterThanOrEqual(2))
+    const inputs = Array.from(document.querySelectorAll('input')) as HTMLInputElement[]
+    const topInput = inputs.at(-1)
+    topInput.focus()
+    topInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+
+    await vi.waitFor(() => expect(secondConfirm).toHaveBeenCalledTimes(1))
+    expect(firstConfirm).not.toHaveBeenCalled()
+  })
+
+  it('应该支持关闭回车提交配置', async () => {
+    const confirmSpy = vi.fn()
+
+    const TestComponent = () => {
+      const handleOpen = () => {
+        FormDialog({ title: '测试标题', enterSubmit: false }, () => (
+          <SchemaField>
+            <SchemaStringField
+              name="input"
+              title="输入框"
+              x-decorator="FormItem"
+              x-component="Input"
+            />
+          </SchemaField>
+        ))
+          .forConfirm((form, next) => {
+            confirmSpy(form.values)
+            next()
+          })
+          .open()
+          .catch(console.log)
+      }
+
+      return <ElButton onClick={handleOpen}>打开禁用回车对话框</ElButton>
+    }
+
+    const { getByText } = render(() => <TestComponent />, {
+      global: {
+        stubs: {
+          Transition: false,
+        },
+      },
+    })
+
+    await getByText('打开禁用回车对话框').click()
+    const input = document.querySelector('input') as HTMLInputElement
+    input.focus()
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+
+    await new Promise(resolve => setTimeout(resolve, 50))
+    expect(confirmSpy).not.toHaveBeenCalled()
+  })
+
   describe('中间件功能', () => {
     it('应该支持forOpen中间件', async () => {
       const openMiddleware = vi.fn((props, next) => next({ initialValues: { input: 'test' } }))

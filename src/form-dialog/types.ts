@@ -10,6 +10,7 @@ export type IFormDialogProps = Partial<DialogProps> & {
   okText?: string
   okButtonProps?: ButtonProps
   loadingText?: string
+  enterSubmit?: boolean
 }
 // #endregion props
 

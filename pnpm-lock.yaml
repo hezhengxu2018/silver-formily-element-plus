@@ -32,6 +32,9 @@ importers:
       '@silver-formily/vue':
         specifier: ^2.2.1
         version: 2.2.1(@formily/core@2.3.7)(@formily/json-schema@2.3.7(typescript@5.9.3))(@formily/reactive-vue@2.3.7(vue@3.5.22(typescript@5.9.3)))(@formily/reactive@2.3.7)(@formily/shared@2.3.7)(vue@3.5.22(typescript@5.9.3))
+      '@vueuse/core':
+        specifier: '*'
+        version: 13.9.0(vue@3.5.22(typescript@5.9.3))
       element-plus:
         specifier: ^2.1.8
         version: 2.13.2(vue@3.5.22(typescript@5.9.3))

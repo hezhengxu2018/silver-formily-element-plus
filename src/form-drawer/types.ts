@@ -10,6 +10,7 @@ export type IFormDrawerProps = Partial<DrawerProps> & {
   okText?: string
   okButtonProps?: ButtonProps
   loadingText?: string
+  enterSubmit?: boolean
 }
 // #endregion props
 

@@ -42,6 +42,16 @@ form-drawer/template-slot
 
 :::
 
+## 回车提交配置
+
+FormDrawer 同样会默认监听输入框中的键盘回车来调用 `resolve`。当抽屉内有自定义快捷键或嵌套的弹层时，可以将 `enterSubmit` 设为 `false` 来单独关闭。
+
+:::demo
+
+form-drawer/enter-submit
+
+:::
+
 ## API
 
 ### FormDrawer 函数入参
@@ -77,6 +87,7 @@ interface FormDrawer {
 | `okText`              | 确定按钮文字                                                                     | `string`            | `确定`    |
 | `okButtonProps`       | 确定按钮的props                                                                  | `ButtonProps`       | -         |
 | `loadingText`         | 加载中文字                                                                       | `string`            | `loading` |
+| `enterSubmit`         | 是否允许在输入框回车时立即触发 `resolve`                                         | `boolean`           | `true`    |
 
 其余参数请参考参考 [https://cn.element-plus.org/zh-CN/component/drawer.html](https://cn.element-plus.org/zh-CN/component/drawer.html#attributes)
 

@@ -42,6 +42,26 @@ form-dialog/template-slot
 
 :::
 
+## 回车提交配置
+
+FormDialog 默认会在输入框激活时响应键盘回车并触发 `resolve`。若需要关闭该行为，可通过 `enterSubmit: false` 禁用监听。
+
+:::demo
+
+form-dialog/enter-submit
+
+:::
+
+### 弹出层嵌套示例
+
+可以在一个 FormDialog 中继续调用 `FormDialog` 打开新的弹窗，组件会自动只让最顶层实例响应快捷键和提交。
+
+:::demo
+
+form-dialog/nested
+
+:::
+
 ## API
 
 ### FormDialog 函数入参
@@ -78,6 +98,7 @@ interface FormDialog {
 | `okText`              | 确定按钮文字                                                                     | `string`            | `确定`    |
 | `okButtonProps`       | 确定按钮的props                                                                  | `ButtonProps`       | -         |
 | `loadingText`         | 加载中文字                                                                       | `string`            | `loading` |
+| `enterSubmit`         | 是否允许在输入框回车时立即触发 `resolve`                                         | `boolean`           | `true`    |
 
 其余参数请参考参考 [https://cn.element-plus.org/zh-CN/component/dialog.html](https://cn.element-plus.org/zh-CN/component/dialog.html#attributes)
 

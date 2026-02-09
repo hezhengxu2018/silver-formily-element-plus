@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { Form } from '@formily/core'
-import type { PropType } from 'vue'
+import type { ComponentPublicInstance, PropType } from 'vue'
 import type { FormDialogSlots, IFormDialogProps } from './types'
 import { isFn } from '@formily/shared'
 import { FormProvider } from '@silver-formily/vue'
 import { ElButton, ElConfigProvider, ElDialog } from 'element-plus'
 import { omit } from 'lodash-es'
+import { computed, ref } from 'vue'
 import { loadElConfigProvider, stylePrefix, useDebonceSubmitting } from '../__builtins__'
+import { useEnterSubmit } from '../__builtins__/shared/use-enter-submit'
+import { resolveDialogElement } from '../shared/overlay-elements'
 
 defineOptions({
   name: 'FormDialogContent',
@@ -41,12 +44,24 @@ const _dialogProps = omit(props.dialogProps, [
   'modelValue',
   'onUpdate:modelValue',
   'beforeClose',
+  'enterSubmit',
 ])
 const { internalSubmitting } = useDebonceSubmitting(props.form)
+const dialogRef = ref<ComponentPublicInstance | null>(null)
+const enableEnterSubmit = computed(() => props.dialogProps.enterSubmit !== false)
+
+useEnterSubmit({
+  visible: computed(() => props.visible),
+  resolve: () => props.resolve(),
+  submitting: internalSubmitting,
+  getContainer: () => resolveDialogElement(dialogRef.value),
+  enabled: enableEnterSubmit,
+})
 </script>
 
 <template>
   <ElDialog
+    ref="dialogRef"
     :class="prefixCls"
     :z-index="elConfig.zIndex"
     v-bind="_dialogProps"

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { Form } from '@formily/core'
-import type { PropType } from 'vue'
+import type { ComponentPublicInstance, PropType } from 'vue'
 import type { FormDrawerSlots, IFormDrawerProps } from './types'
 import { isFn } from '@formily/shared'
 import { FormProvider } from '@silver-formily/vue'
 import { ElButton, ElConfigProvider, ElDrawer } from 'element-plus'
 import { omit } from 'lodash-es'
+import { computed, ref } from 'vue'
 import { loadElConfigProvider, stylePrefix, useDebonceSubmitting } from '../__builtins__'
+import { useEnterSubmit } from '../__builtins__/shared/use-enter-submit'
+import { resolveDrawerElement } from '../shared/overlay-elements'
 
 defineOptions({
   name: 'FormDrawerContent',
@@ -39,11 +42,22 @@ const prefixCls = `${stylePrefix}-form-drawer`
 const elConfig = loadElConfigProvider()
 
 const { internalSubmitting } = useDebonceSubmitting(props.form)
-const _drawerProps = omit(props.drawerProps, ['modelValue', 'onUpdate:modelValue', 'beforeClose'])
+const _drawerProps = omit(props.drawerProps, ['modelValue', 'onUpdate:modelValue', 'beforeClose', 'enterSubmit'])
+const drawerRef = ref<ComponentPublicInstance | null>(null)
+const enableEnterSubmit = computed(() => props.drawerProps.enterSubmit !== false)
+
+useEnterSubmit({
+  visible: computed(() => props.visible),
+  resolve: () => props.resolve(),
+  submitting: internalSubmitting,
+  getContainer: () => resolveDrawerElement(drawerRef.value),
+  enabled: enableEnterSubmit,
+})
 </script>
 
 <template>
   <ElDrawer
+    ref="drawerRef"
     :class="prefixCls"
     :z-index="elConfig.zIndex"
     v-bind="_drawerProps"
