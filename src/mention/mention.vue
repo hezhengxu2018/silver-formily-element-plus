@@ -3,6 +3,7 @@ import type { Field } from '@formily/core'
 import type { MentionOption } from 'element-plus/es/components/mention'
 import { useField } from '@silver-formily/vue'
 import { ElMention } from 'element-plus'
+import { computed } from 'vue'
 import { useCleanAttrs } from '../__builtins__'
 
 defineOptions({
@@ -21,8 +22,27 @@ const slots = defineSlots<{
   append?: () => any
 }>()
 
-const { props: mentionProps } = useCleanAttrs()
+const { props: rawMentionProps } = useCleanAttrs()
 const fieldRef = useField<Field>()
+
+const mentionProps = computed(() => {
+  const props = rawMentionProps.value
+  const { onSearch } = props
+  if (!onSearch) {
+    return props
+  }
+
+  return {
+    ...props,
+    onSearch(pattern: string, prefix: string) {
+      return (onSearch as (pattern: string, prefix: string, field?: Field) => any)(
+        pattern,
+        prefix,
+        fieldRef.value,
+      )
+    },
+  }
+})
 </script>
 
 <template>

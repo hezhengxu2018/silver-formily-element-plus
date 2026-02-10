@@ -85,6 +85,30 @@ describe('Mention', () => {
     })
   })
 
+  describe('事件扩展', () => {
+    it('search 事件应该注入 field 引用', async () => {
+      const onSearch = vi.fn()
+      render(() => (
+        <FormProvider form={createForm()}>
+          <Field name="content" component={[Mention]} dataSource={options} onSearch={onSearch} />
+        </FormProvider>
+      ))
+
+      const input = getInputEl()
+      expect(input).toBeTruthy()
+      await userEvent.click(input!)
+      await userEvent.type(input!, '@V')
+
+      await vi.waitFor(() => {
+        expect(onSearch).toHaveBeenCalled()
+      })
+
+      const lastCall = onSearch.mock.calls.at(-1)
+      const fieldArg = lastCall[2]
+      expect(fieldArg?.path.toString()).toBe('content')
+    })
+  })
+
   describe('ReadPretty', () => {
     it('应该在只读态下展示预览文本', async () => {
       render(() => (

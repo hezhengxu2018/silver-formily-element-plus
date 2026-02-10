@@ -32,7 +32,7 @@ mention/template-slots
 
 - 组件完整透传 Element Plus Mention 的属性/事件，可通过 `dataSource`（或直接传入 `options`）管理下拉数据，还可以结合 `whole`、`checkIsWhole`、`prefix` 等能力控制提及行为。
 - `props` 属性用于映射自定义字段名，例如远端返回 `id`、`nickname` 等键值时无需手动转换。
-- `onSearch` 会在输入触发字符后被调用，方便实现远程搜索时拉起 loading 并更新 `options`。
+- `onSearch(pattern, prefix, field)` 会在输入触发字符后被调用，第三个参数会注入当前 Formily `field`，方便实现远程搜索时拉起 loading 并更新 `options`。
 
 ### 插槽
 
