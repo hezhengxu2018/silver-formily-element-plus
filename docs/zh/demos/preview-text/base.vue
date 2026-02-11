@@ -63,6 +63,12 @@ const form = createForm()
         />
         <SchemaStringField
           x-decorator="FormItem"
+          title="颜色预览"
+          x-component="PreviewText.ColorPicker"
+          default="#409EFF"
+        />
+        <SchemaStringField
+          x-decorator="FormItem"
           title="Cascader预览"
           x-component="PreviewText.Cascader"
           :default="['hangzhou', 'yuhang']"
