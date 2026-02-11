@@ -1,0 +1,34 @@
+import { createForm } from '@formily/core'
+import { Field, FormProvider } from '@silver-formily/vue'
+import { userEvent } from '@vitest/browser/context'
+import { describe, expect, it } from 'vitest'
+import { render } from 'vitest-browser-vue'
+import DatePickerPane from '../index'
+import 'element-plus/theme-chalk/index.css'
+
+describe('DatePickerPane', () => {
+  it('应该正常渲染面板', async () => {
+    render(() => (
+      <FormProvider form={createForm()}>
+        <Field name="date" component={[DatePickerPane]} />
+      </FormProvider>
+    ))
+
+    const panel = document.querySelector('.el-picker-panel')
+    expect(panel).toBeInTheDocument()
+  })
+
+  it('应该在选择日期后更新格式化的表单值', async () => {
+    const form = createForm()
+    render(() => (
+      <FormProvider form={form}>
+        <Field name="date" component={[DatePickerPane]} />
+      </FormProvider>
+    ))
+
+    const dateCell = document.querySelector('.el-date-table td.available')
+    await userEvent.click(dateCell)
+
+    expect(form.values.date).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+})
