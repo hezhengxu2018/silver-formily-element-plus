@@ -12,11 +12,12 @@ import type { IFormItemProps } from './types'
 import { CircleCheck, CircleClose, InfoFilled, Warning } from '@element-plus/icons-vue'
 import { isArr, isValid } from '@formily/shared'
 import { useField } from '@silver-formily/vue'
+import { useResizeObserver } from '@vueuse/core'
 import { ElIcon, ElTooltip, formItemContextKey, useFormSize, useId, useNamespace } from 'element-plus'
 import { addUnit } from 'element-plus/es/utils/index'
 import { pick } from 'lodash-es'
 import { computed, isVNode, provide, reactive, ref, useSlots, watch } from 'vue'
-import { stylePrefix, useResizeObserver } from '../__builtins__'
+import { stylePrefix } from '../__builtins__'
 import { FORM_LAYOUT_PROPS_KEYS, formLayoutShallowContext, useFormLayout } from '../form-layout/utils'
 
 defineOptions({

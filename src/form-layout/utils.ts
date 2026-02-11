@@ -1,8 +1,8 @@
 import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { IFormLayoutProps } from './types'
 import { isArr, isValid } from '@formily/shared'
+import { useResizeObserver } from '@vueuse/core'
 import { computed, inject, ref } from 'vue'
-import { useResizeObserver } from '../__builtins__'
 
 export function calcBreakpointIndex(breakpoints: number[], width: number): number {
   for (const [i, breakpoint] of breakpoints.entries()) {

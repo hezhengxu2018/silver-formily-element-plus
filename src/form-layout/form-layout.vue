@@ -2,9 +2,10 @@
 import type { FormContext } from 'element-plus'
 import type { IFormLayoutProps } from './types'
 import { isEmpty, isValid } from '@formily/shared'
+import { useThrottleFn } from '@vueuse/core'
 import { formContextKey, useId } from 'element-plus'
 import { computed, provide, reactive, ref, toRef, watch } from 'vue'
-import { stylePrefix, useCleanAttrs, useThrottleFn } from '../__builtins__'
+import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { filterValidFormLayoutProps, formLayoutDeepContext, formLayoutIdContext, formLayoutShallowContext, useFormDeepLayout, useResponsiveFormLayout } from './utils'
 
 defineOptions({

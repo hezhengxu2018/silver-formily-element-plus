@@ -1,8 +1,8 @@
 import type { Form } from '@formily/core'
 import { reaction } from '@formily/reactive'
+import { useDebounceFn } from '@vueuse/core'
 import { ElLoading } from 'element-plus'
 import { ref } from 'vue'
-import { useDebounceFn } from './hooks'
 
 export async function loading(loadingText = 'Loading...', processor: () => Promise<any>) {
   let loadingInstance
