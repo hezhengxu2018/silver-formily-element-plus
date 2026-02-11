@@ -3,14 +3,14 @@ import { Field, FormProvider } from '@silver-formily/vue'
 import { userEvent } from '@vitest/browser/context'
 import { describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
-import DatePickerPane from '../index'
+import DatePickerPanel from '../index'
 import 'element-plus/theme-chalk/index.css'
 
-describe('DatePickerPane', () => {
+describe('DatePickerPanel', () => {
   it('应该正常渲染面板', async () => {
     render(() => (
       <FormProvider form={createForm()}>
-        <Field name="date" component={[DatePickerPane]} />
+        <Field name="date" component={[DatePickerPanel]} />
       </FormProvider>
     ))
 
@@ -22,7 +22,7 @@ describe('DatePickerPane', () => {
     const form = createForm()
     render(() => (
       <FormProvider form={form}>
-        <Field name="date" component={[DatePickerPane]} />
+        <Field name="date" component={[DatePickerPanel]} />
       </FormProvider>
     ))
 

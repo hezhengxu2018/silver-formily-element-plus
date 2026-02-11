@@ -1,4 +1,4 @@
-# DatePickerPane
+# DatePickerPanel
 
 > 日期面板（无输入框）
 
@@ -8,7 +8,7 @@
 
 :::demo
 
-date-picker-pane/markup-schema
+date-picker-panel/markup-schema
 
 :::
 
@@ -16,7 +16,7 @@ date-picker-pane/markup-schema
 
 :::demo
 
-date-picker-pane/template
+date-picker-panel/template
 
 :::
 

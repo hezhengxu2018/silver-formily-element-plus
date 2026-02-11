@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { createForm } from '@formily/core'
-import { DatePickerPane, Form, FormItem, Submit } from '@silver-formily/element-plus'
+import { DatePickerPanel, Form, FormItem, Submit } from '@silver-formily/element-plus'
 import { createSchemaField } from '@silver-formily/vue'
 
 const form = createForm()
 const { SchemaField, SchemaStringField, SchemaArrayField } = createSchemaField({
   components: {
     FormItem,
-    DatePickerPane,
+    DatePickerPanel,
   },
 })
 
@@ -23,14 +23,14 @@ async function onSubmit(value) {
         name="inlineDate"
         title="内联日期"
         x-decorator="FormItem"
-        x-component="DatePickerPane"
+        x-component="DatePickerPanel"
         :x-component-props="{ style: 'width: 340px' }"
       />
       <SchemaArrayField
         name="inlineRange"
         title="内联范围"
         x-decorator="FormItem"
-        x-component="DatePickerPane"
+        x-component="DatePickerPanel"
         :x-component-props="{
           type: 'daterange',
           style: 'width: 540px',

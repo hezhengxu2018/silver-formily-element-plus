@@ -4,7 +4,7 @@ import { mapReadPretty } from '../__builtins__'
 import { getDefaultFormat } from '../date-picker/utils'
 import { PreviewText } from '../preview-text'
 
-export const DatePickerPane = connect<typeof ElDatePickerPanel>(
+export const DatePickerPanel = connect<typeof ElDatePickerPanel>(
   ElDatePickerPanel,
   mapProps(
     {
@@ -35,4 +35,4 @@ export const DatePickerPane = connect<typeof ElDatePickerPanel>(
   mapReadPretty(PreviewText.DatePicker),
 )
 
-export default DatePickerPane
+export default DatePickerPanel

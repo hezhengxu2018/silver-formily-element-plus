@@ -143,9 +143,8 @@
         "text": "TimePicker 时间选择器"
       },
       {
-        "link": "/zh/component/date-picker-pane",
-        "text": "DatePickerPane 日期选择器面板",
-        "promotion": "2.3.0"
+        "link": "/zh/component/date-picker-panel",
+        "text": "DatePickerPanel 日期选择器面板"
       },
       {
         "link": "/zh/component/time-select",
