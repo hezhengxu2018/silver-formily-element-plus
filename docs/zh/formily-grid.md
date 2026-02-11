@@ -55,21 +55,21 @@ const dispose = grid.connect(container)
 
 `Grid` 构造函数接受一个 `IGridOptions` 对象，包含以下配置项：
 
-| 选项 | 类型 | 默认值 | 描述 |
-|------|------|--------|------|
-| `maxRows` | `number` | `Infinity` | 最大行数 |
-| `maxColumns` | `number \| number[]` | `Infinity` | 最大列数，可以为数组以对应不同断点 |
-| `minColumns` | `number \| number[]` | `1` | 最小列数，可以为数组以对应不同断点 |
-| `maxWidth` | `number \| number[]` | `Infinity` | 列的最大宽度，可以为数组以对应不同断点 |
-| `minWidth` | `number \| number[]` | `100` | 列的最小宽度，可以为数组以对应不同断点 |
-| `breakpoints` | `number[]` | `[720, 1280, 1920]` | 断点宽度数组 |
-| `columnGap` | `number \| number[]` | `8` | 列间距，可以为数组以对应不同断点 |
-| `rowGap` | `number \| number[]` | `4` | 行间距，可以为数组以对应不同断点 |
-| `colWrap` | `boolean \| boolean[]` | `true` | 是否允许列换行，可以为数组以对应不同断点 |
-| `strictAutoFit` | `boolean` | `false` | 是否严格按照配置的宽度限制自动适应 |
-| `shouldVisible` | `(node: GridNode, grid: Grid<HTMLElement>) => boolean` | - | 自定义元素可见性的函数 |
-| `onDigest` | `(grid: Grid<HTMLElement>) => void` | - | 布局计算完成后的回调 |
-| `onInitialized` | `(grid: Grid<HTMLElement>) => void` | - | 网格初始化完成后的回调 |
+| 选项            | 类型                                                   | 默认值              | 描述                                     |
+| --------------- | ------------------------------------------------------ | ------------------- | ---------------------------------------- |
+| `maxRows`       | `number`                                               | `Infinity`          | 最大行数                                 |
+| `maxColumns`    | `number \| number[]`                                   | `Infinity`          | 最大列数，可以为数组以对应不同断点       |
+| `minColumns`    | `number \| number[]`                                   | `1`                 | 最小列数，可以为数组以对应不同断点       |
+| `maxWidth`      | `number \| number[]`                                   | `Infinity`          | 列的最大宽度，可以为数组以对应不同断点   |
+| `minWidth`      | `number \| number[]`                                   | `100`               | 列的最小宽度，可以为数组以对应不同断点   |
+| `breakpoints`   | `number[]`                                             | `[720, 1280, 1920]` | 断点宽度数组                             |
+| `columnGap`     | `number \| number[]`                                   | `8`                 | 列间距，可以为数组以对应不同断点         |
+| `rowGap`        | `number \| number[]`                                   | `4`                 | 行间距，可以为数组以对应不同断点         |
+| `colWrap`       | `boolean \| boolean[]`                                 | `true`              | 是否允许列换行，可以为数组以对应不同断点 |
+| `strictAutoFit` | `boolean`                                              | `false`             | 是否严格按照配置的宽度限制自动适应       |
+| `shouldVisible` | `(node: GridNode, grid: Grid<HTMLElement>) => boolean` | -                   | 自定义元素可见性的函数                   |
+| `onDigest`      | `(grid: Grid<HTMLElement>) => void`                    | -                   | 布局计算完成后的回调                     |
+| `onInitialized` | `(grid: Grid<HTMLElement>) => void`                    | -                   | 网格初始化完成后的回调                   |
 
 每个子元素在网格中被表示为一个 `GridNode` 对象，包含以下属性：
 

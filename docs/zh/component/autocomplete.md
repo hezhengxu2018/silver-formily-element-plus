@@ -48,9 +48,9 @@ const autocompleteRef = fieldRef.value?.invoke('getElAutocompleteRef')
 
 ### 扩展属性
 
-| 属性名  | 类型 | 描述 | 默认值 |
-| ------- | ---- | ---- | ------ |
-| options | ^[array]`object[]` | 选项配置数组，等价于 `dataSource`，在未显式提供 `fetchSuggestions` 时会自动转为建议列表 | [] |
+| 属性名  | 类型               | 描述                                                                                    | 默认值 |
+| ------- | ------------------ | --------------------------------------------------------------------------------------- | ------ |
+| options | ^[array]`object[]` | 选项配置数组，等价于 `dataSource`，在未显式提供 `fetchSuggestions` 时会自动转为建议列表 | []     |
 
 - 组件会在没有 `fetchSuggestions` 时，基于 `dataSource / options` 自动实现本地模糊过滤。
 - 当你自定义 `fetchSuggestions(query, cb, field)` 时，第三个 `field` 参数会暴露当前 Formily 字段实例，你需要手动赋值 `field.loading` 来标明field的状态（从语义化角度考虑是有意义的，大部分时候没有这个必要）,更多时候是通过field访问表单的其他Field的值。
@@ -71,13 +71,13 @@ function remoteFetch(query: string, cb: (data: Option[]) => void, field?: Field)
 
 组件继承了 Element Plus `ElAutocomplete` 的全部插槽。其中`default`、`header`、`footer` 插槽额外注入了 Formily `field` 引用，便于在建议项里访问表单态。
 
-| 插槽名 | 描述 | 类型 |
-| ------ | ---- | ---- |
-| default | 自定义输入建议内容 | ^[object]`{ item, field }` |
-| header | 下拉列表顶部内容 | ^[object]`{ field }` |
-| footer | 下拉列表底部内容 | ^[object]`{ field }` |
-| loading | 自定义加载状态内容 | -- |
-| prefix | 输入框头部内容 | -- |
-| suffix | 输入框尾部内容 | -- |
-| prepend | 输入框前置内容（位于 prefix 之前） | -- |
-| append | 输入框后置内容（位于 suffix 之后） | -- |
+| 插槽名  | 描述                               | 类型                       |
+| ------- | ---------------------------------- | -------------------------- |
+| default | 自定义输入建议内容                 | ^[object]`{ item, field }` |
+| header  | 下拉列表顶部内容                   | ^[object]`{ field }`       |
+| footer  | 下拉列表底部内容                   | ^[object]`{ field }`       |
+| loading | 自定义加载状态内容                 | --                         |
+| prefix  | 输入框头部内容                     | --                         |
+| suffix  | 输入框尾部内容                     | --                         |
+| prepend | 输入框前置内容（位于 prefix 之前） | --                         |
+| append  | 输入框后置内容（位于 suffix 之后） | --                         |

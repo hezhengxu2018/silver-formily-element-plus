@@ -78,9 +78,9 @@ array-table/effects-json-schema
 
 #### 扩展属性
 
-| 属性名          | 类型                          | 描述         | 默认值 |
-| ----------------| ----------------------------- | ------------ | ------ |
-| pagination      | boolean                       | 是否启用分页 | `true` |
+| 属性名          | 类型                          | 描述         | 默认值                                                           |
+| --------------- | ----------------------------- | ------------ | ---------------------------------------------------------------- |
+| pagination      | boolean                       | 是否启用分页 | `true`                                                           |
 | paginationProps | ^[object]`参考Pagination组件` | 分页组件属性 | `{ backgound: true, layout: "total, sizes, prev, pager, next" }` |
 
 ### ArrayTable.Column
@@ -96,9 +96,10 @@ array-table/effects-json-schema
 | asterisk | boolean | 星号显示 | true   |
 
 ::: tip 提示
+
 1. ArrayTableColumn 会自动检查内部的 FormItem 是否必填，并自动在表头加上红色星号。如果不希望显示，可通过 `asterisk` 属性进行覆盖。
 2. AtrrayTableColumn 仅继承属性，不支持插槽。
-:::
+   :::
 
 ### ArrayTable.SortHandle
 

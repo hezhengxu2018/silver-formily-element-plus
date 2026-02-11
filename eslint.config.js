@@ -14,4 +14,7 @@ export default antfu({
     'unicorn/no-array-reduce': 'off',
     'test/prefer-lowercase-title': 'off',
   },
+  formatters: {
+    markdown: 'prettier',
+  },
 })

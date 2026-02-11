@@ -46,22 +46,23 @@ tree/template-others
 
 ### 扩展属性
 
-| 属性名              | 类型                                            | 描述                                                 | 默认值  |
-| ------------------- | ----------------------------------------------  | ---------------------------------------------------- | ------- |
-| nodeKey             | `string`                                        | 节点的唯一标识符，现在是**必填项**                   | -       |
-| valueType           | ^[enum]`'all' \| 'parent' \| 'child' \| 'path'` | 数据类型，仅在`checkStrictly`为`false`生效           | `'all'` |
-| includeHalfChecked  | `boolean`                                       | 是否包含半勾选的节点，仅在`valueType`为`'all'`时生效 | `false` |
-| optionAsValue       | `boolean`                                       | 是否将节点值作为选项的值，`valueType`为`path`时无效  | `false` |
-| optionFormatter     | `(node: TreeNode) => TreeNode`                  | 选项格式化函数，仅在`optionAsValue`为`true`时生效    | -       |
-| height              | `number`                                        | ElScorller组件的height属性                           | -       |
-| maxHeight           | `number`                                        | ElScorller组件的maxHeight属性                        | -       |
+| 属性名             | 类型                                            | 描述                                                 | 默认值  |
+| ------------------ | ----------------------------------------------- | ---------------------------------------------------- | ------- |
+| nodeKey            | `string`                                        | 节点的唯一标识符，现在是**必填项**                   | -       |
+| valueType          | ^[enum]`'all' \| 'parent' \| 'child' \| 'path'` | 数据类型，仅在`checkStrictly`为`false`生效           | `'all'` |
+| includeHalfChecked | `boolean`                                       | 是否包含半勾选的节点，仅在`valueType`为`'all'`时生效 | `false` |
+| optionAsValue      | `boolean`                                       | 是否将节点值作为选项的值，`valueType`为`path`时无效  | `false` |
+| optionFormatter    | `(node: TreeNode) => TreeNode`                  | 选项格式化函数，仅在`optionAsValue`为`true`时生效    | -       |
+| height             | `number`                                        | ElScorller组件的height属性                           | -       |
+| maxHeight          | `number`                                        | ElScorller组件的maxHeight属性                        | -       |
 
 其余属性参考 [https://cn.element-plus.org/zh-CN/component/tree.html](https://cn.element-plus.org/zh-CN/component/tree.html)
 
 ::: warning 注意
+
 1. 组件是有保留值的，`default-checked-keys` `show-checkbox`属性以及`check`事件已经被组件内占用，请避免使用。
 2. 只有`height`和`max-height`属性会被传到ElScroll组件上，请勿添加别的ElScroll的属性或事件监听。
-:::
+   :::
 
 ## 获取实例
 

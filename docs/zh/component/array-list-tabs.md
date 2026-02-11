@@ -26,9 +26,9 @@ array-list-tabs/markup-schema-show-title-field-in-tab
 
 ### ArrayListTabs Props
 
-| 属性名              | 类型       | 描述                                                                     | 默认值 |
-|-------------------- |----------- |------------------------------------------------------------------------- |------- |
-| tabTitleField       | ^[string]  | 必填，作为标签页标题的field的name。对应的field有值时会作为标签页标题渲染 | -      |
+| 属性名              | 类型       | 描述                                                                     | 默认值  |
+| ------------------- | ---------- | ------------------------------------------------------------------------ | ------- |
+| tabTitleField       | ^[string]  | 必填，作为标签页标题的field的name。对应的field有值时会作为标签页标题渲染 | -       |
 | showTitleFieldInTab | ^[boolean] | 是否将`tabTitleField`作为标签页标题。                                    | `false` |
 
 ### ArrayListTabs.Remove

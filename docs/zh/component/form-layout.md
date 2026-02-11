@@ -53,24 +53,24 @@ form-layout/template-grid
 
 ## API
 
-| 属性名                  | 说明                    | 类型                                                                                   | 默认值       |
-| ----------------------- | ----------------------- | -------------------------------------------------------------------------------------- | ---------- |
-| tag                     | 提供layout的容器标签    | ^[string] \| ^[VueComponent]                                                           | `'form'`     |
-| colon                   | 是否有冒号              | ^[boolean]                                                                             | `true`       |
-| labelAlign              | 标签内容对齐            | ^[enum]`'right' \| 'left' \| ('right' \| 'left')[]`                                    | -            |
-| wrapperAlign            | 组件容器内容对齐        | ^[enum]`'right' \| 'left' \| ('right' \| 'left')[]`                                    | -            |
-| labelWrap               | 标签内容换行            | ^[boolean]                                                                             | `false`      |
-| labelWidth              | 标签宽度(px)            | ^[number]                                                                              | -            |
-| wrapperWidth            | 组件容器宽度(px)        | ^[number]                                                                              | -            |
-| labelCol                | 标签宽度(24 column)     | ^[number] \| ^[array]`number[]`                                                           | -          |
-| wrapperCol              | 组件容器宽度(24 column) | ^[number] \| ^[array]`number[]`                                                           | -          |
-| fullness                | 组件容器宽度 100%       | ^[boolean]                                                                             | `false`      |
-| size                    | 组件尺寸                | ^[enum]`'small' \| 'default' \| 'large'`                                               | `'default'`  |
+| 属性名                  | 说明                    | 类型                                                                                          | 默认值         |
+| ----------------------- | ----------------------- | --------------------------------------------------------------------------------------------- | -------------- |
+| tag                     | 提供layout的容器标签    | ^[string] \| ^[VueComponent]                                                                  | `'form'`       |
+| colon                   | 是否有冒号              | ^[boolean]                                                                                    | `true`         |
+| labelAlign              | 标签内容对齐            | ^[enum]`'right' \| 'left' \| ('right' \| 'left')[]`                                           | -              |
+| wrapperAlign            | 组件容器内容对齐        | ^[enum]`'right' \| 'left' \| ('right' \| 'left')[]`                                           | -              |
+| labelWrap               | 标签内容换行            | ^[boolean]                                                                                    | `false`        |
+| labelWidth              | 标签宽度(px)            | ^[number]                                                                                     | -              |
+| wrapperWidth            | 组件容器宽度(px)        | ^[number]                                                                                     | -              |
+| labelCol                | 标签宽度(24 column)     | ^[number] \| ^[array]`number[]`                                                               | -              |
+| wrapperCol              | 组件容器宽度(24 column) | ^[number] \| ^[array]`number[]`                                                               | -              |
+| fullness                | 组件容器宽度 100%       | ^[boolean]                                                                                    | `false`        |
+| size                    | 组件尺寸                | ^[enum]`'small' \| 'default' \| 'large'`                                                      | `'default'`    |
 | layout                  | 布局模式                | ^[enum]`'vertical' \| 'horizontal' \| 'inline' \| ('vertical' \| 'horizontal' \| 'inline')[]` | `'horizontal'` |
-| feedbackLayout          | 反馈布局                | ^[enum]`'loose' \| 'terse' \| 'popover'`                                               | -            |
-| tooltipLayout           | 提示布局                | ^[enum]`'icon' \| 'text'`                                                              | `'icon'`     |
-| breakpoints             | 容器尺寸断点            | ^[array]`number[]`                                                                     | -            |
-| shallow                 | 上下文浅层传递          | ^[boolean]                                                                             | `true`       |
-| hideRequiredAsterisk    | 隐藏必填星号            | ^[boolean]                                                                             | -            |
-| statusIcon              | 显示状态图标            | ^[boolean]                                                                             | -            |
-| requireAsteriskPosition | 必填星号位置            | ^[enum]`'left' \| 'right'`                                                             | -            |
+| feedbackLayout          | 反馈布局                | ^[enum]`'loose' \| 'terse' \| 'popover'`                                                      | -              |
+| tooltipLayout           | 提示布局                | ^[enum]`'icon' \| 'text'`                                                                     | `'icon'`       |
+| breakpoints             | 容器尺寸断点            | ^[array]`number[]`                                                                            | -              |
+| shallow                 | 上下文浅层传递          | ^[boolean]                                                                                    | `true`         |
+| hideRequiredAsterisk    | 隐藏必填星号            | ^[boolean]                                                                                    | -              |
+| statusIcon              | 显示状态图标            | ^[boolean]                                                                                    | -              |
+| requireAsteriskPosition | 必填星号位置            | ^[enum]`'left' \| 'right'`                                                                    | -              |

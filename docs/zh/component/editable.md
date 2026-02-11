@@ -25,6 +25,7 @@ editable/markup-schema
 :::
 
 ## JSON Schema 案例
+
 > 使用`editProps`属性控制编辑状态下的尺寸
 
 :::demo
@@ -57,9 +58,9 @@ editable/template-validator
 
 参考 [/component/form-item.html#api](./form-item.html#api)
 
-| 参数      | 说明                    | 类型                           | 默认值    |
-| --------- | ----------------------- | ------------------------------ | --------- |
-| editProps | 编辑状态下的额外属性值  | ^[object]`参考form-item属性值` | `null`    |
+| 参数      | 说明                   | 类型                           | 默认值 |
+| --------- | ---------------------- | ------------------------------ | ------ |
+| editProps | 编辑状态下的额外属性值 | ^[object]`参考form-item属性值` | `null` |
 
 ### Editable.Popover
 

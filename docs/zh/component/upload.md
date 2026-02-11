@@ -35,20 +35,21 @@ upload/template
 ## Props
 
 ::: tip 提示
+
 1. 现在组件的`fileList`属性现在会映射为`Field`的`dataSource`属性，而不是之前的`value`属性，当`dataSource`（即`fileList`）改变时会触发onChange事件，`value`会经过`formatValue`函数处理。
 
 2. 在`limit`为`1`时会自动替换掉之前的文件，这部分逻辑无法覆写。
 
 3. 如果组件的`accept`属性包含`image`字符且`fileList`中的项提供了url属性则会自动开启图片预览功能，想要禁用此功能可以配置`onPreview`为一个空函数。
-:::
+   :::
 
-| 属性名                    | 说明                                                     | 类型                                           | 默认值                                      |
-| ------------------------- | -------------------------------------------------------- | ---------------------------------------------- | --------------------------------------- |
-| textContent               | 上传按钮的文本内容，在不同的上传模式下显示位置不同       | `string`                                       | `''`                                    |
-| errorAdaptor              | 错误信息适配器，用于自定义错误信息的展示格式             | ^[Function]`(error?: Error) => string`         | `error => error?.message`                         |
-| formatValue ^(1.0.0)      | 格式化函数，用于将文件列表转换为表单最终提交的值         | ^[Function]`(fileList?: UploadFile[]) => any`  | `fileList => fileList`                            |
-| fileList ^(1.0.0)         | 文件列表，映射为`dataSource`,`ElUpload`的 fileList 属性  | ^[array]`UploadFile[]`                         | `[]`                                       |
-| imageViewerProps ^(1.0.0) | 图片预览器的属性配置，当上传图片时可用于自定义预览行为   | ^[object]`ImageViewerProps`                    | `{ teleported: true, showProgress: true }` |
+| 属性名                    | 说明                                                    | 类型                                          | 默认值                                     |
+| ------------------------- | ------------------------------------------------------- | --------------------------------------------- | ------------------------------------------ |
+| textContent               | 上传按钮的文本内容，在不同的上传模式下显示位置不同      | `string`                                      | `''`                                       |
+| errorAdaptor              | 错误信息适配器，用于自定义错误信息的展示格式            | ^[Function]`(error?: Error) => string`        | `error => error?.message`                  |
+| formatValue ^(1.0.0)      | 格式化函数，用于将文件列表转换为表单最终提交的值        | ^[Function]`(fileList?: UploadFile[]) => any` | `fileList => fileList`                     |
+| fileList ^(1.0.0)         | 文件列表，映射为`dataSource`,`ElUpload`的 fileList 属性 | ^[array]`UploadFile[]`                        | `[]`                                       |
+| imageViewerProps ^(1.0.0) | 图片预览器的属性配置，当上传图片时可用于自定义预览行为  | ^[object]`ImageViewerProps`                   | `{ teleported: true, showProgress: true }` |
 
 `onChange`事件与`onUpdate:fileList`事件被占用，请勿使用。其余属性与事件请参考 [https://cn.element-plus.org/zh-CN/component/upload.html](https://cn.element-plus.org/zh-CN/component/upload.html)
 

@@ -36,13 +36,13 @@ mention/template-slots
 
 ### 插槽
 
-| 插槽名 | 描述 | 类型 |
-| ------ | ---- | ---- |
-| prefix | 输入框前置内容 | -- |
-| suffix | 输入框后置内容 | -- |
-| prepend | 输入框前缀内容（位于 prefix 之前） | -- |
-| append | 输入框后缀内容（位于 suffix 之后） | -- |
-| header | 下拉面板头部，额外注入 `field` 引用 | ^[object]`{ field }` |
-| footer | 下拉面板底部，额外注入 `field` 引用 | ^[object]`{ field }` |
-| label | 自定义选项渲染，除了 `item`、`index` 之外还会注入 `field` | ^[object]`{ item, index, field }` |
-| loading | 自定义加载状态 | -- |
+| 插槽名  | 描述                                                      | 类型                              |
+| ------- | --------------------------------------------------------- | --------------------------------- |
+| prefix  | 输入框前置内容                                            | --                                |
+| suffix  | 输入框后置内容                                            | --                                |
+| prepend | 输入框前缀内容（位于 prefix 之前）                        | --                                |
+| append  | 输入框后缀内容（位于 suffix 之后）                        | --                                |
+| header  | 下拉面板头部，额外注入 `field` 引用                       | ^[object]`{ field }`              |
+| footer  | 下拉面板底部，额外注入 `field` 引用                       | ^[object]`{ field }`              |
+| label   | 自定义选项渲染，除了 `item`、`index` 之外还会注入 `field` | ^[object]`{ item, index, field }` |
+| loading | 自定义加载状态                                            | --                                |

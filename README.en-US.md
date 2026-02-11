@@ -21,9 +21,9 @@ https://element-plus.silver-formily.org/
 
 ## Installation
 
-~~~bash
+```bash
 pnpm add @silver-formily/element-plus
-~~~
+```
 
 This package relies on peer dependencies such as Formily, Element Plus, Vue, and @silver-formily/vue. Refer to the documentation or package.json for compatible versions and setup details.
 

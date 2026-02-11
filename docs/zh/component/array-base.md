@@ -1,4 +1,5 @@
 # ArrayBase
+
 > Array型控件的基础数组组件，无法独立使用。
 
 为了方便使用已经整合在所有通过Array控制的组件中，如`ArrayCards.Addition` `ArrayCards.MoveUp`等方式调用，由于该类组件必须要通过Schema的方式结合别的组件使用，且不是所有的Array型组件支持全部的ArrayBase控件，需要结合具体组件使用，因此不提供单独的导出。

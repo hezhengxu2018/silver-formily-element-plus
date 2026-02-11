@@ -88,14 +88,15 @@ select/template-slot-header
 
 ### 扩展属性
 
-| 属性名  | 类型                                                                                      | 描述                                       | 默认值 |
-| ------- | ----------------------------------------------------------------------------------------- | ------------------------------------------ | ------ |
-| options | [SelectOptionProps](https://cn.element-plus.org/zh-CN/component/select.html#option-api)[] | 选项配置数组，一般情况下请通过`dataSource`来配置   | []     |
+| 属性名  | 类型                                                                                      | 描述                                             | 默认值 |
+| ------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------ | ------ |
+| options | [SelectOptionProps](https://cn.element-plus.org/zh-CN/component/select.html#option-api)[] | 选项配置数组，一般情况下请通过`dataSource`来配置 | []     |
 
 ::: tip 提示
+
 1. 如果在`options`中有`options`数组则会渲染为OptionGroup，第一层的`options`属性会当作`ElOptionGroup`的属性。具体请参考Demo。
 2. 如果没有提供`valueKey`配置项的话`label`属性会作为遍历的key值，请保证其唯一性。
-:::
+   :::
 
 ### 插槽
 
@@ -107,12 +108,12 @@ select/template-slot-header
 
 :::
 
-| 插槽名 | 描述           | 类型                        |
-| ------ | -------------- | --------------------------- |
-| header | 下拉框头部插槽 | ^[object]`{ field }`        |
-| footer | 下拉框尾部插槽 | ^[object]`{ field }`        |
-| prefix | Select头部插槽 | --                          |
-| empty  | 无选项时插槽   | --                          |
-| tag    | 自定义标签内容 | ^[object]`{ field }`        |
-| loading| 自定义loading  | --                          |
-| label  | 自定义标签内容 | ^[object]`{ label, value }` |
+| 插槽名  | 描述           | 类型                        |
+| ------- | -------------- | --------------------------- |
+| header  | 下拉框头部插槽 | ^[object]`{ field }`        |
+| footer  | 下拉框尾部插槽 | ^[object]`{ field }`        |
+| prefix  | Select头部插槽 | --                          |
+| empty   | 无选项时插槽   | --                          |
+| tag     | 自定义标签内容 | ^[object]`{ field }`        |
+| loading | 自定义loading  | --                          |
+| label   | 自定义标签内容 | ^[object]`{ label, value }` |
