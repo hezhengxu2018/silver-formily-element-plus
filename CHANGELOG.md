@@ -2,6 +2,25 @@
 
 
 
+# [2.3.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.2.0...v2.3.0) (2026-02-16)
+
+
+### Bug Fixes
+
+* **utils:** 修复错误的hooks引入 ([a373369](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/a3733692020f7d91ccc106c9ab6b70c200407054))
+
+
+### Features
+
+* **autocomplete:** 添加autocomplete组件 ([e982d9f](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/e982d9f46ced0d5704c96b2b5f342120742aa519))
+* **color-picker-panel:** 新增ColorPickerPanel组件封装 ([094b563](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/094b563f42865afaa46287e48a4021a12a479aa5))
+* **color-picker:** 新增color-picker组件的封装 ([b20f323](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/b20f323afca7f3217549db8134155d5eb913fc68))
+* **date-picker-pane:** 新增date-picker-pane组件 ([477e161](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/477e1612738858411e302308a4e6045591ccd487))
+* **form-dialog,form-drawer:** 添加对回车键提交弹出层表单的支持 ([46ed303](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/46ed303069d793ddfd91b06fcd141fed8dd61b6e))
+* **input-tag:** 新增InputTag组件 ([d5146f7](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/d5146f74a45a56ebd4c5a62aa15553ebf921ea85))
+* **mention:** 新增mention组件 ([b7772d0](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/b7772d0f28890eada247d9e5b6c3a50aead4d143))
+* **mention:** mention组件onSearch函数支持传入field ([c5cf7ea](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/c5cf7ea644ebddd05a01cb67a6f2b9164db0dc98))
+
 # [2.2.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.1.0...v2.2.0) (2026-02-07)
 
 
