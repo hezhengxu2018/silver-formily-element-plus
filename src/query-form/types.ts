@@ -1,4 +1,4 @@
-import type { Form, GeneralField } from '@formily/core'
+import type { GeneralField } from '@formily/core'
 import type { Grid, GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
 import type { Component } from 'vue'
@@ -19,7 +19,6 @@ export type QueryFormVisible = (context: QueryFormVisibleContext) => boolean
 
 // #region props
 export interface IQueryFormProps {
-  form?: Form
   schema?: ISchema
   schemaField?: Component
   components?: Record<string, Component>
@@ -38,3 +37,13 @@ export interface IQueryFormProps {
   resetProps?: Record<string, any>
 }
 // #endregion props
+
+// #region light-props
+export interface IQueryFormLightProps {
+  schema?: ISchema
+  schemaField?: Component
+  components?: Record<string, Component>
+  scope?: Record<string, any>
+  throttleWait?: number
+}
+// #endregion light-props

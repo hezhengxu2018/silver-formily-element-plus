@@ -1,6 +1,7 @@
 ﻿@use '../__builtins__/styles/common.scss' as *;
 
 $form-query-prefix-cls: '#{$formily-prefix}-query-form';
+$form-query-light-prefix-cls: '#{$formily-prefix}-query-form-light';
 
 .#{$form-query-prefix-cls}__actions {
   display: flex;
@@ -10,4 +11,11 @@ $form-query-prefix-cls: '#{$formily-prefix}-query-form';
 
 .#{$form-query-prefix-cls}__actions--row-end {
   justify-content: flex-end;
+}
+
+.#{$form-query-light-prefix-cls}__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
 }

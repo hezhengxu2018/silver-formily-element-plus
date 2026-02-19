@@ -4,11 +4,12 @@
 
 ::: tip 提示
 
-- 默认 `layout="vertical"`、`feedbackLayout="terse"`，可以通过传入 Form 的属性覆盖。
+- 在`QueryForm` 中默认 `:fullness="true"`，可以通过传入 Form 的属性覆盖。
 - 传入默认插槽时会优先使用插槽渲染，`schema` 将被忽略。
 - 如需复用已经创建的 `SchemaField`，可通过 `schemaField` 传入。
 - 默认折叠策略按首行收起，可通过 `visibleWhen` 自定义显示逻辑。
-  :::
+
+:::
 
 ## Markup Schema 案例
 
@@ -23,6 +24,32 @@ query-form/markup-schema
 :::demo
 
 query-form/json-schema
+
+:::
+
+## Light 模式（值变更自动提交）
+
+:::demo
+
+query-form/light
+
+:::
+
+## Light 模式（无节流实时提交）
+
+:::demo
+
+query-form/light-immediate
+
+:::
+
+::: tip 提示
+
+- `QueryForm.Light` 使用独立的 flex 紧凑布局，不使用 Grid 折叠逻辑，因此 `gridProps`、`visibleWhen`、展开/收起相关配置在 Light 模式下不生效。
+
+- `Select` 组件在 Element-Plus 的 `2.5.0` 版本后不再提供默认宽度，在Light模式下需要手动添加宽度。
+
+- 如果需要更紧凑的布局可以考虑`Editable`组件。
 
 :::
 
@@ -68,15 +95,19 @@ query-form/visible-when-top-n
 
 ## API
 
+::: tip 提示
+`QueryForm` 与 `QueryForm.Light` 均会透传并继承 `Form` 的属性（如`form`、 `layout`、`labelWidth`、`labelAlign`、`size` 等，包括`onAutoSubmit`等事件）。在此不再列出
+:::
+
 ### QueryForm Props
 
 | 属性名          | 说明                                               | 类型                                               | 默认值  |
 | --------------- | -------------------------------------------------- | -------------------------------------------------- | ------- |
-| form            | 传入表单实例                                       | `Form`                                             | -       |
 | schema          | JSON Schema 渲染                                   | `ISchema`                                          | -       |
 | schemaField     | 自定义 SchemaField                                 | `Component`                                        | -       |
 | components      | JSON Schema 组件映射                               | `Record<string, Component>`                        | `{}`    |
 | scope           | JSON Schema 作用域                                 | `Record<string, any>`                              | `{}`    |
+| labelWidth      | 标签宽度（继承 FormLayout）                        | `number`                                           | -       |
 | gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows） | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>` | `{}`    |
 | defaultExpanded | 初始是否展开                                       | `boolean`                                          | `false` |
 | actionsAtRowEnd | 操作区是否固定在行尾右侧显示                       | `boolean`                                          | `false` |
@@ -102,6 +133,29 @@ query-form/visible-when-top-n
 `type` 的可选值：`'incomplete-wrap' | 'collapsible' | 'complete-wrap'`。
 :::
 
+### QueryForm.Light Props
+
+| 属性名             | 说明                             | 类型                               | 默认值 |
+| ------------------ | -------------------------------- | ---------------------------------- | ------ |
+| schema             | JSON Schema 渲染                 | `ISchema`                          | -      |
+| schemaField        | 自定义 SchemaField               | `Component`                        | -      |
+| components         | JSON Schema 组件映射             | `Record<string, Component>`        | `{}`   |
+| scope              | JSON Schema 作用域               | `Record<string, any>`              | `{}`   |
+| labelWidth         | 标签宽度（继承 FormLayout）      | `number`                           | -      |
+| throttleWait       | 值变更自动提交的节流时间（毫秒） | `number`                           | `300`  |
+| onAutoSubmit       | 自动提交回调                     | `(values) => Promise<any> \| any`  | -      |
+| onAutoSubmitFailed | 自动提交失败回调                 | `(error: IFormFeedback[]) => void` | -      |
+
+### QueryForm.Light Slots
+
+| 插槽名  | 说明                           | Slot Props |
+| ------- | ------------------------------ | ---------- |
+| default | 表单内容（Markup Schema 场景） | -          |
+
+::: tip 提示
+`QueryForm.Light` 不支持 `actions` / `collapse` 插槽，也不支持 Grid 折叠相关配置。
+:::
+
 ### visibleWhen Context
 
 #### QueryFormVisibleContext
@@ -113,3 +167,7 @@ query-form/visible-when-top-n
 #### IQueryFormProps
 
 <<< @/../src/query-form/types.ts#props
+
+#### IQueryFormLightProps
+
+<<< @/../src/query-form/types.ts#light-props

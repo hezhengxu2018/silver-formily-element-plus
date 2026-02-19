@@ -6,8 +6,8 @@ import { Grid } from '@formily/grid'
 import { autorun, markRaw } from '@formily/reactive'
 import { createSchemaField, useField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { ElLink } from 'element-plus'
-import { computed, onUnmounted, ref, useAttrs, useSlots } from 'vue'
-import { hasSlotContent, stylePrefix } from '../__builtins__'
+import { computed, onUnmounted, ref, useSlots } from 'vue'
+import { hasSlotContent, stylePrefix, useCleanAttrs } from '../__builtins__'
 import { Form } from '../form'
 import { FormButtonGroup } from '../form-button-group'
 import { FormGrid } from '../form-grid'
@@ -33,17 +33,17 @@ const props = withDefaults(defineProps<IQueryFormProps>(), {
   showReset: true,
 })
 
-const attrs = useAttrs()
+const { props: formProps } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
 const slots = useSlots()
 const prefixCls = `${stylePrefix}-query-form`
 const FormGridColumn = FormGrid.GridColumn
 
-const formProps = computed(() => ({
-  feedbackLayout: 'terse',
+const innerFormProps = computed(() => ({
   fullness: true,
-  ...attrs,
-  ...(props.form ? { form: props.form } : {}),
+  ...formProps.value,
 }))
+
+console.log(formProps.value)
 
 const COLLAPSED_ROWS = 1
 const fieldRef = useField()
@@ -77,7 +77,7 @@ function resolveField(name?: string | number) {
       .query(fieldRef.value.address.concat(name))
       .take()
   }
-  const form = props.form ?? formRef?.value
+  const form = formProps.value.form ?? formRef?.value
   return form?.query(name).take()
 }
 
@@ -154,7 +154,6 @@ const restGridProps = props.gridProps ?? {}
 
 const gridOptions: IGridOptions = {
   maxColumns: 4,
-  maxWidth: 240,
   ...restGridProps,
   maxRows: props.defaultExpanded ? Infinity : COLLAPSED_ROWS,
   shouldVisible: defaultShouldVisible,
@@ -215,7 +214,7 @@ const schemaField = computed(() => {
 </script>
 
 <template>
-  <Form v-bind="formProps" :class="prefixCls">
+  <Form v-bind="innerFormProps" :class="prefixCls">
     <FormGrid :grid="grid">
       <slot v-if="hasDefaultSlot" />
       <component

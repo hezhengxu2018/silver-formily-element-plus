@@ -1,0 +1,111 @@
+<script setup lang="ts">
+import type { Form } from '@formily/core'
+import type { IQueryFormLightProps } from './types'
+import { autorun } from '@formily/reactive'
+import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
+import { throttle } from 'lodash-es'
+import { computed, onUnmounted, useSlots } from 'vue'
+import { hasSlotContent, stylePrefix, useCleanAttrs } from '../__builtins__'
+import { Form as FForm } from '../form'
+
+defineOptions({
+  name: 'FQueryFormLight',
+  inheritAttrs: false,
+})
+
+const props = withDefaults(defineProps<IQueryFormLightProps>(), {
+  throttleWait: 300,
+})
+const emit = defineEmits<{
+  (e: 'autoSubmit', values: Form['values']): void
+  (e: 'autoSubmitFailed', error: any): void
+}>()
+
+const { props: formProps } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
+const slots = useSlots()
+const formRef = useForm()
+const fieldSchemaRef = useFieldSchema()
+const prefixCls = `${stylePrefix}-query-form-light`
+
+const activeForm = computed<Form | undefined>(() => formProps.value.form ?? formRef?.value)
+const resolvedSchema = computed(() => fieldSchemaRef.value ?? props.schema)
+
+const innerFormProps = computed(() => ({
+  fullness: false,
+  ...formProps.value,
+}))
+
+console.warn(formProps.value)
+
+function submitByChange() {
+  const form = activeForm.value
+  if (!form)
+    return
+  form
+    .submit((values) => {
+      emit('autoSubmit', values)
+      return formProps.value.onAutoSubmit?.(values)
+    })
+    .catch((error) => {
+      emit('autoSubmitFailed', error)
+      formProps.value.onAutoSubmitFailed?.(error)
+    })
+}
+
+const triggerSubmit = throttle(() => {
+  submitByChange()
+}, props.throttleWait, {
+  leading: false,
+  trailing: true,
+})
+
+let initialized = false
+const dispose = autorun(() => {
+  const form = activeForm.value
+  if (!form)
+    return
+  // Track deep value changes and submit only after initial collection.
+  JSON.stringify(form.values)
+  if (!initialized) {
+    initialized = true
+    return
+  }
+  if (props.throttleWait > 0) {
+    triggerSubmit()
+    return
+  }
+  submitByChange()
+})
+
+onUnmounted(() => {
+  dispose()
+  triggerSubmit.cancel()
+})
+
+const hasDefaultSlot = computed(() => hasSlotContent(slots.default))
+
+const schemaField = computed(() => {
+  if (hasDefaultSlot.value || !resolvedSchema.value)
+    return null
+  if (props.schemaField)
+    return props.schemaField
+  const { SchemaField } = createSchemaField({
+    components: props.components,
+    scope: props.scope,
+  })
+  return SchemaField
+})
+</script>
+
+<template>
+  <FForm v-bind="innerFormProps" :class="prefixCls">
+    <div :class="`${prefixCls}__content`">
+      <slot v-if="hasDefaultSlot" />
+      <component
+        :is="schemaField"
+        v-else-if="schemaField"
+        :schema="resolvedSchema"
+      />
+    </div>
+  </FForm>
+</template>
