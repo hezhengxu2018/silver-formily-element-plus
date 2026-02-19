@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
-import { QueryForm } from '@silver-formily/element-plus'
+import { QueryForm, Segmented } from '@silver-formily/element-plus'
 import { ElMessage } from 'element-plus'
 
 const form = createForm()
@@ -41,6 +41,7 @@ async function handleAutoSubmit(values: any) {
     :form="form"
     :schema="schema"
     :throttle-wait="500"
+    :components="{ Segmented }"
     @auto-submit="handleAutoSubmit"
   />
 </template>

@@ -10,7 +10,7 @@
 :::
 
 ::: warning 注意
-由于本组件默认注册了几乎所有的输入组件，会导致树摇失败，使用前需确认对包的体积不敏感。目前没有注册的输入组件有： `DatePickerPanel`、`Upload`、`ColorPickerPanel` `SelectTable`、`Transfer`、`Mention`、`Tree`。另外由于`Segmented`、`InputTag`所需要的版本号相对较高，暂时没有注册，防止注册阶段报错。
+由于本组件默认注册了几乎所有的输入组件，会导致树摇失败，使用前需确认对包的体积不敏感。目前没有注册的输入组件有： `DatePickerPanel`、`Upload`、`ColorPickerPanel` 、`SelectTable`、`Transfer`、`Mention`、`Tree`。另外由于`Segmented`、`InputTag`所需要的版本号相对较高，暂时没有注册，防止注册阶段报错。
 :::
 
 ## Markup Schema 案例
