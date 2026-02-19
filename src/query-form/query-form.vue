@@ -248,7 +248,7 @@ const schemaField = hasDefaultSlot || !props.schema
         </template>
         <template v-else-if="gridType === 'collapsible'">
           <FormButtonGroup
-            align="right"
+            :align="props.actionsAtRowEnd ? 'right' : 'left'"
             align-form-item
             inline
             :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"

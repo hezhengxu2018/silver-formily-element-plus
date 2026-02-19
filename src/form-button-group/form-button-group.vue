@@ -41,15 +41,13 @@ const props = defineProps({
   >
     <ElSpace
       :size="props.gutter"
-      :style="{
-        justifyContent: props.align === 'left'
-          ? 'flex-start'
-          : (props.align === 'right'
-            ? 'flex-end'
-            : 'center'),
-        display: 'flex',
-        width: '100%',
-      }"
+      :style="props.align === 'left'
+        ? undefined
+        : {
+          justifyContent: props.align === 'right' ? 'flex-end' : 'center',
+          display: 'flex',
+          width: '100%',
+        }"
     >
       <slot />
     </ElSpace>
