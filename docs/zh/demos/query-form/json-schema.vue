@@ -25,42 +25,6 @@ const schema: ISchema = {
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
-    select1: {
-      'type': 'string',
-      'title': 'Select 1',
-      'x-decorator': 'FormItem',
-      'x-component': 'Select',
-    },
-    select2: {
-      'type': 'string',
-      'title': 'Select 2',
-      'x-decorator': 'FormItem',
-      'x-component': 'Select',
-    },
-    date: {
-      'type': 'string',
-      'title': 'DatePicker',
-      'x-decorator': 'FormItem',
-      'x-component': 'DatePicker',
-    },
-    dateRange: {
-      'type': 'string',
-      'title': 'DatePicker',
-      'x-decorator': 'FormItem',
-      'x-component': 'DatePicker',
-      'x-decorator-props': {
-        gridSpan: 'span 2',
-      },
-      'x-component-props': {
-        type: 'daterange',
-      },
-    },
-    select3: {
-      'type': 'string',
-      'title': 'Select 3',
-      'x-decorator': 'FormItem',
-      'x-component': 'Select',
-    },
   },
 }
 </script>

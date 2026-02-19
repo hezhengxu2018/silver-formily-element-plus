@@ -30,11 +30,12 @@ form-button-group/template-sticky-center
 
 ### FormButtonGroup
 
-| 参数          | 说明          | 类型                               | 默认值   |
-| ------------- | ------------- | ---------------------------------- | -------- |
-| gutter        | 按钮间隙大小  | `number`                           | `8`      |
-| align         | 对齐方式      | ^[enum]`'left'\|'center'\|'right'` | `'left'` |
-| alignFormItem | 对齐 FormItem | `boolean`                          | `false`  |
+| 参数          | 说明                       | 类型                               | 默认值   |
+| ------------- | -------------------------- | ---------------------------------- | -------- |
+| gutter        | 按钮间隙大小               | `number`                           | `8`      |
+| align         | 对齐方式                   | ^[enum]`'left'\|'center'\|'right'` | `'left'` |
+| alignFormItem | 对齐 FormItem              | `boolean`                          | `false`  |
+| inline        | 行内模式（不添加 padding） | `boolean`                          | `false`  |
 
 ### FormButtonGroup.Sticky
 

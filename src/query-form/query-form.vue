@@ -38,8 +38,8 @@ const prefixCls = `${stylePrefix}-query-form`
 const FormGridColumn = FormGrid.GridColumn
 
 const formProps = computed(() => ({
-  layout: 'vertical',
   feedbackLayout: 'terse',
+  fullness: true,
   ...attrs,
   ...(props.form ? { form: props.form } : {}),
 }))
@@ -47,11 +47,29 @@ const formProps = computed(() => ({
 const maxRowsRef = ref(props.maxRows)
 
 const defaultShouldVisible: IGridOptions['shouldVisible'] = (node, grid) => {
+  const maxRows = maxRowsRef.value ?? 1
   if (node.index === grid.childSize - 1)
     return true
   if (grid.maxRows === Infinity)
     return true
-  return node.shadowRow < maxRowsRef.value + 1
+
+  const shadowRow = node.shadowRow ?? 0
+  const withinRows = shadowRow < maxRows + 1
+  if (!withinRows)
+    return false
+
+  const computeRows = grid.fullnessLastColumn ? grid.shadowRows - 1 : grid.shadowRows
+  const isCollapsible = computeRows > maxRows
+  if (!isCollapsible)
+    return true
+
+  const shadowColumn = node.shadowColumn ?? 1
+  const span = node.span ?? 1
+  const endColumn = shadowColumn + span - 1
+  if (shadowRow === maxRows && endColumn === grid.columns)
+    return false
+
+  return true
 }
 
 const gridOptions: IGridOptions = {
@@ -126,7 +144,7 @@ const schemaField = computed(() => {
       />
       <FormGridColumn :grid-span="-1" :class="`${prefixCls}__actions`">
         <template v-if="gridType === 'incomplete-wrap'">
-          <FormButtonGroup align-form-item>
+          <FormButtonGroup align-form-item inline>
             <slot
               name="actions"
               :expanded="expanded"
@@ -143,19 +161,7 @@ const schemaField = computed(() => {
           </FormButtonGroup>
         </template>
         <template v-else-if="gridType === 'collapsible'">
-          <FormButtonGroup>
-            <slot
-              name="collapse"
-              :expanded="expanded"
-              :toggle="toggle"
-              :type="gridType"
-            >
-              <ElLink type="primary" @click="toggle">
-                {{ expanded ? props.collapseText : props.expandText }}
-              </ElLink>
-            </slot>
-          </FormButtonGroup>
-          <FormButtonGroup align="right">
+          <FormButtonGroup align="right" align-form-item inline>
             <slot
               name="actions"
               :expanded="expanded"
@@ -169,11 +175,22 @@ const schemaField = computed(() => {
                 {{ props.resetText }}
               </Reset>
             </slot>
+            <slot
+              name="collapse"
+              :expanded="expanded"
+              :toggle="toggle"
+              :type="gridType"
+            >
+              <ElLink type="primary" :underline="false" @click="toggle">
+                {{ expanded ? props.collapseText : props.expandText }}
+              </ElLink>
+            </slot>
           </FormButtonGroup>
         </template>
         <template v-else>
           <FormButtonGroup
             align="right"
+            inline
             style="display: flex; width: 100%;"
           >
             <slot
