@@ -110,10 +110,7 @@ function defaultVisibleWhen(context: ReturnType<typeof createVisibleContext>) {
   if (!withinRows)
     return false
 
-  const computeRows = context.grid.fullnessLastColumn
-    ? context.grid.shadowRows - 1
-    : context.grid.shadowRows
-  const isCollapsible = computeRows > COLLAPSED_ROWS
+  const isCollapsible = getFieldRowCount(context.grid) > COLLAPSED_ROWS
   if (!isCollapsible)
     return true
 
@@ -133,8 +130,22 @@ function resolveVisibleWhen(context: ReturnType<typeof createVisibleContext>) {
   return visible !== false
 }
 
+function isActionsNode(node: GridNode, grid: Grid<HTMLElement>) {
+  if (node.element) {
+    return node.element.dataset.queryFormActions !== undefined
+  }
+  return node.index === grid.childSize - 1
+}
+
+function getFieldRowCount(grid: Grid<HTMLElement>) {
+  const rows = (grid.children ?? [])
+    .filter(node => !isActionsNode(node, grid))
+    .map(node => node.shadowRow ?? 0)
+  return new Set(rows).size
+}
+
 const defaultShouldVisible: IGridOptions['shouldVisible'] = (node, grid) => {
-  if (node.index === grid.childSize - 1)
+  if (isActionsNode(node, grid))
     return true
   return resolveVisibleWhen(createVisibleContext(node, grid))
 }
@@ -156,9 +167,16 @@ const expanded = ref(grid.maxRows === Infinity)
 const gridType = ref<'incomplete-wrap' | 'collapsible' | 'complete-wrap'>('complete-wrap')
 
 function updateType() {
+  if (!props.visibleWhen) {
+    gridType.value = getFieldRowCount(grid) > COLLAPSED_ROWS
+      ? 'collapsible'
+      : 'incomplete-wrap'
+    return
+  }
+
   const nodes = grid.children ?? []
   const hasHiddenInCollapsed = nodes.some((node) => {
-    if (node.index === grid.childSize - 1)
+    if (isActionsNode(node, grid))
       return false
     return !resolveVisibleWhen(createVisibleContext(node, grid, true))
   })
@@ -207,6 +225,7 @@ const schemaField = computed(() => {
       />
       <FormGridColumn
         :grid-span="-1"
+        data-query-form-actions
         :class="[
           `${prefixCls}__actions`,
           props.actionsAtRowEnd && `${prefixCls}__actions--row-end`,

@@ -34,6 +34,14 @@ query-form/actions-at-row-end
 
 :::
 
+## 插槽示例（在查询/重置后、展开前插入导出按钮）
+
+:::demo
+
+query-form/actions-slot-export
+
+:::
+
 ## visibleWhen 示例（按字段名）
 
 :::demo
