@@ -13,6 +13,19 @@ $form-query-light-prefix-cls: '#{$formily-prefix}-query-form-light';
   justify-content: flex-end;
 }
 
+.#{$form-query-prefix-cls}__collapse-link {
+  .el-link__inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 8px;
+  }
+}
+
+.#{$form-query-prefix-cls}__collapse-icon {
+  font-size: 12px;
+}
+
 .#{$form-query-light-prefix-cls}__content {
   display: flex;
   flex-wrap: wrap;

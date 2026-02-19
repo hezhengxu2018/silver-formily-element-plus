@@ -2,12 +2,13 @@
 import type { GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
 import type { IQueryFormProps } from './types'
+import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 import { Grid } from '@formily/grid'
 import { autorun, markRaw } from '@formily/reactive'
 import { createSchemaField, useField, useFieldSchema, useForm } from '@silver-formily/vue'
-import { ElLink } from 'element-plus'
+import { ElIcon, ElLink } from 'element-plus'
 import { computed, onUnmounted, ref, useSlots } from 'vue'
-import { hasSlotContent, stylePrefix, useCleanAttrs } from '../__builtins__'
+import { compatibleUnderlineProp, stylePrefix, useCleanAttrs } from '../__builtins__'
 import { Form } from '../form'
 import { FormButtonGroup } from '../form-button-group'
 import { FormGrid } from '../form-grid'
@@ -196,11 +197,14 @@ function toggle() {
   grid.maxRows = grid.maxRows === Infinity ? COLLAPSED_ROWS : Infinity
 }
 
-const hasDefaultSlot = hasSlotContent(slots.default)
+const hasDefaultSlot = Boolean(slots.default)
 const mergedComponents = mergeQueryFormComponents(props.components)
 const schemaField = hasDefaultSlot || !props.schema
   ? null
-  : (props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField)
+  : (props.schemaField ?? createSchemaField({
+      components: mergedComponents,
+      scope: props.scope,
+    }).SchemaField)
 </script>
 
 <template>
@@ -223,7 +227,7 @@ const schemaField = hasDefaultSlot || !props.schema
         <template v-if="gridType === 'incomplete-wrap'">
           <FormButtonGroup
             :align="props.actionsAtRowEnd ? 'right' : 'left'"
-            :align-form-item="!props.actionsAtRowEnd"
+            align-form-item
             inline
             :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
           >
@@ -245,7 +249,7 @@ const schemaField = hasDefaultSlot || !props.schema
         <template v-else-if="gridType === 'collapsible'">
           <FormButtonGroup
             align="right"
-            :align-form-item="!props.actionsAtRowEnd"
+            align-form-item
             inline
             :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
           >
@@ -268,8 +272,17 @@ const schemaField = hasDefaultSlot || !props.schema
               :toggle="toggle"
               :type="gridType"
             >
-              <ElLink type="primary" :underline="false" @click="toggle">
+              <ElLink
+                type="primary"
+                :underline="compatibleUnderlineProp()"
+                :class="`${prefixCls}__collapse-link`"
+                @click="toggle"
+              >
                 {{ expanded ? props.collapseText : props.expandText }}
+                <ElIcon :class="`${prefixCls}__collapse-icon`">
+                  <ArrowUp v-if="expanded" />
+                  <ArrowDown v-else />
+                </ElIcon>
               </ElLink>
             </slot>
           </FormButtonGroup>

@@ -5,7 +5,7 @@ import { autorun } from '@formily/reactive'
 import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { throttle } from 'lodash-es'
 import { computed, onUnmounted, useSlots } from 'vue'
-import { hasSlotContent, stylePrefix, useCleanAttrs } from '../__builtins__'
+import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { Form as FForm } from '../form'
 import { mergeQueryFormComponents } from './default-components'
 
@@ -82,7 +82,7 @@ onUnmounted(() => {
   triggerSubmit.cancel()
 })
 
-const hasDefaultSlot = hasSlotContent(slots.default)
+const hasDefaultSlot = Boolean(slots.default)
 const mergedComponents = mergeQueryFormComponents(props.components)
 const schemaField = hasDefaultSlot || !resolvedSchema
   ? null

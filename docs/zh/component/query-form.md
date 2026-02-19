@@ -65,6 +65,10 @@ query-form/actions-at-row-end
 
 ## 插槽示例（在查询/重置后、展开前插入导出按钮）
 
+:::tip 提示
+目前操作区仅支持占用网格布局中的一个网格，内容太多会导致换行。
+:::
+
 :::demo
 
 query-form/actions-slot-export

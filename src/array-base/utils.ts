@@ -1,17 +1,11 @@
 import type { ISchema, Schema } from '@formily/json-schema'
 import type { IArrayBaseItemProps } from './types'
 import { clone, isArr, isValid, uid } from '@formily/shared'
-import { version } from 'element-plus'
 import { inject, toRefs } from 'vue'
-import { lt, stylePrefix } from '../__builtins__'
+import { stylePrefix } from '../__builtins__'
 import { ArrayBaseSymbol, ItemSymbol } from './symbols'
 
 export const prefixCls = `${stylePrefix}-array-base`
-
-export function compatibleUnderlineProp() {
-  /* istanbul ignore next -- @preserve */
-  return lt(version, '2.9.9') ? false : 'never'
-}
 
 export function useArray() {
   return inject(ArrayBaseSymbol, null)

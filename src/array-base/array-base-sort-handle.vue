@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { Rank } from '@element-plus/icons-vue'
 import { ElLink } from 'element-plus'
-import { compatibleUnderlineProp, prefixCls, useArray } from './utils'
+import { compatibleUnderlineProp } from '../__builtins__'
+import { prefixCls, useArray } from './utils'
 
 defineOptions({
   name: 'ArrayBaseSortHandle',

@@ -39,7 +39,18 @@ const props = defineProps({
       width: '100%',
     }"
   >
-    <ElSpace :size="props.gutter">
+    <ElSpace
+      :size="props.gutter"
+      :style="{
+        justifyContent: props.align === 'left'
+          ? 'flex-start'
+          : (props.align === 'right'
+            ? 'flex-end'
+            : 'center'),
+        display: 'flex',
+        width: '100%',
+      }"
+    >
       <slot />
     </ElSpace>
   </FormItem>
