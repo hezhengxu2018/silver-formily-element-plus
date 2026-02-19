@@ -1,0 +1,9 @@
+﻿@use '../__builtins__/styles/common.scss' as *;
+
+$form-query-prefix-cls: '#{$formily-prefix}-query-form';
+
+.#{$form-query-prefix-cls}__actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

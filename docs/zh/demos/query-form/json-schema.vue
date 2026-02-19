@@ -1,0 +1,75 @@
+<script setup lang="ts">
+import type { ISchema } from '@formily/json-schema'
+import { createForm } from '@formily/core'
+import {
+  DatePicker,
+  FormItem,
+  Input,
+  QueryForm,
+  Select,
+} from '@silver-formily/element-plus'
+
+const form = createForm()
+const schema: ISchema = {
+  type: 'object',
+  properties: {
+    input1: {
+      'type': 'string',
+      'title': 'Input 1',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
+    input2: {
+      'type': 'string',
+      'title': 'Input 2',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
+    select1: {
+      'type': 'string',
+      'title': 'Select 1',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+    },
+    select2: {
+      'type': 'string',
+      'title': 'Select 2',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+    },
+    date: {
+      'type': 'string',
+      'title': 'DatePicker',
+      'x-decorator': 'FormItem',
+      'x-component': 'DatePicker',
+    },
+    dateRange: {
+      'type': 'string',
+      'title': 'DatePicker',
+      'x-decorator': 'FormItem',
+      'x-component': 'DatePicker',
+      'x-decorator-props': {
+        gridSpan: 'span 2',
+      },
+      'x-component-props': {
+        type: 'daterange',
+      },
+    },
+    select3: {
+      'type': 'string',
+      'title': 'Select 3',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+    },
+  },
+}
+</script>
+
+<template>
+  <QueryForm
+    :form="form"
+    :schema="schema"
+    :components="{ FormItem, Input, Select, DatePicker }"
+    :max-rows="1"
+  />
+</template>
