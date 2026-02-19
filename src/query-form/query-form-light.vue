@@ -7,6 +7,7 @@ import { throttle } from 'lodash-es'
 import { computed, onUnmounted, useSlots } from 'vue'
 import { hasSlotContent, stylePrefix, useCleanAttrs } from '../__builtins__'
 import { Form as FForm } from '../form'
+import { mergeQueryFormComponents } from './default-components'
 
 defineOptions({
   name: 'FQueryFormLight',
@@ -14,6 +15,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<IQueryFormLightProps>(), {
+  components: () => ({}),
   throttleWait: 300,
 })
 const emit = defineEmits<{
@@ -28,7 +30,7 @@ const fieldSchemaRef = useFieldSchema()
 const prefixCls = `${stylePrefix}-query-form-light`
 
 const activeForm = computed<Form | undefined>(() => formProps.value.form ?? formRef?.value)
-const resolvedSchema = computed(() => fieldSchemaRef.value ?? props.schema)
+const resolvedSchema = fieldSchemaRef.value ?? props.schema
 
 const innerFormProps = computed(() => ({
   fullness: false,
@@ -80,19 +82,11 @@ onUnmounted(() => {
   triggerSubmit.cancel()
 })
 
-const hasDefaultSlot = computed(() => hasSlotContent(slots.default))
-
-const schemaField = computed(() => {
-  if (hasDefaultSlot.value || !resolvedSchema.value)
-    return null
-  if (props.schemaField)
-    return props.schemaField
-  const { SchemaField } = createSchemaField({
-    components: props.components,
-    scope: props.scope,
-  })
-  return SchemaField
-})
+const hasDefaultSlot = hasSlotContent(slots.default)
+const mergedComponents = mergeQueryFormComponents(props.components)
+const schemaField = hasDefaultSlot || !resolvedSchema
+  ? null
+  : (props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField)
 </script>
 
 <template>

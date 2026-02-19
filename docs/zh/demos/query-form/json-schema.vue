@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
-import {
-  DatePicker,
-  FormItem,
-  Input,
-  QueryForm,
-  Select,
-} from '@silver-formily/element-plus'
+import { QueryForm } from '@silver-formily/element-plus'
 import { ElMessage } from 'element-plus'
 
 const form = createForm()
@@ -38,7 +32,6 @@ async function handleAutoSubmit(values: any) {
   <QueryForm
     :form="form"
     :schema="schema"
-    :components="{ FormItem, Input, Select, DatePicker }"
     @auto-submit="handleAutoSubmit"
   />
 </template>

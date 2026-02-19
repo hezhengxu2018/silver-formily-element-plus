@@ -3,12 +3,8 @@ import type { ISchema } from '@formily/json-schema'
 import { Download, RefreshRight, Search } from '@element-plus/icons-vue'
 import { createForm } from '@formily/core'
 import {
-  DatePicker,
-  FormItem,
-  Input,
   QueryForm,
   Reset,
-  Select,
   Submit,
 } from '@silver-formily/element-plus'
 import { ElButton, ElMessage } from 'element-plus'
@@ -75,7 +71,6 @@ async function handleAutoSubmit(values: any) {
   <QueryForm
     :form="form"
     :schema="schema"
-    :components="{ FormItem, Input, Select, DatePicker }"
     :grid-props="{ maxColumns: 4 }"
     @auto-submit="handleAutoSubmit"
   >

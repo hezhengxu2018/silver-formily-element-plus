@@ -13,6 +13,7 @@ import { FormButtonGroup } from '../form-button-group'
 import { FormGrid } from '../form-grid'
 import { Reset } from '../reset'
 import { Submit } from '../submit'
+import { mergeQueryFormComponents } from './default-components'
 
 defineOptions({
   name: 'FQueryForm',
@@ -21,7 +22,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<IQueryFormProps>(), {
   components: () => ({}),
-  scope: () => ({}),
   gridProps: () => ({}),
   defaultExpanded: false,
   actionsAtRowEnd: false,
@@ -196,19 +196,11 @@ function toggle() {
   grid.maxRows = grid.maxRows === Infinity ? COLLAPSED_ROWS : Infinity
 }
 
-const hasDefaultSlot = computed(() => hasSlotContent(slots.default))
-
-const schemaField = computed(() => {
-  if (hasDefaultSlot.value || !props.schema)
-    return null
-  if (props.schemaField)
-    return props.schemaField
-  const { SchemaField } = createSchemaField({
-    components: props.components,
-    scope: props.scope,
-  })
-  return SchemaField
-})
+const hasDefaultSlot = hasSlotContent(slots.default)
+const mergedComponents = mergeQueryFormComponents(props.components)
+const schemaField = hasDefaultSlot || !props.schema
+  ? null
+  : (props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField)
 </script>
 
 <template>

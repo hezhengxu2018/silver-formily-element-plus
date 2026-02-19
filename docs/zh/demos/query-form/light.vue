@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
-import {
-  DatePicker,
-  FormItem,
-  Input,
-  QueryForm,
-  Segmented,
-  Select,
-} from '@silver-formily/element-plus'
+import { QueryForm } from '@silver-formily/element-plus'
 import { ElMessage } from 'element-plus'
 
 const form = createForm()
@@ -47,7 +40,6 @@ async function handleAutoSubmit(values: any) {
   <QueryForm.Light
     :form="form"
     :schema="schema"
-    :components="{ FormItem, Input, Select, Segmented, DatePicker }"
     :throttle-wait="500"
     @auto-submit="handleAutoSubmit"
   />
