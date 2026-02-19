@@ -8,9 +8,10 @@ import {
   Select,
 } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
+import { ElMessage } from 'element-plus'
 
 const form = createForm()
-const { SchemaField, SchemaObjectField, SchemaStringField } = createSchemaField({
+const { SchemaField, SchemaVoidField, SchemaStringField } = createSchemaField({
   components: {
     QueryForm,
     Input,
@@ -19,12 +20,19 @@ const { SchemaField, SchemaObjectField, SchemaStringField } = createSchemaField(
     FormItem,
   },
 })
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
   <FormProvider :form="form">
     <SchemaField>
-      <SchemaObjectField x-component="QueryForm">
+      <SchemaVoidField
+        x-component="QueryForm"
+        :x-component-props="{ onAutoSubmit: handleAutoSubmit }"
+      >
         <SchemaStringField
           name="input1"
           title="Input 1"
@@ -73,7 +81,7 @@ const { SchemaField, SchemaObjectField, SchemaStringField } = createSchemaField(
           x-component="Select"
           x-decorator="FormItem"
         />
-      </SchemaObjectField>
+      </SchemaVoidField>
     </SchemaField>
   </FormProvider>
 </template>

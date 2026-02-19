@@ -43,8 +43,6 @@ const innerFormProps = computed(() => ({
   ...formProps.value,
 }))
 
-console.log(formProps.value)
-
 const COLLAPSED_ROWS = 1
 const fieldRef = useField()
 const fieldSchemaRef = useFieldSchema()

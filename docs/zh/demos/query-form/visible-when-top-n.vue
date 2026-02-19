@@ -8,6 +8,7 @@ import {
   QueryForm,
   Select,
 } from '@silver-formily/element-plus'
+import { ElMessage } from 'element-plus'
 
 const form = createForm()
 const collapsedVisibleCount = 3
@@ -66,6 +67,10 @@ const schema: ISchema = {
     },
   },
 }
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
@@ -79,5 +84,6 @@ const schema: ISchema = {
         return true
       return context.index < collapsedVisibleCount
     }"
+    @auto-submit="handleAutoSubmit"
   />
 </template>

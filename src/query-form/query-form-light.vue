@@ -35,8 +35,6 @@ const innerFormProps = computed(() => ({
   ...formProps.value,
 }))
 
-console.warn(formProps.value)
-
 function submitByChange() {
   const form = activeForm.value
   if (!form)

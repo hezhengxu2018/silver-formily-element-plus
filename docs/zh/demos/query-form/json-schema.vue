@@ -8,6 +8,7 @@ import {
   QueryForm,
   Select,
 } from '@silver-formily/element-plus'
+import { ElMessage } from 'element-plus'
 
 const form = createForm()
 const schema: ISchema = {
@@ -27,6 +28,10 @@ const schema: ISchema = {
     },
   },
 }
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
@@ -34,6 +39,6 @@ const schema: ISchema = {
     :form="form"
     :schema="schema"
     :components="{ FormItem, Input, Select, DatePicker }"
-    :label-width="100"
+    @auto-submit="handleAutoSubmit"
   />
 </template>

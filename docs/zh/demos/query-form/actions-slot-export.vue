@@ -65,6 +65,10 @@ const schema: ISchema = {
 function onExport() {
   ElMessage.success('导出中...')
 }
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
@@ -73,6 +77,7 @@ function onExport() {
     :schema="schema"
     :components="{ FormItem, Input, Select, DatePicker }"
     :grid-props="{ maxColumns: 4 }"
+    @auto-submit="handleAutoSubmit"
   >
     <template #actions>
       <Submit :icon="Search">

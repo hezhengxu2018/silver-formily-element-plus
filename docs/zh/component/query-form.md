@@ -96,7 +96,7 @@ query-form/visible-when-top-n
 ## API
 
 ::: tip 提示
-`QueryForm` 与 `QueryForm.Light` 均会透传并继承 `Form` 的属性（如`form`、 `layout`、`labelWidth`、`labelAlign`、`size` 等，包括`onAutoSubmit`等事件）。在此不再列出
+`QueryForm` 与 `QueryForm.Light` 均会透传并继承 `Form` 的属性（如`form`、 `layout`、`labelAlign`、`size` 等，包括`onAutoSubmit`等事件）。在此不再列出
 :::
 
 ### QueryForm Props
@@ -107,7 +107,6 @@ query-form/visible-when-top-n
 | schemaField     | 自定义 SchemaField                                 | `Component`                                        | -       |
 | components      | JSON Schema 组件映射                               | `Record<string, Component>`                        | `{}`    |
 | scope           | JSON Schema 作用域                                 | `Record<string, any>`                              | `{}`    |
-| labelWidth      | 标签宽度（继承 FormLayout）                        | `number`                                           | -       |
 | gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows） | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>` | `{}`    |
 | defaultExpanded | 初始是否展开                                       | `boolean`                                          | `false` |
 | actionsAtRowEnd | 操作区是否固定在行尾右侧显示                       | `boolean`                                          | `false` |
@@ -141,7 +140,6 @@ query-form/visible-when-top-n
 | schemaField        | 自定义 SchemaField               | `Component`                        | -      |
 | components         | JSON Schema 组件映射             | `Record<string, Component>`        | `{}`   |
 | scope              | JSON Schema 作用域               | `Record<string, any>`              | `{}`   |
-| labelWidth         | 标签宽度（继承 FormLayout）      | `number`                           | -      |
 | throttleWait       | 值变更自动提交的节流时间（毫秒） | `number`                           | `300`  |
 | onAutoSubmit       | 自动提交回调                     | `(values) => Promise<any> \| any`  | -      |
 | onAutoSubmitFailed | 自动提交失败回调                 | `(error: IFormFeedback[]) => void` | -      |

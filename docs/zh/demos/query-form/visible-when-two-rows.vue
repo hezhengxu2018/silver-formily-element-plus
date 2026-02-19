@@ -8,6 +8,7 @@ import {
   QueryForm,
   Select,
 } from '@silver-formily/element-plus'
+import { ElMessage } from 'element-plus'
 
 const form = createForm()
 
@@ -115,6 +116,10 @@ const schema: ISchema = {
     },
   },
 }
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
@@ -129,5 +134,6 @@ const schema: ISchema = {
       // shadowRow 从 1 开始计数，<= 2 表示保留前两行
       return (context.node.shadowRow ?? 0) <= 2
     }"
+    @auto-submit="handleAutoSubmit"
   />
 </template>

@@ -8,6 +8,7 @@ import {
   QueryForm,
   Select,
 } from '@silver-formily/element-plus'
+import { ElMessage } from 'element-plus'
 
 const form = createForm()
 
@@ -57,6 +58,10 @@ const schema: ISchema = {
     },
   },
 }
+
+async function handleAutoSubmit(values: any) {
+  ElMessage.success(`自动提交: ${JSON.stringify(values)}`)
+}
 </script>
 
 <template>
@@ -66,5 +71,6 @@ const schema: ISchema = {
     :components="{ FormItem, Input, Select, DatePicker }"
     :grid-props="{ maxColumns: 4, maxWidth: 220 }"
     actions-at-row-end
+    @auto-submit="handleAutoSubmit"
   />
 </template>

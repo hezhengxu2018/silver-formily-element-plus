@@ -48,7 +48,6 @@ async function handleAutoSubmit(values: any) {
     :form="form"
     :schema="schema"
     :components="{ FormItem, Input, Select, Segmented, DatePicker }"
-    :item-width="220"
     :throttle-wait="500"
     @auto-submit="handleAutoSubmit"
   />
