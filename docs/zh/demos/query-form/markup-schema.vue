@@ -24,12 +24,7 @@ const { SchemaField, SchemaObjectField, SchemaStringField } = createSchemaField(
 <template>
   <FormProvider :form="form">
     <SchemaField>
-      <SchemaObjectField
-        x-component="QueryForm"
-        :x-component-props="{
-          maxRows: 1,
-        }"
-      >
+      <SchemaObjectField x-component="QueryForm">
         <SchemaStringField
           name="input1"
           title="Input 1"

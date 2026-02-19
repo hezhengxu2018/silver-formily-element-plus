@@ -1,7 +1,21 @@
-import type { Form } from '@formily/core'
-import type { Grid, IGridOptions } from '@formily/grid'
+import type { Form, GeneralField } from '@formily/core'
+import type { Grid, GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
 import type { Component } from 'vue'
+
+// #region visible
+export interface QueryFormVisibleContext {
+  field?: GeneralField
+  schema?: ISchema
+  index: number
+  node: GridNode
+  grid: Grid<HTMLElement>
+  collapsed: boolean
+  breakpoint: number
+}
+
+export type QueryFormVisible = (context: QueryFormVisibleContext) => boolean
+// #endregion visible
 
 // #region props
 export interface IQueryFormProps {
@@ -10,11 +24,10 @@ export interface IQueryFormProps {
   schemaField?: Component
   components?: Record<string, Component>
   scope?: Record<string, any>
-  grid?: Grid<HTMLElement>
-  gridProps?: Partial<IGridOptions>
-  maxRows?: number
+  gridProps?: Omit<IGridOptions, 'shouldVisible' | 'maxRows'>
   defaultExpanded?: boolean
-  shouldVisible?: IGridOptions['shouldVisible']
+  actionsAtRowEnd?: boolean
+  visibleWhen?: QueryFormVisible
   submitText?: string
   resetText?: string
   expandText?: string

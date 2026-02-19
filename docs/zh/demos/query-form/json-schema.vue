@@ -34,6 +34,5 @@ const schema: ISchema = {
     :form="form"
     :schema="schema"
     :components="{ FormItem, Input, Select, DatePicker }"
-    :max-rows="1"
   />
 </template>

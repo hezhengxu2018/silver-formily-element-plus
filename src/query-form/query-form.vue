@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { IGridOptions } from '@formily/grid'
+import type { GridNode, IGridOptions } from '@formily/grid'
+import type { ISchema } from '@formily/json-schema'
 import type { IQueryFormProps } from './types'
 import { Grid } from '@formily/grid'
 import { autorun, markRaw } from '@formily/reactive'
-import { createSchemaField } from '@silver-formily/vue'
+import { createSchemaField, useField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { ElLink } from 'element-plus'
-import { computed, onUnmounted, ref, useAttrs, useSlots, watch } from 'vue'
+import { computed, onUnmounted, ref, useAttrs, useSlots } from 'vue'
 import { hasSlotContent, stylePrefix } from '../__builtins__'
 import { Form } from '../form'
 import { FormButtonGroup } from '../form-button-group'
@@ -22,8 +23,8 @@ const props = withDefaults(defineProps<IQueryFormProps>(), {
   components: () => ({}),
   scope: () => ({}),
   gridProps: () => ({}),
-  maxRows: 1,
   defaultExpanded: false,
+  actionsAtRowEnd: false,
   submitText: '查询',
   resetText: '重置',
   expandText: '展开',
@@ -44,57 +45,129 @@ const formProps = computed(() => ({
   ...(props.form ? { form: props.form } : {}),
 }))
 
-const maxRowsRef = ref(props.maxRows)
+const COLLAPSED_ROWS = 1
+const fieldRef = useField()
+const fieldSchemaRef = useFieldSchema()
+const formRef = useForm()
 
-const defaultShouldVisible: IGridOptions['shouldVisible'] = (node, grid) => {
-  const maxRows = maxRowsRef.value ?? 1
-  if (node.index === grid.childSize - 1)
-    return true
-  if (grid.maxRows === Infinity)
+interface SchemaEntry { name?: string, schema: ISchema }
+
+const schemaList = computed<SchemaEntry[]>(() => {
+  const schema = fieldSchemaRef.value ?? props.schema
+  if (!schema)
+    return []
+  if (typeof (schema as any).mapProperties === 'function') {
+    const list: SchemaEntry[] = []
+    ;(schema as any).mapProperties((childSchema: ISchema, name: string) => {
+      list.push({ schema: childSchema, name })
+    })
+    return list
+  }
+  return Object.entries(schema.properties ?? {}).map(([name, childSchema]) => ({
+    name,
+    schema: childSchema,
+  }))
+})
+
+function resolveField(name?: string | number) {
+  if (!name)
+    return
+  if (fieldRef.value) {
+    return fieldRef.value
+      .query(fieldRef.value.address.concat(name))
+      .take()
+  }
+  const form = props.form ?? formRef?.value
+  return form?.query(name).take()
+}
+
+function createVisibleContext(
+  node: GridNode,
+  grid: Grid<HTMLElement>,
+  collapsedOverride?: boolean,
+) {
+  const index = node.index ?? 0
+  const entry = schemaList.value[index]
+  const schema = entry?.schema
+  const name = entry?.name ?? schema?.name
+  return {
+    field: resolveField(name),
+    schema,
+    index,
+    node,
+    grid,
+    collapsed: collapsedOverride ?? grid.maxRows !== Infinity,
+    breakpoint: grid.breakpoint,
+  }
+}
+
+function defaultVisibleWhen(context: ReturnType<typeof createVisibleContext>) {
+  if (!context.collapsed)
     return true
 
-  const shadowRow = node.shadowRow ?? 0
-  const withinRows = shadowRow < maxRows + 1
+  const shadowRow = context.node.shadowRow ?? 0
+  const withinRows = shadowRow < COLLAPSED_ROWS + 1
   if (!withinRows)
     return false
 
-  const computeRows = grid.fullnessLastColumn ? grid.shadowRows - 1 : grid.shadowRows
-  const isCollapsible = computeRows > maxRows
+  const computeRows = context.grid.fullnessLastColumn
+    ? context.grid.shadowRows - 1
+    : context.grid.shadowRows
+  const isCollapsible = computeRows > COLLAPSED_ROWS
   if (!isCollapsible)
     return true
 
-  const shadowColumn = node.shadowColumn ?? 1
-  const span = node.span ?? 1
+  const shadowColumn = context.node.shadowColumn ?? 1
+  const span = context.node.span ?? 1
   const endColumn = shadowColumn + span - 1
-  if (shadowRow === maxRows && endColumn === grid.columns)
+  if (shadowRow === COLLAPSED_ROWS && endColumn === context.grid.columns)
     return false
 
   return true
 }
 
+function resolveVisibleWhen(context: ReturnType<typeof createVisibleContext>) {
+  const visible = props.visibleWhen
+    ? props.visibleWhen(context)
+    : defaultVisibleWhen(context)
+  return visible !== false
+}
+
+const defaultShouldVisible: IGridOptions['shouldVisible'] = (node, grid) => {
+  if (node.index === grid.childSize - 1)
+    return true
+  return resolveVisibleWhen(createVisibleContext(node, grid))
+}
+
+const restGridProps = props.gridProps ?? {}
+
 const gridOptions: IGridOptions = {
   maxColumns: 4,
   maxWidth: 240,
-  ...props.gridProps,
-  maxRows: props.defaultExpanded ? Infinity : props.maxRows,
-  shouldVisible: props.shouldVisible ?? props.gridProps?.shouldVisible ?? defaultShouldVisible,
+  ...restGridProps,
+  maxRows: props.defaultExpanded ? Infinity : COLLAPSED_ROWS,
+  shouldVisible: defaultShouldVisible,
 }
 
 const internalGrid = markRaw(new Grid(gridOptions))
-const grid = props.grid ?? internalGrid
+const grid = internalGrid
 
 const expanded = ref(grid.maxRows === Infinity)
 const gridType = ref<'incomplete-wrap' | 'collapsible' | 'complete-wrap'>('complete-wrap')
 
 function updateType() {
-  const realRows = grid.shadowRows
-  const computeRows = grid.fullnessLastColumn ? grid.shadowRows - 1 : grid.shadowRows
-  if (realRows < maxRowsRef.value + 1)
-    gridType.value = 'incomplete-wrap'
-  else if (computeRows > maxRowsRef.value)
+  const nodes = grid.children ?? []
+  const hasHiddenInCollapsed = nodes.some((node) => {
+    if (node.index === grid.childSize - 1)
+      return false
+    return !resolveVisibleWhen(createVisibleContext(node, grid, true))
+  })
+  if (hasHiddenInCollapsed) {
     gridType.value = 'collapsible'
-  else
-    gridType.value = 'complete-wrap'
+    return
+  }
+  const realRows = grid.shadowRows
+  gridType.value = realRows < COLLAPSED_ROWS + 1 ? 'incomplete-wrap' : 'complete-wrap'
 }
 
 const dispose = autorun(() => {
@@ -105,18 +178,8 @@ const dispose = autorun(() => {
 onUnmounted(dispose)
 
 function toggle() {
-  grid.maxRows = grid.maxRows === Infinity ? maxRowsRef.value : Infinity
+  grid.maxRows = grid.maxRows === Infinity ? COLLAPSED_ROWS : Infinity
 }
-
-watch(
-  () => props.maxRows,
-  (value) => {
-    maxRowsRef.value = value ?? 1
-    if (grid.maxRows !== Infinity)
-      grid.maxRows = maxRowsRef.value
-    updateType()
-  },
-)
 
 const hasDefaultSlot = computed(() => hasSlotContent(slots.default))
 
@@ -142,9 +205,20 @@ const schemaField = computed(() => {
         v-else-if="schemaField"
         :schema="props.schema"
       />
-      <FormGridColumn :grid-span="-1" :class="`${prefixCls}__actions`">
+      <FormGridColumn
+        :grid-span="-1"
+        :class="[
+          `${prefixCls}__actions`,
+          props.actionsAtRowEnd && `${prefixCls}__actions--row-end`,
+        ]"
+      >
         <template v-if="gridType === 'incomplete-wrap'">
-          <FormButtonGroup align-form-item inline>
+          <FormButtonGroup
+            :align="props.actionsAtRowEnd ? 'right' : 'left'"
+            :align-form-item="!props.actionsAtRowEnd"
+            inline
+            :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
+          >
             <slot
               name="actions"
               :expanded="expanded"
@@ -161,7 +235,12 @@ const schemaField = computed(() => {
           </FormButtonGroup>
         </template>
         <template v-else-if="gridType === 'collapsible'">
-          <FormButtonGroup align="right" align-form-item inline>
+          <FormButtonGroup
+            align="right"
+            :align-form-item="!props.actionsAtRowEnd"
+            inline
+            :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
+          >
             <slot
               name="actions"
               :expanded="expanded"

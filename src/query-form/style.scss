@@ -7,3 +7,7 @@ $form-query-prefix-cls: '#{$formily-prefix}-query-form';
   justify-content: space-between;
   width: 100%;
 }
+
+.#{$form-query-prefix-cls}__actions--row-end {
+  justify-content: flex-end;
+}
