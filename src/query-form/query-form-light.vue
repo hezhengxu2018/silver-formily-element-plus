@@ -30,7 +30,7 @@ const fieldSchemaRef = useFieldSchema()
 const prefixCls = `${stylePrefix}-query-form-light`
 
 const activeForm = computed<Form | undefined>(() => formProps.value.form ?? formRef?.value)
-const resolvedSchema = fieldSchemaRef.value ?? props.schema
+const resolvedSchema = computed(() => props.schema ?? fieldSchemaRef.value)
 
 const innerFormProps = computed(() => ({
   fullness: false,
@@ -73,9 +73,11 @@ onUnmounted(() => {
 
 const hasDefaultSlot = Boolean(slots.default)
 const mergedComponents = mergeQueryFormComponents(props.components)
-const schemaField = hasDefaultSlot || !resolvedSchema
-  ? null
-  : (props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField)
+const schemaField = computed(() => {
+  if (hasDefaultSlot || !resolvedSchema.value)
+    return null
+  return props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField
+})
 </script>
 
 <template>
