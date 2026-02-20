@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Form } from '@formily/core'
 import type { IQueryFormLightProps } from './types'
-import { autorun } from '@formily/reactive'
+import { reaction, toJS } from '@formily/reactive'
 import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { throttle } from 'lodash-es'
 import { computed, onUnmounted, useSlots } from 'vue'
@@ -39,9 +39,6 @@ const innerFormProps = computed(() => ({
 
 function submitByChange() {
   const form = activeForm.value
-  /* istanbul ignore if -- @preserve defensive: QueryForm.Light may run without form instance */
-  if (!form)
-    return
   form
     .submit((values) => {
       emit('autoSubmit', values)
@@ -60,22 +57,13 @@ const triggerSubmit = throttle(() => {
   trailing: true,
 })
 
-let initialized = false
-const dispose = autorun(() => {
+const dispose = reaction(() => {
   const form = activeForm.value
   if (!form)
     return
-  // Track deep value changes and submit only after initial collection.
-  JSON.stringify(form.values)
-  if (!initialized) {
-    initialized = true
-    return
-  }
-  if (props.throttleWait > 0) {
-    triggerSubmit()
-    return
-  }
-  submitByChange()
+  return toJS(form.values)
+}, () => {
+  triggerSubmit()
 })
 
 onUnmounted(() => {

@@ -47,3 +47,5 @@ export interface IQueryFormLightProps {
   throttleWait?: number
 }
 // #endregion light-props
+
+export interface SchemaEntry { name?: string | number, schema: ISchema }

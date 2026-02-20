@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Grid, GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
-import type { IQueryFormProps } from './types'
+import type { IQueryFormProps, SchemaEntry } from './types'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
-
+import { Schema } from '@formily/json-schema'
 import { autorun } from '@formily/reactive'
-import { createSchemaField, useField, useFieldSchema, useForm } from '@silver-formily/vue'
+import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { ElIcon, ElLink } from 'element-plus'
 import { computed, onUnmounted, ref, useSlots } from 'vue'
 import { compatibleUnderlineProp, stylePrefix, useCleanAttrs } from '../__builtins__'
@@ -46,39 +46,22 @@ const innerFormProps = computed(() => ({
 }))
 
 const COLLAPSED_ROWS = 1
-const fieldRef = useField()
 const fieldSchemaRef = useFieldSchema()
 const formRef = useForm()
 
-interface SchemaEntry { name?: string, schema: ISchema }
-
 const schemaList = computed<SchemaEntry[]>(() => {
-  const schema = fieldSchemaRef.value ?? props.schema
+  const rawSchema = fieldSchemaRef.value ?? props.schema
   /* istanbul ignore next -- @preserve defensive: schema can be temporarily absent in external field-schema lifecycle */
-  if (!schema)
+  if (!rawSchema)
     return []
-  if (typeof (schema as any).mapProperties === 'function') {
-    const list: SchemaEntry[] = []
-    ;(schema as any).mapProperties((childSchema: ISchema, name: string) => {
-      list.push({ schema: childSchema, name })
-    })
-    return list
-  }
-  /* istanbul ignore next -- @preserve defensive: schema may not declare properties */
-  return Object.entries(schema.properties ?? {}).map(([name, childSchema]) => ({
+  const schema = rawSchema instanceof Schema ? rawSchema : new Schema(rawSchema)
+  return schema.mapProperties((childSchema: ISchema, name: string | number) => ({
     name,
     schema: childSchema,
   }))
 })
 
 function resolveField(name?: string | number) {
-  /* istanbul ignore if -- @preserve defensive: invalid schema node name */
-  if (!name)
-    return
-  /* istanbul ignore if -- @preserve defensive: fieldRef exists only under specific schema mount tree */
-  if (fieldRef.value) {
-    return fieldRef.value.query(fieldRef.value.address.concat(name)).take()
-  }
   const form = formProps.value.form ?? formRef?.value
   return form?.query(name).take()
 }
@@ -115,10 +98,7 @@ function defaultVisibleWhen(context: ReturnType<typeof createVisibleContext>) {
   const isCollapsible = getFieldRowCount(context.grid) > COLLAPSED_ROWS
   if (!isCollapsible)
     return true
-
-  /* istanbul ignore next -- @preserve defensive: shadowColumn may be absent before layout complete */
   const shadowColumn = context.node.shadowColumn ?? 1
-  /* istanbul ignore next -- @preserve defensive: span fallback for incomplete runtime node metadata */
   const span = context.node.span ?? 1
   const endColumn = shadowColumn + span - 1
   if (shadowRow === COLLAPSED_ROWS && endColumn === context.grid.columns)
@@ -142,7 +122,6 @@ function isActionsNode(node: GridNode, grid: Grid<HTMLElement>) {
 }
 
 function getFieldRowCount(grid: Grid<HTMLElement>) {
-  /* istanbul ignore next -- @preserve defensive: children is runtime-populated by @formily/grid */
   const rows = (grid.children ?? [])
     .filter(node => !isActionsNode(node, grid))
     .map(node => node.shadowRow ?? 0)
@@ -155,11 +134,13 @@ const defaultShouldVisible: IGridOptions['shouldVisible'] = (node, grid) => {
   return resolveVisibleWhen(createVisibleContext(node, grid))
 }
 
-/* istanbul ignore next -- @preserve defensive: kept for optional external props compatibility */
 const restGridProps = props.gridProps ?? {}
+const defaultGridProps: Partial<IGridOptions> = restGridProps.minColumns === undefined && restGridProps.maxColumns === undefined
+  ? { maxColumns: 4 }
+  : {}
 
 const gridOptions: IGridOptions = {
-  maxColumns: 4,
+  ...defaultGridProps,
   ...restGridProps,
   maxRows: props.defaultExpanded ? Infinity : COLLAPSED_ROWS,
   shouldVisible: defaultShouldVisible,
@@ -237,7 +218,7 @@ const schemaField = hasDefaultSlot || !props.schema
             :align="props.actionsAtRowEnd ? 'right' : 'left'"
             align-form-item
             inline
-            :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
+            :style="props.actionsAtRowEnd && { width: '100%' }"
           >
             <slot
               name="actions"
@@ -259,7 +240,7 @@ const schemaField = hasDefaultSlot || !props.schema
             :align="props.actionsAtRowEnd ? 'right' : 'left'"
             align-form-item
             inline
-            :style="props.actionsAtRowEnd ? { width: '100%' } : undefined"
+            :style="props.actionsAtRowEnd && { width: '100%' }"
           >
             <slot
               name="actions"

@@ -1,4 +1,5 @@
 import type { ISchema } from '@formily/json-schema'
+import type { QueryFormVisibleContext } from '../types'
 import { createForm } from '@formily/core'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-vue'
@@ -256,6 +257,28 @@ describe('QueryForm', () => {
     await vi.waitFor(() => {
       expect(visibleWhen).toHaveBeenCalled()
     })
+  })
+
+  it('should not force default maxColumns when minColumns is provided', async () => {
+    const form = createForm()
+    const visibleWhen = vi.fn<(context: QueryFormVisibleContext) => boolean>(() => true)
+
+    render(() => (
+      <QueryForm
+        form={form}
+        schema={createInputSchema(2)}
+        gridProps={{ minColumns: 2 }}
+        visibleWhen={visibleWhen}
+      />
+    ))
+
+    await vi.waitFor(() => {
+      expect(visibleWhen).toHaveBeenCalled()
+    })
+
+    const [context] = visibleWhen.mock.calls[0]!
+    expect(context.grid.minColumns).toBe(2)
+    expect(context.grid.maxColumns).not.toBe(4)
   })
 
   it('should render without schema and without default slot', async () => {
