@@ -36,6 +36,45 @@ const schema: ISchema = {
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
+    priority: {
+      'type': 'string',
+      'title': 'Priority',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'enum': [
+        { label: 'High', value: 'high' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Low', value: 'low' },
+      ],
+    },
+    source: {
+      'type': 'string',
+      'title': 'Source',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'enum': [
+        { label: 'Web', value: 'web' },
+        { label: 'App', value: 'app' },
+      ],
+    },
+    createdAt: {
+      'type': 'string',
+      'title': 'Created At',
+      'x-decorator': 'FormItem',
+      'x-component': 'DatePicker',
+      'x-component-props': {
+        type: 'daterange',
+      },
+    },
+    updatedAt: {
+      'type': 'string',
+      'title': 'Updated At',
+      'x-decorator': 'FormItem',
+      'x-component': 'DatePicker',
+      'x-component-props': {
+        type: 'daterange',
+      },
+    },
   },
 }
 </script>
@@ -45,6 +84,6 @@ const schema: ISchema = {
     :form="form"
     :schema="schema"
     layout="vertical"
-    :grid-props="{ maxColumns: 2, maxWidth: 280 }"
+    :grid-props="{ minColumns: 5, maxColumns: 5 }"
   />
 </template>
