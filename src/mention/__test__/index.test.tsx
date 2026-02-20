@@ -28,6 +28,14 @@ const mentionSlots = {
   footer: ({ field }: { field: any }) => <div class="mention-footer">{field?.value}</div>,
 }
 
+const mentionAllSlots = {
+  prefix: () => <span class="mention-prefix">@</span>,
+  suffix: () => <span class="mention-suffix">#</span>,
+  prepend: () => <span class="mention-prepend">PRE</span>,
+  append: () => <span class="mention-append">APP</span>,
+  loading: () => <div class="mention-loading">loading</div>,
+}
+
 describe('Mention', () => {
   describe('基础功能', () => {
     it('应该支持选择提及项并更新表单值', async () => {
@@ -82,6 +90,34 @@ describe('Mention', () => {
       expect(document.querySelector('.mention-header')?.textContent).toBe('提及内容')
       expect(document.querySelector('.mention-footer')?.textContent).toBe('@Formily @')
       expect(document.querySelector('.mention-label')?.textContent).toContain('content')
+    })
+
+    it('should render prefix/suffix/prepend/append/loading slots', async () => {
+      render(() => (
+        <FormProvider form={createForm()}>
+          <Field
+            name="content"
+            component={[Mention]}
+            dataSource={options}
+            loading={true}
+            v-slots={mentionAllSlots}
+          />
+        </FormProvider>
+      ))
+
+      expect(document.querySelector('.mention-prefix')).toBeInTheDocument()
+      expect(document.querySelector('.mention-suffix')).toBeInTheDocument()
+      expect(document.querySelector('.mention-prepend')).toBeInTheDocument()
+      expect(document.querySelector('.mention-append')).toBeInTheDocument()
+
+      const input = getInputEl()
+      expect(input).toBeTruthy()
+      await userEvent.click(input!)
+      await userEvent.type(input!, '@')
+
+      await vi.waitFor(() => {
+        expect(document.querySelector('.mention-loading')).toBeInTheDocument()
+      })
     })
   })
 

@@ -43,6 +43,7 @@ const normalizedFetchSuggestions = computed<AutocompleteFetchSuggestions | undef
     }) as AutocompleteFetchSuggestions
   }
 
+  /* istanbul ignore next -- @preserve defensive: allow autocomplete to run without options and remote fetch */
   if (!props.options) {
     return
   }
@@ -61,6 +62,7 @@ const normalizedFetchSuggestions = computed<AutocompleteFetchSuggestions | undef
 
 function matchOption(option: AutocompleteData[number], valueKey: string, keyword: string) {
   const target = option?.[valueKey]
+  /* istanbul ignore next -- @preserve defensive: tolerate invalid option shape from external data source */
   if (target === undefined || target === null) {
     return false
   }

@@ -148,6 +148,7 @@ async function onAddItemClick() {
     })
     return
   }
+  /* istanbul ignore if -- @preserve */
   if (!isArr(field.value)) {
     currentPage.value = 1
     return

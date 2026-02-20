@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { GridNode, IGridOptions } from '@formily/grid'
+import type { Grid, GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
 import type { IQueryFormProps } from './types'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
-import { Grid } from '@formily/grid'
-import { autorun, markRaw } from '@formily/reactive'
+
+import { autorun } from '@formily/reactive'
 import { createSchemaField, useField, useFieldSchema, useForm } from '@silver-formily/vue'
 import { ElIcon, ElLink } from 'element-plus'
 import { computed, onUnmounted, ref, useSlots } from 'vue'
@@ -12,6 +12,7 @@ import { compatibleUnderlineProp, stylePrefix, useCleanAttrs } from '../__builti
 import { Form } from '../form'
 import { FormButtonGroup } from '../form-button-group'
 import { FormGrid } from '../form-grid'
+import { createFormGrid } from '../form-grid/hooks'
 import { Reset } from '../reset'
 import { Submit } from '../submit'
 import { mergeQueryFormComponents } from './default-components'
@@ -164,7 +165,7 @@ const gridOptions: IGridOptions = {
   shouldVisible: defaultShouldVisible,
 }
 
-const internalGrid = markRaw(new Grid(gridOptions))
+const internalGrid = createFormGrid(gridOptions)
 const grid = internalGrid
 
 const expanded = ref(grid.maxRows === Infinity)

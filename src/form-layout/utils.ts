@@ -99,7 +99,7 @@ export function useFormLayout(): Ref<IFormLayoutProps> {
 }
 
 export function useFormLayoutId(): ComputedRef<string> {
-  return inject(formLayoutIdContext, computed(() => ''))
+  return inject(formLayoutIdContext)
 }
 
 export const FORM_LAYOUT_PROPS_KEYS: ReadonlyArray<keyof IFormLayoutProps> = [

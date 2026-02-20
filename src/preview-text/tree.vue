@@ -45,8 +45,6 @@ const dataSource = computed(() => {
 const resolvedValue = computed(() => {
   if (props.modelValue !== undefined)
     return props.modelValue
-  if (props.modelValue !== undefined)
-    return props.modelValue
   return fieldRef.value?.value
 })
 
