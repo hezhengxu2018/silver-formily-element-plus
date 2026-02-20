@@ -33,6 +33,11 @@
         "promotion": "2.3.0"
       },
       {
+        "link": "/zh/component/query-form-item",
+        "text": "QueryFormItem 查询表单项",
+        "promotion": "2.4.0"
+      },
+      {
         "link": "/zh/component/space",
         "text": "Space 弹性盒子布局表单"
       },

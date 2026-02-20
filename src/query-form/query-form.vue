@@ -51,7 +51,7 @@ const fieldSchemaRef = useFieldSchema()
 const formRef = useForm()
 
 const schemaList = computed<SchemaEntry[]>(() => {
-  const rawSchema = fieldSchemaRef.value ?? props.schema
+  const rawSchema = props.schema ?? fieldSchemaRef.value
   /* istanbul ignore next -- @preserve defensive: schema can be temporarily absent in external field-schema lifecycle */
   if (!rawSchema)
     return []
