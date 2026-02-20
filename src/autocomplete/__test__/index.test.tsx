@@ -14,20 +14,18 @@ const options = [
   { value: 'Cherry' },
 ]
 
-const SUGGESTION_SELECTOR = '.el-autocomplete-suggestion__list li'
+const suggestionSelector = '.el-autocomplete-suggestion__list li'
 type OptionList = typeof options
 
 async function waitForSuggestionItems(expectedLength?: number) {
   await vi.waitFor(() => {
-    const items = document.querySelectorAll(SUGGESTION_SELECTOR)
-    if (expectedLength === undefined) {
+    const items = document.querySelectorAll(suggestionSelector)
+    if (expectedLength === undefined)
       expect(items.length).toBeGreaterThan(0)
-    }
-    else {
+    else
       expect(items).toHaveLength(expectedLength)
-    }
   })
-  return document.querySelectorAll(SUGGESTION_SELECTOR)
+  return document.querySelectorAll(suggestionSelector)
 }
 
 function createDeferredFetch(data: OptionList = options) {
@@ -37,14 +35,12 @@ function createDeferredFetch(data: OptionList = options) {
     cb: (items: OptionList) => void,
     field?: FormilyField,
   ) => new Promise<OptionList>((resolve) => {
-    if (field) {
+    if (field)
       field.loading = true
-    }
 
     flushFetch = () => {
-      if (field) {
+      if (field)
         field.loading = false
-      }
       cb(data)
       resolve(data)
     }
@@ -59,47 +55,49 @@ function createDeferredFetch(data: OptionList = options) {
   }
 }
 
+const decoratorSlots = {
+  prefix: () => <span class="auto-prefix">PFX</span>,
+  suffix: () => <span class="auto-suffix">SFX</span>,
+  prepend: () => <span class="auto-prepend">PRE</span>,
+  append: () => <span class="auto-append">APP</span>,
+}
+
 describe('Autocomplete', () => {
-  describe('基础功能', () => {
-    it('应该正常渲染并展示数据源', async () => {
+  describe('basic', () => {
+    it('should render and show options on focus', async () => {
       const page = render(() => (
         <FormProvider form={createForm()}>
           <Field
             name="autocomplete"
-            component={[Autocomplete, { triggerOnFocus: true, placeholder: '请输入内容' }]}
+            component={[Autocomplete, { triggerOnFocus: true, placeholder: 'Type here' }]}
             dataSource={options}
           />
         </FormProvider>
       ))
 
-      const input = page.getByPlaceholder('请输入内容')
+      const input = page.getByPlaceholder('Type here')
       await expect.element(input).toBeInTheDocument()
       await userEvent.click(input)
-
       await waitForSuggestionItems(3)
     })
 
-    it('应该在选择建议后更新表单值', async () => {
+    it('should update form value after selecting suggestion', async () => {
       const form = createForm()
       render(() => (
         <FormProvider form={form}>
-          <Field
-            name="autocomplete"
-            component={[Autocomplete, { triggerOnFocus: true }]}
-            dataSource={options}
-          />
+          <Field name="autocomplete" component={[Autocomplete, { triggerOnFocus: true }]} dataSource={options} />
         </FormProvider>
       ))
 
       const input = document.querySelector('input')
-      await userEvent.click(input)
+      await userEvent.click(input!)
       const items = await waitForSuggestionItems(3)
       await userEvent.click(items[1])
 
       expect(form.values.autocomplete).toBe('Banana')
     })
 
-    it('应该根据输入结果过滤建议', async () => {
+    it('should filter local options by input keyword', async () => {
       render(() => (
         <FormProvider form={createForm()}>
           <Field name="autocomplete" component={[Autocomplete]} dataSource={options} />
@@ -107,15 +105,14 @@ describe('Autocomplete', () => {
       ))
 
       const input = document.querySelector('input')
-      await userEvent.type(input, 'ap')
-
+      await userEvent.type(input!, 'ap')
       const items = await waitForSuggestionItems(1)
       expect(items[0].textContent).toContain('Apple')
     })
   })
 
-  describe('插槽与自定义', () => {
-    it('应该在 default slot 中透出 field', async () => {
+  describe('slots and customization', () => {
+    it('should expose field to default slot', async () => {
       render(() => (
         <FormProvider form={createForm()}>
           <Field name="autocomplete" component={[Autocomplete, { triggerOnFocus: true }]} dataSource={options} initialValue="Prefilled">
@@ -133,8 +130,8 @@ describe('Autocomplete', () => {
       ))
 
       const input = document.querySelector('input')
-      await userEvent.click(input)
-      await userEvent.clear(input)
+      await userEvent.click(input!)
+      await userEvent.clear(input!)
 
       await vi.waitFor(() => {
         const customItem = document.querySelector('.custom-item')
@@ -143,7 +140,7 @@ describe('Autocomplete', () => {
       })
     })
 
-    it('应该优先使用外部传入的 fetchSuggestions', async () => {
+    it('should prioritize external fetchSuggestions and inject field', async () => {
       const fetchSuggestions = vi.fn((query: string, cb: (data: Array<{ value: string }>) => void, fieldArg?: any) => {
         cb(query ? [{ value: `${query}-result` }] : [{ value: 'default-result' }])
         return fieldArg
@@ -160,19 +157,20 @@ describe('Autocomplete', () => {
       ))
 
       const input = document.querySelector('input')
-      await userEvent.click(input)
-      await userEvent.type(input, 'custom')
+      await userEvent.click(input!)
+      await userEvent.type(input!, 'custom')
 
       await vi.waitFor(() => {
         expect(fetchSuggestions).toHaveBeenCalled()
       })
+
       const fieldArg = fetchSuggestions.mock.calls[0][2]
       expect(fieldArg?.path?.toString()).toBe('autocomplete')
       const items = await waitForSuggestionItems()
       expect(items[0].textContent).toContain('custom-result')
     })
 
-    it('应该支持 header 与 footer 插槽', async () => {
+    it('should support header and footer slots', async () => {
       render(() => (
         <FormProvider form={createForm()}>
           <Field
@@ -182,27 +180,22 @@ describe('Autocomplete', () => {
             initialValue="Apple"
           >
             {{
-              header: ({ field }) => (
-                <div class="custom-header">
-                  最近选择：
-                  {field?.value?.value}
-                </div>
-              ),
-              footer: () => <div class="custom-footer">自定义底部</div>,
+              header: ({ field }) => <div class="custom-header">{field?.value?.value}</div>,
+              footer: () => <div class="custom-footer">footer</div>,
             }}
           </Field>
         </FormProvider>
       ))
 
       const input = document.querySelector('input')
-      await userEvent.click(input)
+      await userEvent.click(input!)
       await vi.waitFor(() => {
         expect(document.querySelector('.custom-header')).toBeInTheDocument()
         expect(document.querySelector('.custom-footer')).toBeInTheDocument()
       })
     })
 
-    it('应该支持 loading 插槽', async () => {
+    it('should support loading slot', async () => {
       const { fetchSuggestions, flush } = createDeferredFetch()
       render(() => (
         <FormProvider form={createForm()}>
@@ -212,14 +205,14 @@ describe('Autocomplete', () => {
             dataSource={[]}
           >
             {{
-              loading: () => <div class="custom-loading">加载中...</div>,
+              loading: () => <div class="custom-loading">loading...</div>,
             }}
           </Field>
         </FormProvider>
       ))
 
       const input = document.querySelector('input')
-      await userEvent.type(input, 'c')
+      await userEvent.type(input!, 'c')
       await vi.waitFor(() => {
         expect(fetchSuggestions).toHaveBeenCalled()
         expect(document.querySelector('.custom-loading')).toBeInTheDocument()
@@ -229,7 +222,25 @@ describe('Autocomplete', () => {
       await waitForSuggestionItems(options.length)
     })
 
-    it('应该在远程搜索时同步 field 的 loading 状态', async () => {
+    it('should render prefix/suffix/prepend/append slots', async () => {
+      render(() => (
+        <FormProvider form={createForm()}>
+          <Field
+            name="decorators"
+            component={[Autocomplete]}
+            dataSource={options}
+            v-slots={decoratorSlots}
+          />
+        </FormProvider>
+      ))
+
+      expect(document.querySelector('.auto-prefix')).toBeInTheDocument()
+      expect(document.querySelector('.auto-suffix')).toBeInTheDocument()
+      expect(document.querySelector('.auto-prepend')).toBeInTheDocument()
+      expect(document.querySelector('.auto-append')).toBeInTheDocument()
+    })
+
+    it('should sync field loading state in remote mode', async () => {
       const form = createForm()
       const { fetchSuggestions, flush } = createDeferredFetch()
       render(() => (
@@ -248,9 +259,8 @@ describe('Autocomplete', () => {
 
       await nextTick()
       const field = form.query('auto-loading').take()
-
       const input = document.querySelector('input')
-      await userEvent.type(input, 'c')
+      await userEvent.type(input!, 'c')
 
       await vi.waitFor(() => {
         expect((field as FormilyField)?.loading).toBe(true)
@@ -262,7 +272,8 @@ describe('Autocomplete', () => {
         expect((field as FormilyField)?.loading).toBe(false)
       })
     })
-    it('应该支持获取ElAutocomplete实例', async () => {
+
+    it('should provide ElAutocomplete instance via field invoke', async () => {
       const form = createForm()
       render(() => (
         <FormProvider form={form}>

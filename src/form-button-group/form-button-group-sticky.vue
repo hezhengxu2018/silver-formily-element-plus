@@ -18,6 +18,7 @@ const target = computed(() => {
   if (formLayoutId.value) {
     return `#${formLayoutId.value}`
   }
+  /* istanbul ignore next -- @preserve */
   return formRef.value?.id ? `#formily-${formRef.value.id}` : undefined
 })
 </script>

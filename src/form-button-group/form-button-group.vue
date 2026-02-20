@@ -13,6 +13,10 @@ const props = defineProps({
     type: String,
     default: 'left',
   },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
   gutter: {
     type: Number,
     default: 8,
@@ -27,22 +31,30 @@ const props = defineProps({
 <template>
   <FormItem
     v-if="props.alignFormItem"
-    :colon="false"
-    label=" "
+    label="&nbsp;"
     v-bind="$attrs"
-    :class="prefixCls"
+    :class="[prefixCls, props.inline && `${prefixCls}--inline`]"
     :style="{
       width: '100%',
     }"
   >
-    <ElSpace :size="props.gutter">
+    <ElSpace
+      :size="props.gutter"
+      :style="props.align === 'left'
+        ? undefined
+        : {
+          justifyContent: props.align === 'right' ? 'flex-end' : 'center',
+          display: 'flex',
+          width: '100%',
+        }"
+    >
       <slot />
     </ElSpace>
   </FormItem>
   <ElSpace
     v-else
     v-bind="$attrs"
-    :class="prefixCls"
+    :class="[prefixCls, props.inline && `${prefixCls}--inline`]"
     :style="{
       justifyContent: props.align === 'left'
         ? 'flex-start'

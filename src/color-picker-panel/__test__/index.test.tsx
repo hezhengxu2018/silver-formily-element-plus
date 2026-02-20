@@ -7,7 +7,7 @@ import ColorPickerPanel from '../index'
 import 'element-plus/theme-chalk/index.css'
 
 describe('ColorPickerPanel', () => {
-  it('应该正常渲染面板', async () => {
+  it('should render panel', async () => {
     render(() => (
       <FormProvider form={createForm()}>
         <Field name="color" component={[ColorPickerPanel]} />
@@ -18,7 +18,7 @@ describe('ColorPickerPanel', () => {
     expect(panel).toBeInTheDocument()
   })
 
-  it('应该在选择预设颜色后更新表单值', async () => {
+  it('should update form value after selecting predefine color', async () => {
     const form = createForm()
     render(() => (
       <FormProvider form={form}>
@@ -43,5 +43,28 @@ describe('ColorPickerPanel', () => {
     await userEvent.click(predefine[0])
 
     expect(form.values.color).toBe('#409eff')
+  })
+
+  it('should render normally when Field is readOnly', async () => {
+    const form = createForm()
+    render(() => (
+      <FormProvider form={form}>
+        <Field
+          name="color"
+          readOnly={true}
+          component={[
+            ColorPickerPanel,
+            {
+              predefine: ['#409eff', '#67c23a'],
+              readOnly: true,
+              disabled: false,
+            },
+          ]}
+        />
+      </FormProvider>
+    ))
+
+    const panel = document.querySelector('.el-color-picker-panel')
+    expect(panel).toBeInTheDocument()
   })
 })

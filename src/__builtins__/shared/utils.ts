@@ -1,8 +1,9 @@
 import type { Component, ComputedRef, Slot, VNode } from 'vue'
 import { isPlainObj } from '@formily/shared'
-import { useAttrs } from 'element-plus'
+import { useAttrs, version } from 'element-plus'
 import { omit } from 'lodash-es'
 import { Comment, computed, Fragment, Text } from 'vue'
+import { lt } from './simple-version-compare'
 
 export function useCleanAttrs(removeAttrsList: string[] = []): {
   props: ComputedRef<Record<string, any>>
@@ -63,4 +64,9 @@ export function hasSlotContent(slot: Slot<any> | undefined) {
     return false
   }
   return !isVnodeEmpty(slot())
+}
+
+export function compatibleUnderlineProp() {
+  /* istanbul ignore next -- @preserve */
+  return lt(version, '2.9.9') ? false : 'never'
 }

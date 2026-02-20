@@ -2,24 +2,30 @@ import type { ComponentPublicInstance } from 'vue'
 
 export type DialogLikeInstance = ComponentPublicInstance<{ dialogContentRef?: ComponentPublicInstance | null }> | null
 
-export function resolveDialogElement(instance: DialogLikeInstance): HTMLElement | null {
-  const exposedDialogRef = (instance as ComponentPublicInstance & { dialogContentRef?: ComponentPublicInstance | null } | null)?.dialogContentRef
-    ?? (instance as ComponentPublicInstance & { exposed?: Record<string, any> } | null)?.exposed?.dialogContentRef
-  const dialogElement = exposedDialogRef?.$el as HTMLElement | undefined
-  if (dialogElement)
-    return dialogElement
+type OverlayLikeInstance = ComponentPublicInstance & {
+  exposed?: Record<string, any>
+  $refs?: Record<string, any>
+  dialogContentRef?: ComponentPublicInstance | null
+}
 
-  return (instance?.$el as HTMLElement | undefined) ?? null
+function toHTMLElement(target: unknown): HTMLElement | null {
+  if (target instanceof HTMLElement)
+    return target
+
+  const element = (target as { $el?: unknown } | null | undefined)?.$el
+  return element instanceof HTMLElement ? element : null
+}
+
+export function resolveDialogElement(instance: DialogLikeInstance): HTMLElement | null {
+  const vm = instance as OverlayLikeInstance | null
+  return toHTMLElement(vm?.dialogContentRef)
+    ?? toHTMLElement(vm?.exposed?.dialogContentRef)
+    ?? toHTMLElement(vm)
 }
 
 export function resolveDrawerElement(instance: ComponentPublicInstance | null): HTMLElement | null {
-  const exposedDrawer = (instance as ComponentPublicInstance & { exposed?: Record<string, any> } | null)?.exposed?.drawerRef
-  if (exposedDrawer instanceof HTMLElement)
-    return exposedDrawer
-
-  const drawerFromRefs = (instance as ComponentPublicInstance & { $refs?: Record<string, any> } | null)?.$refs?.drawerRef
-  if (drawerFromRefs instanceof HTMLElement)
-    return drawerFromRefs
-
-  return (instance?.$el as HTMLElement | undefined) ?? null
+  const vm = instance as OverlayLikeInstance | null
+  return toHTMLElement(vm?.exposed?.drawerRef)
+    ?? toHTMLElement(vm?.$refs?.drawerRef)
+    ?? toHTMLElement(vm)
 }
