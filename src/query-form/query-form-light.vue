@@ -39,6 +39,7 @@ const innerFormProps = computed(() => ({
 
 function submitByChange() {
   const form = activeForm.value
+  /* istanbul ignore if -- @preserve defensive: QueryForm.Light may run without form instance */
   if (!form)
     return
   form
