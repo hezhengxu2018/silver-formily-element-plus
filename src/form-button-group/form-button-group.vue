@@ -31,7 +31,6 @@ const props = defineProps({
 <template>
   <FormItem
     v-if="props.alignFormItem"
-    :colon="false"
     label="&nbsp;"
     v-bind="$attrs"
     :class="[prefixCls, props.inline && `${prefixCls}--inline`]"

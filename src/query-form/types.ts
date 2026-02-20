@@ -25,6 +25,7 @@ export interface IQueryFormProps {
   scope?: Record<string, any>
   gridProps?: Omit<IGridOptions, 'shouldVisible' | 'maxRows'>
   defaultExpanded?: boolean
+  showToggle?: boolean
   actionsAtRowEnd?: boolean
   visibleWhen?: QueryFormVisible
   submitText?: string

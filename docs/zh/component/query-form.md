@@ -29,6 +29,30 @@ query-form/json-schema
 
 :::
 
+## 垂直布局示例
+
+:::demo
+
+query-form/vertical-layout
+
+:::
+
+## 默认展开所有搜索项
+
+:::demo
+
+query-form/default-expanded
+
+:::
+
+## 隐藏切换按钮并展示所有搜索项
+
+:::demo
+
+query-form/hide-toggle-show-all
+
+:::
+
 ## Light 模式（值变更自动提交）
 
 :::demo
@@ -107,23 +131,24 @@ query-form/visible-when-top-n
 
 ### QueryForm Props
 
-| 属性名          | 说明                                                     | 类型                                               | 默认值  |
-| --------------- | -------------------------------------------------------- | -------------------------------------------------- | ------- |
-| schema          | JSON Schema 渲染                                         | `ISchema`                                          | -       |
-| schemaField     | 自定义 SchemaField                                       | `Component`                                        | -       |
-| components      | JSON Schema 组件映射（会与内置映射合并，传入同名可覆盖） | `Record<string, Component>`                        | `{}`    |
-| gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows）       | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>` | `{}`    |
-| defaultExpanded | 初始是否展开                                             | `boolean`                                          | `false` |
-| actionsAtRowEnd | 操作区是否固定在行尾右侧显示                             | `boolean`                                          | `false` |
-| visibleWhen     | 字段可见性判断函数                                       | `(context) => boolean`                             | -       |
-| submitText      | 提交按钮文字                                             | `string`                                           | `查询`  |
-| resetText       | 重置按钮文字                                             | `string`                                           | `重置`  |
-| expandText      | 展开按钮文字                                             | `string`                                           | `展开`  |
-| collapseText    | 收起按钮文字                                             | `string`                                           | `收起`  |
-| showSubmit      | 是否显示提交按钮                                         | `boolean`                                          | `true`  |
-| showReset       | 是否显示重置按钮                                         | `boolean`                                          | `true`  |
-| submitProps     | 透传给 Submit 的属性                                     | `Record<string, any>`                              | -       |
-| resetProps      | 透传给 Reset 的属性                                      | `Record<string, any>`                              | -       |
+| 属性名          | 说明                                                         | 类型                                               | 默认值  |
+| --------------- | ------------------------------------------------------------ | -------------------------------------------------- | ------- |
+| schema          | JSON Schema 渲染                                             | `ISchema`                                          | -       |
+| schemaField     | 自定义 SchemaField                                           | `Component`                                        | -       |
+| components      | JSON Schema 组件映射（会与内置映射合并，传入同名可覆盖）     | `Record<string, Component>`                        | `{}`    |
+| gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows）           | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>` | `{}`    |
+| defaultExpanded | 初始是否展开                                                 | `boolean`                                          | `false` |
+| showToggle      | 是否显示展开/收起切换按钮（为 `false` 时始终展示全部搜索项） | `boolean`                                          | `true`  |
+| actionsAtRowEnd | 操作区是否固定在行尾右侧显示                                 | `boolean`                                          | `false` |
+| visibleWhen     | 字段可见性判断函数                                           | `(context) => boolean`                             | -       |
+| submitText      | 提交按钮文字                                                 | `string`                                           | `查询`  |
+| resetText       | 重置按钮文字                                                 | `string`                                           | `重置`  |
+| expandText      | 展开按钮文字                                                 | `string`                                           | `展开`  |
+| collapseText    | 收起按钮文字                                                 | `string`                                           | `收起`  |
+| showSubmit      | 是否显示提交按钮                                             | `boolean`                                          | `true`  |
+| showReset       | 是否显示重置按钮                                             | `boolean`                                          | `true`  |
+| submitProps     | 透传给 Submit 的属性                                         | `Record<string, any>`                              | -       |
+| resetProps      | 透传给 Reset 的属性                                          | `Record<string, any>`                              | -       |
 
 ### Slots
 

@@ -1,10 +1,15 @@
 @use '../__builtins__/styles/common.scss' as *;
+@use '../form-item/style.scss' as *;
 
 $form-button-group-prefix-cls: '#{$formily-prefix}-form-button-group';
 
 .#{$form-button-group-prefix-cls} {
   padding: 10px 0;
   background-color: var(--el-bg-color);
+}
+
+.#{$form-button-group-prefix-cls} .#{$form-item-prefix}-colon  {
+  visibility: hidden;
 }
 
 .#{$form-button-group-prefix-cls}--inline {

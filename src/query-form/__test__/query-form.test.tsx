@@ -148,6 +148,26 @@ describe('QueryForm', () => {
     expect(container.textContent ?? '').not.toContain('More')
   })
 
+  it('should hide toggle and render all fields when showToggle is false', async () => {
+    const form = createForm()
+    const { container } = render(() => (
+      <QueryForm
+        form={form}
+        schema={createInputSchema(12)}
+        showToggle={false}
+        expandText="More"
+        collapseText="Less"
+        gridProps={{ maxColumns: 2, maxWidth: 160 }}
+      />
+    ))
+
+    await vi.waitFor(() => {
+      expect(container.querySelectorAll('input')).toHaveLength(12)
+    })
+    expect(container.textContent ?? '').not.toContain('More')
+    expect(container.textContent ?? '').not.toContain('Less')
+  })
+
   it('should apply row-end class when actionsAtRowEnd is enabled', async () => {
     const form = createForm()
     const { container } = render(() => (

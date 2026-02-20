@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<IQueryFormProps>(), {
   components: () => ({}),
   gridProps: () => ({}),
   defaultExpanded: false,
+  showToggle: true,
   actionsAtRowEnd: false,
   submitText: '查询',
   resetText: '重置',
@@ -142,7 +143,7 @@ const defaultGridProps: Partial<IGridOptions> = restGridProps.minColumns === und
 const gridOptions: IGridOptions = {
   ...defaultGridProps,
   ...restGridProps,
-  maxRows: props.defaultExpanded ? Infinity : COLLAPSED_ROWS,
+  maxRows: (props.defaultExpanded || !props.showToggle) ? Infinity : COLLAPSED_ROWS,
   shouldVisible: defaultShouldVisible,
 }
 
@@ -153,6 +154,11 @@ const expanded = ref(grid.maxRows === Infinity)
 const gridType = ref<'incomplete-wrap' | 'collapsible' | 'complete-wrap'>('complete-wrap')
 
 function updateType() {
+  if (!props.showToggle) {
+    gridType.value = 'incomplete-wrap'
+    return
+  }
+
   if (!props.visibleWhen) {
     gridType.value = getFieldRowCount(grid) > COLLAPSED_ROWS
       ? 'collapsible'
@@ -183,6 +189,8 @@ const dispose = autorun(() => {
 onUnmounted(dispose)
 
 function toggle() {
+  if (!props.showToggle)
+    return
   grid.maxRows = grid.maxRows === Infinity ? COLLAPSED_ROWS : Infinity
 }
 
@@ -235,7 +243,7 @@ const schemaField = hasDefaultSlot || !props.schema
             </slot>
           </FormButtonGroup>
         </template>
-        <template v-else-if="gridType === 'collapsible'">
+        <template v-else-if="gridType === 'collapsible' && props.showToggle">
           <FormButtonGroup
             :align="props.actionsAtRowEnd ? 'right' : 'left'"
             align-form-item
