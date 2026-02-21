@@ -44,3 +44,4 @@ export const FormItem = composeExport(Item, {
 export default FormItem
 
 export { default as FormBaseItem } from './form-item.vue'
+export type { IFormItemProps } from './types'

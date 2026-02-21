@@ -3,6 +3,7 @@ import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
 import { QueryFormItem, SelectTable } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
+import { ElButton, ElMessage } from 'element-plus'
 
 interface UserRecord {
   id: string
@@ -72,13 +73,33 @@ async function request(params: Record<string, any>) {
   }
 }
 
+async function handleSubmit() {
+  try {
+    const values = await form.submit()
+    ElMessage.success(`Submit: ${JSON.stringify(values)}`)
+  }
+  catch {
+    ElMessage.error('Please select at least one user before submit')
+  }
+}
+
 const schema: ISchema = {
   type: 'object',
   properties: {
     selectedUsers: {
       'type': 'array',
+      'x-validator': [
+        {
+          required: true,
+          message: 'Please select at least one user',
+        },
+      ],
       'x-decorator': 'QueryFormItem',
       'x-decorator-props': {
+        label: 'Target Users',
+        required: true,
+        tooltip: 'Select at least one user from the table',
+        extra: 'Use the query area to filter the table before selecting.',
         querySchema,
         request,
         submitText: 'Search',
@@ -111,5 +132,8 @@ const { SchemaField } = createSchemaField({
 <template>
   <FormProvider :form="form">
     <SchemaField :schema="schema" />
+    <ElButton type="primary" style="margin-top: 12px;" @click="handleSubmit">
+      Submit
+    </ElButton>
   </FormProvider>
 </template>
