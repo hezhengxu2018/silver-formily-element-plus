@@ -10,3 +10,7 @@ $query-form-item-prefix-cls: '#{$formily-prefix}-query-form-item';
 .#{$query-form-item-prefix-cls}__pagination {
   justify-content: flex-end;
 }
+
+.el-form-item.is-error .el-form-item__content .el-select__wrapper {
+  box-shadow: 0 0 0 1px var(--el-border-color) inset;
+}

@@ -24,6 +24,7 @@ function formilyWrapperFactory(
   form: Form,
   request: (params: Record<string, any>) => Promise<any>,
   decoratorProps: Record<string, any> = {},
+  fieldProps: Record<string, any> = {},
 ) {
   return defineComponent({
     setup() {
@@ -31,6 +32,7 @@ function formilyWrapperFactory(
         <FormProvider form={form}>
           <Field
             name="selected"
+            {...fieldProps}
             decorator={[QueryFormItem, { querySchema, request, ...decoratorProps }]}
             component={[
               SelectTable,
@@ -78,9 +80,7 @@ describe('QueryFormItem', () => {
     }))
 
     const screen = render(formilyWrapperFactory(form, request, {
-      paginationProps: {
-        enabled: false,
-      },
+      pagination: false,
     }))
 
     await vi.waitFor(() => {
@@ -104,7 +104,7 @@ describe('QueryFormItem', () => {
 
     const screen = render(formilyWrapperFactory(form, request, {
       mode: 'light',
-      paginationProps: { enabled: false },
+      pagination: false,
       throttleWait: 0,
     }))
 
@@ -121,7 +121,7 @@ describe('QueryFormItem', () => {
 
     const screen = render(formilyWrapperFactory(form, request, {
       mode: 'light',
-      paginationProps: { enabled: false },
+      pagination: false,
       querySchema,
     }))
 
@@ -198,7 +198,7 @@ describe('QueryFormItem', () => {
     })
   })
 
-  it('should hide pagination in markup schema when paginationProps.enabled is false', async () => {
+  it('should hide pagination in markup schema when pagination is false', async () => {
     const form = createForm()
     const request = vi.fn<QueryFormItemRequest>(async () => ({
       data: [{ id: '6', name: 'Row-6' }],
@@ -216,9 +216,7 @@ describe('QueryFormItem', () => {
             mode: 'light',
             querySchema,
             request,
-            paginationProps: {
-              enabled: false,
-            },
+            pagination: false,
           },
           'x-component': 'SelectTable',
           'x-component-props': {
@@ -270,5 +268,71 @@ describe('QueryFormItem', () => {
 
     expect(document.body.textContent).not.toContain('Row-7')
     expect(form.query('selected').get('dataSource')).toEqual([])
+  })
+
+  it('should render form item label and required marker', async () => {
+    const form = createForm()
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [],
+      success: true,
+      total: 0,
+    }))
+
+    const screen = render(formilyWrapperFactory(
+      form,
+      request,
+      {
+        pagination: false,
+      },
+      {
+        title: 'Selected Rows',
+        required: true,
+      },
+    ))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    await expect.element(screen.container.querySelector('.el-form-item__label')).toHaveTextContent('Selected Rows')
+    await expect.element(screen.container.querySelector('.el-form-item')).toHaveClass('is-required')
+  })
+
+  it('should show validation feedback through form item wrapper', async () => {
+    const form = createForm()
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [],
+      success: true,
+      total: 0,
+    }))
+
+    const feedbackMessage = 'Please select at least one row'
+    render(formilyWrapperFactory(
+      form,
+      request,
+      {
+        pagination: false,
+      },
+      {
+        title: 'Selected Rows',
+        required: true,
+        validator: [
+          {
+            required: true,
+            message: feedbackMessage,
+          },
+        ],
+      },
+    ))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    await form.validate().catch(() => {})
+
+    await vi.waitFor(() => {
+      expect(document.body.textContent).toContain(feedbackMessage)
+    })
   })
 })

@@ -6,15 +6,17 @@ import type {
   QueryFormItemMode,
   QueryFormItemPaginationMap,
   QueryFormItemPaginationProps,
+  QueryFormItemQueryProps,
   QueryFormItemRequest,
   QueryFormItemRequestSuccessPayload,
 } from './types'
 import { createForm } from '@formily/core'
-import { toJS } from '@formily/reactive'
+import { isNum } from '@formily/shared'
 import { useField } from '@silver-formily/vue'
 import { ElPagination } from 'element-plus'
 import { computed, onMounted, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
+import { FormBaseItem } from '../form-item'
 import { QueryForm } from '../query-form'
 
 defineOptions({
@@ -29,6 +31,14 @@ const props = defineProps({
   },
   request: Function as PropType<QueryFormItemRequest>,
   querySchema: Object as PropType<ISchema>,
+  queryFormProps: {
+    type: Object as PropType<QueryFormItemQueryProps>,
+    default: () => ({}),
+  },
+  pagination: {
+    type: Boolean,
+    default: true,
+  },
   paginationProps: {
     type: Object as PropType<QueryFormItemPaginationProps>,
     default: () => ({}),
@@ -48,8 +58,7 @@ const emit = defineEmits<{
   (e: 'requestFailed', error: any): void
 }>()
 
-const defaultPaginationProps: Required<Pick<QueryFormItemPaginationProps, 'enabled' | 'currentPage' | 'pageSize' | 'pageSizes' | 'layout' | 'background'>> = {
-  enabled: true,
+const defaultPaginationProps: Required<Pick<QueryFormItemPaginationProps, 'currentPage' | 'pageSize' | 'pageSizes' | 'layout' | 'background'>> = {
   currentPage: 1,
   pageSize: 10,
   pageSizes: [10, 20, 50, 100],
@@ -61,14 +70,22 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
   pageSize: 'pageSize',
 }
 
-const { props: cleanAttrs } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
 const fieldRef = useField()
 const internalQueryForm = createForm()
 const prefixCls = `${stylePrefix}-query-form-item`
+const { props: cleanAttrs } = useCleanAttrs()
 
-const normalizedPaginationProps = computed(() => {
+const formItemBindings = computed(() => {
+  const { form, ...bindings } = cleanAttrs.value
+  return bindings
+})
+
+const initialPaginationProps = {
+  ...defaultPaginationProps,
+  ...props.paginationProps,
+}
+const paginationBindings = computed(() => {
   const {
-    enabled,
     currentPage,
     pageSize,
     ...bindings
@@ -76,27 +93,31 @@ const normalizedPaginationProps = computed(() => {
     ...defaultPaginationProps,
     ...props.paginationProps,
   }
-
-  return {
-    enabled: enabled !== false,
-    currentPage,
-    pageSize,
-    bindings,
-  }
+  return bindings
 })
 
-const currentPageRef = ref(normalizedPaginationProps.value.currentPage)
-const pageSizeRef = ref(normalizedPaginationProps.value.pageSize)
+const currentPageRef = ref(initialPaginationProps.currentPage)
+const pageSizeRef = ref(initialPaginationProps.pageSize)
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
-const activeQueryForm = computed<Form>(() => (cleanAttrs.value.form) ?? internalQueryForm)
+const activeQueryForm = computed<Form>(() => (
+  props.queryFormProps.form
+  ?? (cleanAttrs.value.form as Form | undefined)
+  ?? internalQueryForm
+))
 
 const queryFormBindings = computed(() => ({
-  ...cleanAttrs.value,
+  ...props.queryFormProps,
   schema: props.querySchema,
   onAutoSubmit: handleQuerySubmit,
   form: activeQueryForm.value,
+  resetProps: props.mode === 'default'
+    ? {
+        ...props.queryFormProps.resetProps,
+        onClick: handleQueryReset,
+      }
+    : props.queryFormProps.resetProps,
 }))
 
 async function executeRequest() {
@@ -105,18 +126,18 @@ async function executeRequest() {
 
   const field = fieldRef.value as any
   const requestId = ++currentRequestId.value
-  const queryValues = toJS((activeQueryForm.value.values) ?? {}) as Record<string, any>
-  const pagination = normalizedPaginationProps.value.enabled
+  const queryValues = activeQueryForm.value.values
+  const paginationData = props.pagination
     ? {
         current: currentPageRef.value,
         pageSize: pageSizeRef.value,
       }
     : undefined
-  const requestParams = pagination
+  const requestParams = paginationData
     ? {
         ...queryValues,
-        [(props.paginationMap.current ?? defaultPaginationRequestMapping.current)]: pagination.current,
-        [(props.paginationMap.pageSize ?? defaultPaginationRequestMapping.pageSize)]: pagination.pageSize,
+        [(props.paginationMap.current ?? defaultPaginationRequestMapping.current)]: paginationData.current,
+        [(props.paginationMap.pageSize ?? defaultPaginationRequestMapping.pageSize)]: paginationData.pageSize,
       }
     : queryValues
 
@@ -133,11 +154,11 @@ async function executeRequest() {
     }
 
     field.dataSource = result.data
-    totalRef.value = typeof result.total === 'number' ? result.total : result.data.length
+    totalRef.value = isNum(result.total) ? result.total : result.data.length
 
     emit('requestSuccess', {
       values: queryValues,
-      pagination,
+      pagination: paginationData,
       dataSource: result.data,
       total: totalRef.value,
       result,
@@ -154,22 +175,26 @@ async function executeRequest() {
   }
 }
 
-function handleCurrentPageChange(page: number) {
-  currentPageRef.value = page
-  void executeRequest()
-}
-
-function handlePageSizeChange(pageSize: number) {
-  pageSizeRef.value = pageSize
-  currentPageRef.value = 1
-  void executeRequest()
-}
-
 async function handleQuerySubmit() {
-  if (normalizedPaginationProps.value.enabled)
+  if (props.pagination && currentPageRef.value !== 1) {
     currentPageRef.value = 1
+    return
+  }
 
   await executeRequest()
+}
+
+function handleQueryReset(event: MouseEvent) {
+  const userOnClick = props.queryFormProps.resetProps?.onClick as ((event: MouseEvent) => void | boolean) | undefined
+  const result = userOnClick?.(event)
+  if (result === false)
+    return false
+
+  Promise.resolve().then(() => {
+    void handleQuerySubmit()
+  })
+
+  return result
 }
 
 onMounted(() => {
@@ -177,30 +202,43 @@ onMounted(() => {
     void executeRequest()
 })
 
-watch(normalizedPaginationProps, ({ currentPage, pageSize }) => {
-  currentPageRef.value = currentPage
-  pageSizeRef.value = pageSize
+watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, previousPageSize]) => {
+  if (!props.pagination)
+    return
+
+  const currentChanged = currentPage !== previousPage
+  const pageSizeChanged = pageSize !== previousPageSize
+
+  if (!currentChanged && !pageSizeChanged)
+    return
+
+  if (pageSizeChanged && currentPage !== 1) {
+    currentPageRef.value = 1
+    return
+  }
+
+  void executeRequest()
 })
 </script>
 
 <template>
-  <div :class="prefixCls">
-    <component
-      :is="props.mode === 'light' ? QueryForm.Light : QueryForm"
-      v-bind="queryFormBindings"
-    />
-    <div :class="`${prefixCls}__content`">
-      <slot />
+  <FormBaseItem v-bind="formItemBindings">
+    <div :class="prefixCls">
+      <component
+        :is="props.mode === 'light' ? QueryForm.Light : QueryForm"
+        v-bind="queryFormBindings"
+      />
+      <div :class="`${prefixCls}__content`">
+        <slot />
+      </div>
+      <ElPagination
+        v-if="props.pagination"
+        v-model:current-page="currentPageRef"
+        v-model:page-size="pageSizeRef"
+        :class="`${prefixCls}__pagination`"
+        v-bind="paginationBindings"
+        :total="totalRef"
+      />
     </div>
-    <ElPagination
-      v-if="normalizedPaginationProps.enabled"
-      v-model:current-page="currentPageRef"
-      v-model:page-size="pageSizeRef"
-      :class="`${prefixCls}__pagination`"
-      v-bind="normalizedPaginationProps.bindings"
-      :total="totalRef"
-      @current-change="handleCurrentPageChange"
-      @size-change="handlePageSizeChange"
-    />
-  </div>
+  </FormBaseItem>
 </template>

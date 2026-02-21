@@ -3,6 +3,7 @@ import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
 import { QueryFormItem, Tree } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
+import { ElButton, ElMessage } from 'element-plus'
 
 interface TreeNode {
   id: number
@@ -74,20 +75,38 @@ async function request(values: Record<string, any>) {
   }
 }
 
+async function handleSubmit() {
+  try {
+    const values = await form.submit()
+    ElMessage.success(`Submit: ${JSON.stringify(values)}`)
+  }
+  catch {
+    ElMessage.error('Please select at least one node before submit')
+  }
+}
+
 const schema: ISchema = {
   type: 'object',
   properties: {
     selectedNodes: {
       'type': 'array',
+      'x-validator': [
+        {
+          required: true,
+          message: 'Please select at least one node',
+        },
+      ],
       'x-decorator': 'QueryFormItem',
       'x-decorator-props': {
+        label: 'Target Nodes',
+        required: true,
+        tooltip: 'Select at least one node from the tree',
+        extra: 'Light mode still supports FormItem label/required/feedback.',
         querySchema,
         request,
         mode: 'light',
+        pagination: false,
         throttleWait: 200,
-        paginationProps: {
-          enabled: false,
-        },
       },
       'x-component': 'Tree',
       'x-component-props': {
@@ -109,5 +128,8 @@ const { SchemaField } = createSchemaField({
 <template>
   <FormProvider :form="form">
     <SchemaField :schema="schema" />
+    <ElButton type="primary" style="margin-top: 12px;" @click="handleSubmit">
+      Submit
+    </ElButton>
   </FormProvider>
 </template>
