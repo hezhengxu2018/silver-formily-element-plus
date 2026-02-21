@@ -9,18 +9,14 @@ export interface QueryFormItemPagination {
 }
 
 export interface QueryFormItemRequestResultObject {
-  dataSource?: any[]
-  data?: any[]
-  list?: any[]
+  data: any[]
+  success: boolean
   total?: number
 }
 
-export type QueryFormItemRequestResult = any[] | QueryFormItemRequestResultObject
-
 export type QueryFormItemRequest = (
-  values: Record<string, any>,
-  pagination?: QueryFormItemPagination,
-) => Promise<QueryFormItemRequestResult>
+  params: Record<string, any> & Partial<QueryFormItemPagination>,
+) => Promise<QueryFormItemRequestResultObject>
 
 export interface QueryFormItemPaginationProps {
   enabled?: boolean
@@ -35,17 +31,12 @@ export interface QueryFormItemPaginationProps {
 type QueryFormDefaultProps = Omit<IQueryFormProps, 'schema'>
 type QueryFormLightProps = Omit<IQueryFormLightProps, 'schema'>
 
-export type QueryFormItemQueryFormProps = Partial<QueryFormDefaultProps & QueryFormLightProps> & {
-  schema?: ISchema
-  onAutoSubmit?: (values: Record<string, any>) => Promise<any> | any
-  [key: string]: any
-}
+export type QueryFormItemQueryProps = Partial<QueryFormDefaultProps & QueryFormLightProps>
 
-export interface IQueryFormItemProps {
+export interface IQueryFormItemProps extends QueryFormItemQueryProps {
   mode?: QueryFormItemMode
   request?: QueryFormItemRequest
   querySchema?: ISchema
-  queryFormProps?: QueryFormItemQueryFormProps
   paginationProps?: QueryFormItemPaginationProps
   immediate?: boolean
 }
@@ -55,5 +46,5 @@ export interface QueryFormItemRequestSuccessPayload {
   pagination?: QueryFormItemPagination
   dataSource: any[]
   total?: number
-  result: QueryFormItemRequestResult
+  result: QueryFormItemRequestResultObject
 }

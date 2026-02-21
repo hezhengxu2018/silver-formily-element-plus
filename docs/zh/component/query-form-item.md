@@ -4,7 +4,8 @@
 
 ::: tip 提示
 
-- 组件仅支持分组参数：`queryFormProps` 与 `paginationProps`。
+- `querySchema` 用于配置查询区 Schema。
+- 除 `mode` / `request` / `querySchema` / `paginationProps` / `immediate` 外，其余参数会按 `mode` 透传给 `QueryForm` / `QueryForm.Light`。
 - `mode="light"` 时，内部渲染 `QueryForm.Light`。
 - `request` 返回结果会自动写入当前字段的 `dataSource`。
 
@@ -32,18 +33,17 @@ query-form-item/light-with-tree
 
 ### QueryFormItem Props
 
-| 属性名            | 说明                                                       | 类型                                                           | 默认值                                                                                                                                       |
-| ----------------- | ---------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`            | 查询模式                                                   | `'default' \| 'light'`                                         | `'default'`                                                                                                                                  |
-| `request`         | 查询函数；当分页开启时第二个参数为 `{ current, pageSize }` | `(values, pagination?) => Promise<QueryFormItemRequestResult>` | -                                                                                                                                            |
-| `querySchema`     | 查询区 Schema，优先级高于 `queryFormProps.schema`          | `ISchema`                                                      | -                                                                                                                                            |
-| `queryFormProps`  | 透传给 `QueryForm` / `QueryForm.Light` 的参数              | `QueryFormItemQueryFormProps`                                  | `{}`                                                                                                                                         |
-| `paginationProps` | 分页配置，透传给 `ElPagination`                            | `QueryFormItemPaginationProps`                                 | `{ enabled: true, currentPage: 1, pageSize: 10, pageSizes: [10, 20, 50, 100], layout: 'total, sizes, prev, pager, next', background: true }` |
-| `immediate`       | 挂载后是否立即执行一次查询                                 | `boolean`                                                      | `true`                                                                                                                                       |
+| 属性名            | 说明                                                             | 类型                                                    | 默认值                                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`            | 查询模式                                                         | `'default' \| 'light'`                                  | `'default'`                                                                                                                                  |
+| `request`         | 查询函数；分页开启时会在第一个参数中注入 `current` 与 `pageSize` | `(params) => Promise<QueryFormItemRequestResultObject>` | -                                                                                                                                            |
+| `querySchema`     | 查询区 Schema                                                    | `ISchema`                                               | -                                                                                                                                            |
+| `paginationProps` | 分页配置，透传给 `ElPagination`                                  | `QueryFormItemPaginationProps`                          | `{ enabled: true, currentPage: 1, pageSize: 10, pageSizes: [10, 20, 50, 100], layout: 'total, sizes, prev, pager, next', background: true }` |
+| `immediate`       | 挂载后是否立即执行一次查询                                       | `boolean`                                               | `true`                                                                                                                                       |
 
-### queryFormProps
+### 透传 QueryForm 参数
 
-`queryFormProps` 会按 `mode` 透传：
+除 `mode` / `request` / `querySchema` / `paginationProps` / `immediate` 外，其余参数会按 `mode` 透传：
 
 - `mode='default'` 透传到 `QueryForm`
 - `mode='light'` 透传到 `QueryForm.Light`
@@ -63,10 +63,9 @@ query-form-item/light-with-tree
 | `resetText`       | Default 模式重置按钮文本                | `string`                         | `重置`  |
 | `submitProps`     | Default 模式查询按钮透传参数            | `Record<string, any>`            | -       |
 | `resetProps`      | Default 模式重置按钮透传参数            | `Record<string, any>`            | -       |
-| `onAutoSubmit`    | 查询自动提交回调                        | `(values) => any`                | -       |
 
 ::: warning 注意
-`QueryFormItem` 内部使用 `onAutoSubmit` 触发查询，请不要在 `queryFormProps` 中覆盖 `onAutoSubmit`。
+`QueryFormItem` 内部使用 `onAutoSubmit` 触发查询，请不要透传覆盖 `onAutoSubmit`。
 :::
 
 ### paginationProps
@@ -90,9 +89,15 @@ query-form-item/light-with-tree
 
 ### request 返回值约定
 
-| 返回格式                                                             | 说明                   |
-| -------------------------------------------------------------------- | ---------------------- |
-| `any[]`                                                              | 直接作为 `dataSource`  |
-| `{ dataSource?: any[]; data?: any[]; list?: any[]; total?: number }` | 对象格式，支持附带总数 |
+`request` 必须返回以下格式（参考 ProTable）：
 
-对象格式下，数据源解析优先级为：`dataSource > list > data`。
+```ts
+interface QueryResult {
+  data: any[]
+  success: boolean
+  total?: number
+}
+```
+
+- `success` 必须为 `true` 才会解析 `data` 到字段 `dataSource`。
+- `total` 不传时默认使用 `data.length`，分页场景建议显式返回。

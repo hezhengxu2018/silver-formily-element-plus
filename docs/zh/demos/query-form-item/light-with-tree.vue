@@ -65,7 +65,13 @@ const querySchema: ISchema = {
 async function request(values: Record<string, any>) {
   await new Promise(resolve => setTimeout(resolve, 150))
   const keyword = `${values.keyword ?? ''}`.trim()
-  return filterTree(source, keyword)
+  const data = filterTree(source, keyword)
+
+  return {
+    data,
+    success: true,
+    total: data.length,
+  }
 }
 
 const schema: ISchema = {
@@ -78,9 +84,7 @@ const schema: ISchema = {
         querySchema,
         request,
         mode: 'light',
-        queryFormProps: {
-          throttleWait: 200,
-        },
+        throttleWait: 200,
         paginationProps: {
           enabled: false,
         },

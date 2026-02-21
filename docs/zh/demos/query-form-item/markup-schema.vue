@@ -48,11 +48,11 @@ const querySchema: ISchema = {
   },
 }
 
-async function request(values: Record<string, any>, pagination?: { current: number, pageSize: number }) {
+async function request(params: Record<string, any>) {
   await new Promise(resolve => setTimeout(resolve, 200))
 
-  const keyword = `${values.keyword ?? ''}`.trim().toLowerCase()
-  const department = `${values.department ?? ''}`.trim()
+  const keyword = `${params.keyword ?? ''}`.trim().toLowerCase()
+  const department = `${params.department ?? ''}`.trim()
 
   const filtered = source.filter((item) => {
     const keywordMatched = keyword ? item.name.toLowerCase().includes(keyword) : true
@@ -60,13 +60,14 @@ async function request(values: Record<string, any>, pagination?: { current: numb
     return keywordMatched && departmentMatched
   })
 
-  const current = pagination?.current ?? 1
-  const pageSize = pagination?.pageSize ?? 10
+  const current = Number(params.current) || 1
+  const pageSize = Number(params.pageSize) || 10
   const start = (current - 1) * pageSize
   const end = current * pageSize
 
   return {
-    dataSource: filtered.slice(start, end),
+    data: filtered.slice(start, end),
+    success: true,
     total: filtered.length,
   }
 }
@@ -80,10 +81,8 @@ const schema: ISchema = {
       'x-decorator-props': {
         querySchema,
         request,
-        queryFormProps: {
-          submitText: 'Search',
-          resetText: 'Reset',
-        },
+        submitText: 'Search',
+        resetText: 'Reset',
         paginationProps: {
           pageSize: 8,
         },
