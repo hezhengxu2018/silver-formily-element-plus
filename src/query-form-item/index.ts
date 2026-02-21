@@ -6,9 +6,8 @@ export type {
   QueryFormItemMode,
   QueryFormItemPagination,
   QueryFormItemPaginationProps,
-  QueryFormItemQueryFormProps,
+  QueryFormItemQueryProps,
   QueryFormItemRequest,
-  QueryFormItemRequestResult,
   QueryFormItemRequestResultObject,
   QueryFormItemRequestSuccessPayload,
 } from './types'

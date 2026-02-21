@@ -22,7 +22,7 @@ const querySchema = {
 
 function formilyWrapperFactory(
   form: Form,
-  request: (values: Record<string, any>, pagination?: { current: number, pageSize: number }) => Promise<any>,
+  request: (params: Record<string, any>) => Promise<any>,
   decoratorProps: Record<string, any> = {},
 ) {
   return defineComponent({
@@ -51,7 +51,8 @@ describe('QueryFormItem', () => {
   it('should request with pagination info by default and sync field dataSource', async () => {
     const form = createForm()
     const request = vi.fn<QueryFormItemRequest>(async () => ({
-      dataSource: [{ id: '1', name: 'Row-1' }],
+      data: [{ id: '1', name: 'Row-1' }],
+      success: true,
       total: 1,
     }))
 
@@ -61,8 +62,7 @@ describe('QueryFormItem', () => {
       expect(request).toHaveBeenCalled()
     })
 
-    expect(request.mock.calls[0]?.[0]).toEqual({})
-    expect(request.mock.calls[0]?.[1]).toEqual({ current: 1, pageSize: 10 })
+    expect(request.mock.calls[0]?.[0]).toEqual({ current: 1, pageSize: 10 })
     await vi.waitFor(() => {
       expect(document.body.textContent).toContain('Row-1')
     })
@@ -71,7 +71,11 @@ describe('QueryFormItem', () => {
 
   it('should not pass pagination params when pagination is disabled', async () => {
     const form = createForm()
-    const request = vi.fn<QueryFormItemRequest>(async () => ([{ id: '2', name: 'Row-2' }]))
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '2', name: 'Row-2' }],
+      success: true,
+      total: 1,
+    }))
 
     const screen = render(formilyWrapperFactory(form, request, {
       paginationProps: {
@@ -83,7 +87,7 @@ describe('QueryFormItem', () => {
       expect(request).toHaveBeenCalled()
     })
 
-    expect(request.mock.calls[0]?.length).toBe(1)
+    expect(request.mock.calls[0]?.[0]).toEqual({})
     await vi.waitFor(() => {
       expect(document.body.textContent).toContain('Row-2')
     })
@@ -92,12 +96,16 @@ describe('QueryFormItem', () => {
 
   it('should render query form in light mode', async () => {
     const form = createForm()
-    const request = vi.fn<QueryFormItemRequest>(async () => ([{ id: '3', name: 'Row-3' }]))
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '3', name: 'Row-3' }],
+      success: true,
+      total: 1,
+    }))
 
     const screen = render(formilyWrapperFactory(form, request, {
       mode: 'light',
       paginationProps: { enabled: false },
-      queryFormProps: { throttleWait: 0 },
+      throttleWait: 0,
     }))
 
     await expect.element(screen.getByRole('textbox')).toBeInTheDocument()
@@ -105,7 +113,11 @@ describe('QueryFormItem', () => {
 
   it('should render query form when querySchema is provided', async () => {
     const form = createForm()
-    const request = vi.fn<QueryFormItemRequest>(async () => ([{ id: '4', name: 'Row-4' }]))
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '4', name: 'Row-4' }],
+      success: true,
+      total: 1,
+    }))
 
     const screen = render(formilyWrapperFactory(form, request, {
       mode: 'light',
@@ -118,7 +130,11 @@ describe('QueryFormItem', () => {
 
   it('should request with pagination props values', async () => {
     const form = createForm()
-    const request = vi.fn<QueryFormItemRequest>(async () => ([{ id: '5', name: 'Row-5' }]))
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '5', name: 'Row-5' }],
+      success: true,
+      total: 1,
+    }))
 
     render(formilyWrapperFactory(form, request, {
       paginationProps: {
@@ -130,12 +146,44 @@ describe('QueryFormItem', () => {
     await vi.waitFor(() => {
       expect(request).toHaveBeenCalled()
     })
-    expect(request.mock.calls[0]?.[1]).toEqual({ current: 2, pageSize: 5 })
+    expect(request.mock.calls[0]?.[0]).toEqual({ current: 2, pageSize: 5 })
+  })
+
+  it('should prefer external form values for initial request', async () => {
+    const form = createForm()
+    const externalQueryForm = createForm({
+      values: {
+        keyword: 'initial-keyword',
+      },
+    })
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '8', name: 'Row-8' }],
+      success: true,
+      total: 1,
+    }))
+
+    render(formilyWrapperFactory(form, request, {
+      form: externalQueryForm,
+    }))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    expect(request.mock.calls[0]?.[0]).toEqual({
+      keyword: 'initial-keyword',
+      current: 1,
+      pageSize: 10,
+    })
   })
 
   it('should hide pagination in markup schema when paginationProps.enabled is false', async () => {
     const form = createForm()
-    const request = vi.fn<QueryFormItemRequest>(async () => ([{ id: '6', name: 'Row-6' }]))
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '6', name: 'Row-6' }],
+      success: true,
+      total: 1,
+    }))
 
     const schema = {
       type: 'object',
@@ -183,5 +231,23 @@ describe('QueryFormItem', () => {
     })
 
     expect(screen.container.querySelector('.el-pagination')).toBeNull()
+  })
+
+  it('should not sync dataSource when request success is false', async () => {
+    const form = createForm()
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '7', name: 'Row-7' }],
+      success: false,
+      total: 1,
+    }))
+
+    render(formilyWrapperFactory(form, request))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    expect(document.body.textContent).not.toContain('Row-7')
+    expect(form.query('selected').get('dataSource')).toEqual([])
   })
 })
