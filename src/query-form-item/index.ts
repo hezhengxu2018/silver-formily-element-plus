@@ -5,6 +5,7 @@ export type {
   IQueryFormItemProps,
   QueryFormItemMode,
   QueryFormItemPagination,
+  QueryFormItemPaginationMap,
   QueryFormItemPaginationProps,
   QueryFormItemQueryProps,
   QueryFormItemRequest,

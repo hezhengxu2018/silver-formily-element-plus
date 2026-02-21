@@ -4,6 +4,7 @@ import type { ISchema } from '@formily/json-schema'
 import type { PropType } from 'vue'
 import type {
   QueryFormItemMode,
+  QueryFormItemPaginationMap,
   QueryFormItemPaginationProps,
   QueryFormItemRequest,
   QueryFormItemRequestSuccessPayload,
@@ -32,6 +33,10 @@ const props = defineProps({
     type: Object as PropType<QueryFormItemPaginationProps>,
     default: () => ({}),
   },
+  paginationMap: {
+    type: Object as PropType<QueryFormItemPaginationMap>,
+    default: () => ({}),
+  },
   immediate: {
     type: Boolean,
     default: true,
@@ -50,6 +55,10 @@ const defaultPaginationProps: Required<Pick<QueryFormItemPaginationProps, 'enabl
   pageSizes: [10, 20, 50, 100],
   layout: 'total, prev, pager, next',
   background: true,
+}
+const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
+  current: 'current',
+  pageSize: 'pageSize',
 }
 
 const { props: cleanAttrs } = useCleanAttrs(['modelValue', 'onUpdate:modelValue'])
@@ -106,8 +115,8 @@ async function executeRequest() {
   const requestParams = pagination
     ? {
         ...queryValues,
-        current: pagination.current,
-        pageSize: pagination.pageSize,
+        [(props.paginationMap.current ?? defaultPaginationRequestMapping.current)]: pagination.current,
+        [(props.paginationMap.pageSize ?? defaultPaginationRequestMapping.pageSize)]: pagination.pageSize,
       }
     : queryValues
 

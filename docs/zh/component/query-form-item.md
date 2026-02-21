@@ -33,13 +33,12 @@ query-form-item/light-with-tree
 
 ### QueryFormItem Props
 
-| 属性名            | 说明                                                             | 类型                                                    | 默认值                                                                                                                                       |
-| ----------------- | ---------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`            | 查询模式                                                         | `'default' \| 'light'`                                  | `'default'`                                                                                                                                  |
-| `request`         | 查询函数；分页开启时会在第一个参数中注入 `current` 与 `pageSize` | `(params) => Promise<QueryFormItemRequestResultObject>` | -                                                                                                                                            |
-| `querySchema`     | 查询区 Schema                                                    | `ISchema`                                               | -                                                                                                                                            |
-| `paginationProps` | 分页配置，透传给 `ElPagination`                                  | `QueryFormItemPaginationProps`                          | `{ enabled: true, currentPage: 1, pageSize: 10, pageSizes: [10, 20, 50, 100], layout: 'total, sizes, prev, pager, next', background: true }` |
-| `immediate`       | 挂载后是否立即执行一次查询                                       | `boolean`                                               | `true`                                                                                                                                       |
+- `mode`: 查询模式。类型：`'default' | 'light'`，默认值：`'default'`
+- `request`: 查询函数；分页开启时会在第一个参数中注入分页参数（默认 `current` 与 `pageSize`）。类型：`(params) => Promise<QueryFormItemRequestResultObject>`
+- `querySchema`: 查询区 Schema。类型：`ISchema`
+- `paginationProps`: 分页配置，透传给 `ElPagination`。类型：`QueryFormItemPaginationProps`，默认值：`{ enabled: true, currentPage: 1, pageSize: 10, pageSizes: [10, 20, 50, 100], layout: 'total, sizes, prev, pager, next', background: true }`
+- `paginationMap`: 分页参数映射（用于请求入参键名）。类型：`QueryFormItemPaginationMap`，默认值：`{ current: 'current', pageSize: 'pageSize' }`
+- `immediate`: 挂载后是否立即执行一次查询。类型：`boolean`，默认值：`true`
 
 ### 透传 QueryForm 参数
 
@@ -101,3 +100,16 @@ interface QueryResult {
 
 - `success` 必须为 `true` 才会解析 `data` 到字段 `dataSource`。
 - `total` 不传时默认使用 `data.length`，分页场景建议显式返回。
+
+### 分页参数映射
+
+默认分页参数键名为 `current` 和 `pageSize`。如果后端需要其他键名，可通过 `paginationMap` 配置：
+
+```ts
+const props = {
+  paginationMap: {
+    current: 'pageNum',
+    pageSize: 'pageSize',
+  },
+}
+```
