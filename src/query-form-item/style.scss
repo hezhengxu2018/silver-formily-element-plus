@@ -5,7 +5,6 @@ $query-form-item-prefix-cls: '#{$formily-prefix}-query-form-item';
 .#{$query-form-item-prefix-cls} {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .#{$query-form-item-prefix-cls}__pagination {

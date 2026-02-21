@@ -8,6 +8,11 @@ export interface QueryFormItemPagination {
   pageSize: number
 }
 
+export interface QueryFormItemPaginationMap {
+  current?: string
+  pageSize?: string
+}
+
 export interface QueryFormItemRequestResultObject {
   data: any[]
   success: boolean
@@ -38,6 +43,7 @@ export interface IQueryFormItemProps extends QueryFormItemQueryProps {
   request?: QueryFormItemRequest
   querySchema?: ISchema
   paginationProps?: QueryFormItemPaginationProps
+  paginationMap?: QueryFormItemPaginationMap
   immediate?: boolean
 }
 

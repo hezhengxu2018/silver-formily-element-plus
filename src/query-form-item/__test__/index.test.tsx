@@ -149,6 +149,27 @@ describe('QueryFormItem', () => {
     expect(request.mock.calls[0]?.[0]).toEqual({ current: 2, pageSize: 5 })
   })
 
+  it('should map pagination params by paginationMap', async () => {
+    const form = createForm()
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '9', name: 'Row-9' }],
+      success: true,
+      total: 1,
+    }))
+
+    render(formilyWrapperFactory(form, request, {
+      paginationMap: {
+        current: 'pageNum',
+      },
+    }))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    expect(request.mock.calls[0]?.[0]).toEqual({ pageNum: 1, pageSize: 10 })
+  })
+
   it('should prefer external form values for initial request', async () => {
     const form = createForm()
     const externalQueryForm = createForm({
