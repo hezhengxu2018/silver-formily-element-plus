@@ -29,6 +29,14 @@ query-form/json-schema
 
 :::
 
+## 通过传入 form 设置初始值
+
+:::demo
+
+query-form/external-form-initial-values
+
+:::
+
 ## 垂直布局示例
 
 :::demo
