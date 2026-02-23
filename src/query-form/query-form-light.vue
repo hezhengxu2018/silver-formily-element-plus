@@ -29,12 +29,20 @@ const formRef = useForm()
 const fieldSchemaRef = useFieldSchema()
 const prefixCls = `${stylePrefix}-query-form-light`
 
-const activeForm = computed<Form | undefined>(() => formProps.value.form ?? formRef?.value)
+function resolveExternalForm(form: unknown): Form | undefined {
+  if (typeof form === 'function')
+    return (form as () => Form | undefined)()
+  return form as Form | undefined
+}
+
+const externalForm = computed<Form | undefined>(() => resolveExternalForm(formProps.value.form))
+const activeForm = computed<Form | undefined>(() => externalForm.value ?? formRef?.value)
 const resolvedSchema = computed(() => props.schema ?? fieldSchemaRef.value)
 
 const innerFormProps = computed(() => ({
   fullness: false,
   ...formProps.value,
+  form: externalForm.value,
 }))
 
 function submitByChange() {

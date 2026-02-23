@@ -32,7 +32,7 @@ type QueryFormDefaultProps = Omit<IQueryFormProps, 'schema'>
 type QueryFormLightProps = Omit<IQueryFormLightProps, 'schema'>
 
 interface QueryFormPassThroughAttrs {
-  form?: Form
+  form?: Form | (() => Form | undefined)
 }
 
 export type QueryFormItemQueryProps = Partial<QueryFormDefaultProps & QueryFormLightProps> & QueryFormPassThroughAttrs

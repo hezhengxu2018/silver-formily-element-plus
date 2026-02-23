@@ -4,20 +4,10 @@ import { createForm } from '@formily/core'
 import { QueryFormItem, SelectTable } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { ElButton, ElMessage } from 'element-plus'
-
-interface UserRecord {
-  id: string
-  name: string
-  department: string
-}
+import { createUserRequest } from './mock-user-request'
 
 const form = createForm()
-
-const source: UserRecord[] = Array.from({ length: 80 }, (_, index) => ({
-  id: `${index + 1}`,
-  name: `User-${index + 1}`,
-  department: index % 2 === 0 ? 'R&D' : 'Product',
-}))
+const request = createUserRequest()
 
 const querySchema: ISchema = {
   type: 'object',
@@ -47,30 +37,6 @@ const querySchema: ISchema = {
       },
     },
   },
-}
-
-async function request(params: Record<string, any>) {
-  await new Promise(resolve => setTimeout(resolve, 200))
-
-  const keyword = `${params.keyword ?? ''}`.trim().toLowerCase()
-  const department = `${params.department ?? ''}`.trim()
-
-  const filtered = source.filter((item) => {
-    const keywordMatched = keyword ? item.name.toLowerCase().includes(keyword) : true
-    const departmentMatched = department ? item.department === department : true
-    return keywordMatched && departmentMatched
-  })
-
-  const current = Number(params.current) || 1
-  const pageSize = Number(params.pageSize) || 10
-  const start = (current - 1) * pageSize
-  const end = current * pageSize
-
-  return {
-    data: filtered.slice(start, end),
-    success: true,
-    total: filtered.length,
-  }
 }
 
 async function handleSubmit() {

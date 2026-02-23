@@ -12,7 +12,7 @@ import type {
 import { isNum } from '@formily/shared'
 import { useField } from '@silver-formily/vue'
 import { ElPagination } from 'element-plus'
-import { computed, markRaw, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { FormBaseItem } from '../form-item'
 import { QueryForm } from '../query-form'
@@ -98,12 +98,22 @@ const pageSizeRef = ref(initialPaginationProps.pageSize)
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
-const schemaA = markRaw(props.querySchema)
+const resolvedQuerySchema = computed(() => {
+  return props.querySchema ?? (props.queryFormProps as { schema?: ISchema }).schema
+})
+
+const activeQueryForm = computed(() => {
+  const form = props.queryFormProps.form
+  return typeof form === 'function'
+    ? form()
+    : form
+})
 
 const queryFormBindings = computed(() => {
-  console.warn('The "schema" property in "queryFormProps" is deprecated since v2. Please define the query form schema in the "querySchema" prop directly.')
   return ({
     ...props.queryFormProps,
+    schema: resolvedQuerySchema.value,
+    form: activeQueryForm.value,
     onAutoSubmit: handleQuerySubmit,
     resetProps: {
       onClick: handleQueryReset,
@@ -117,7 +127,7 @@ async function executeRequest() {
 
   const field = fieldRef.value as any
   const requestId = ++currentRequestId.value
-  const queryValues = props.queryFormProps.form
+  const queryValues = activeQueryForm.value?.values ?? {}
   const paginationData = props.pagination
     ? {
         current: currentPageRef.value,
@@ -218,7 +228,6 @@ watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, pr
       <component
         :is="props.mode === 'light' ? QueryForm.Light : QueryForm"
         v-bind="queryFormBindings"
-        :schema="schemaA"
       />
       <div :class="`${prefixCls}__content`">
         <slot />

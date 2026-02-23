@@ -13,7 +13,29 @@
 
 ## Demo
 
-### External Form + Initial Query Values
+### SelectTable + Pagination
+
+:::demo
+
+query-form-item/markup-schema
+
+:vueFiles="['query-form-item/markup-schema.vue', 'query-form-item/mock-user-request.ts']"
+
+:::
+
+### Tree + Light (No Pagination)
+
+:::demo
+
+query-form-item/light-with-tree
+
+:::
+
+### 通过外部传入 Form 设置初始值
+
+:::warning 注意
+在Decorator中如果需要传入form需要使用函数返回的写法，这是因为Decorator中的props会经过toJS处理，会引起组件循环渲染。具体写法见下。
+:::
 
 :::demo
 
