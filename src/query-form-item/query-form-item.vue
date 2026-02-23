@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Form } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import type { PropType } from 'vue'
 import type {
@@ -10,11 +9,10 @@ import type {
   QueryFormItemRequest,
   QueryFormItemRequestSuccessPayload,
 } from './types'
-import { createForm } from '@formily/core'
 import { isNum } from '@formily/shared'
 import { useField } from '@silver-formily/vue'
 import { ElPagination } from 'element-plus'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, markRaw, onMounted, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { FormBaseItem } from '../form-item'
 import { QueryForm } from '../query-form'
@@ -71,7 +69,6 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
 }
 
 const fieldRef = useField()
-const internalQueryForm = createForm()
 const prefixCls = `${stylePrefix}-query-form-item`
 const { props: cleanAttrs } = useCleanAttrs()
 
@@ -101,24 +98,18 @@ const pageSizeRef = ref(initialPaginationProps.pageSize)
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
-const activeQueryForm = computed<Form>(() => (
-  props.queryFormProps.form
-  ?? (cleanAttrs.value.form as Form | undefined)
-  ?? internalQueryForm
-))
+const schemaA = markRaw(props.querySchema)
 
-const queryFormBindings = computed(() => ({
-  ...props.queryFormProps,
-  schema: props.querySchema,
-  onAutoSubmit: handleQuerySubmit,
-  form: activeQueryForm.value,
-  resetProps: props.mode === 'default'
-    ? {
-        ...props.queryFormProps.resetProps,
-        onClick: handleQueryReset,
-      }
-    : props.queryFormProps.resetProps,
-}))
+const queryFormBindings = computed(() => {
+  console.warn('The "schema" property in "queryFormProps" is deprecated since v2. Please define the query form schema in the "querySchema" prop directly.')
+  return ({
+    ...props.queryFormProps,
+    onAutoSubmit: handleQuerySubmit,
+    resetProps: {
+      onClick: handleQueryReset,
+    },
+  })
+})
 
 async function executeRequest() {
   if (!props.request)
@@ -126,7 +117,7 @@ async function executeRequest() {
 
   const field = fieldRef.value as any
   const requestId = ++currentRequestId.value
-  const queryValues = activeQueryForm.value.values
+  const queryValues = props.queryFormProps.form
   const paginationData = props.pagination
     ? {
         current: currentPageRef.value,
@@ -227,6 +218,7 @@ watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, pr
       <component
         :is="props.mode === 'light' ? QueryForm.Light : QueryForm"
         v-bind="queryFormBindings"
+        :schema="schemaA"
       />
       <div :class="`${prefixCls}__content`">
         <slot />

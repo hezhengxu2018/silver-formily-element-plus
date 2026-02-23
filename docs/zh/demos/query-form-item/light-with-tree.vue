@@ -106,7 +106,9 @@ const schema: ISchema = {
         request,
         mode: 'light',
         pagination: false,
-        throttleWait: 200,
+        queryFormProps: {
+          throttleWait: 200,
+        },
       },
       'x-component': 'Tree',
       'x-component-props': {

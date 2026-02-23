@@ -13,19 +13,11 @@
 
 ## Demo
 
-### SelectTable + Pagination
+### External Form + Initial Query Values
 
 :::demo
 
-query-form-item/markup-schema
-
-:::
-
-### Tree + Light (No Pagination)
-
-:::demo
-
-query-form-item/light-with-tree
+query-form-item/external-form-initial-values
 
 :::
 

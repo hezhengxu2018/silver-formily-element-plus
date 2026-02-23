@@ -13,6 +13,14 @@ interface UserRecord {
 
 const form = createForm()
 
+// External query form instance with initial query params.
+const queryForm = createForm({
+  initialValues: {
+    keyword: 'User-1',
+    department: 'R&D',
+  },
+})
+
 const source: UserRecord[] = Array.from({ length: 80 }, (_, index) => ({
   id: `${index + 1}`,
   name: `User-${index + 1}`,
@@ -61,26 +69,16 @@ async function request(params: Record<string, any>) {
     return keywordMatched && departmentMatched
   })
 
-  const current = Number(params.current) || 1
-  const pageSize = Number(params.pageSize) || 10
-  const start = (current - 1) * pageSize
-  const end = current * pageSize
-
   return {
-    data: filtered.slice(start, end),
+    data: filtered,
     success: true,
     total: filtered.length,
   }
 }
 
 async function handleSubmit() {
-  try {
-    const values = await form.submit()
-    ElMessage.success(`Submit: ${JSON.stringify(values)}`)
-  }
-  catch {
-    ElMessage.error('Please select at least one user before submit')
-  }
+  const values = await form.submit()
+  ElMessage.success(`Submit: ${JSON.stringify(values)}`)
 }
 
 const schema: ISchema = {
@@ -88,26 +86,17 @@ const schema: ISchema = {
   properties: {
     selectedUsers: {
       'type': 'array',
-      'x-validator': [
-        {
-          required: true,
-          message: 'Please select at least one user',
-        },
-      ],
       'x-decorator': 'QueryFormItem',
       'x-decorator-props': {
-        label: 'Target Users',
-        required: true,
-        tooltip: 'Select at least one user from the table',
-        extra: 'Use the query area to filter the table before selecting.',
-        querySchema,
+        mode: 'light',
+        label: 'External Query Form',
+        extra: 'Light mode query area uses an external form with initial values.',
         request,
-        paginationProps: {
-          pageSize: 8,
-        },
+        pagination: false,
+        querySchema,
         queryFormProps: {
-          submitText: 'Search',
-          resetText: 'Reset',
+          form: queryForm,
+          throttleWait: 200,
         },
       },
       'x-component': 'SelectTable',
