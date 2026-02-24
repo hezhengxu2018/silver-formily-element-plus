@@ -2,12 +2,12 @@
 import type { Form } from '@formily/core'
 import type { IQueryFormLightProps } from './types'
 import { reaction, toJS } from '@formily/reactive'
-import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
+import { useFieldSchema, useForm } from '@silver-formily/vue'
 import { throttle } from 'lodash-es'
 import { computed, onUnmounted, useSlots } from 'vue'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { Form as FForm } from '../form'
-import { mergeQueryFormComponents } from './default-components'
+import { useQueryFormForm, useQueryFormSchemaField } from './hooks'
 
 defineOptions({
   name: 'FQueryFormLight',
@@ -29,14 +29,10 @@ const formRef = useForm()
 const fieldSchemaRef = useFieldSchema()
 const prefixCls = `${stylePrefix}-query-form-light`
 
-function resolveExternalForm(form: unknown): Form | undefined {
-  if (typeof form === 'function')
-    return (form as () => Form | undefined)()
-  return form as Form | undefined
-}
-
-const externalForm = computed<Form | undefined>(() => resolveExternalForm(formProps.value.form))
-const activeForm = computed<Form | undefined>(() => externalForm.value ?? formRef?.value)
+const { externalForm, activeForm } = useQueryFormForm({
+  formProps,
+  fallbackForm: formRef,
+})
 const resolvedSchema = computed(() => props.schema ?? fieldSchemaRef.value)
 
 const innerFormProps = computed(() => ({
@@ -79,12 +75,11 @@ onUnmounted(() => {
   triggerSubmit.cancel()
 })
 
-const hasDefaultSlot = Boolean(slots.default)
-const mergedComponents = mergeQueryFormComponents(props.components)
-const schemaField = computed(() => {
-  if (hasDefaultSlot || !resolvedSchema.value)
-    return null
-  return props.schemaField ?? createSchemaField({ components: mergedComponents }).SchemaField
+const { hasDefaultSlot, schemaField } = useQueryFormSchemaField({
+  slots,
+  schema: resolvedSchema,
+  schemaField: computed(() => props.schemaField),
+  components: computed(() => props.components),
 })
 </script>
 

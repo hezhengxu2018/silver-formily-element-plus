@@ -5,7 +5,7 @@ import type { IQueryFormProps, SchemaEntry } from './types'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 import { Schema } from '@formily/json-schema'
 import { autorun } from '@formily/reactive'
-import { createSchemaField, useFieldSchema, useForm } from '@silver-formily/vue'
+import { useFieldSchema, useForm } from '@silver-formily/vue'
 import { ElIcon, ElLink } from 'element-plus'
 import { computed, onUnmounted, ref, useSlots } from 'vue'
 import { compatibleUnderlineProp, stylePrefix, useCleanAttrs } from '../__builtins__'
@@ -15,7 +15,7 @@ import { FormGrid } from '../form-grid'
 import { createFormGrid } from '../form-grid/hooks'
 import { Reset } from '../reset'
 import { Submit } from '../submit'
-import { mergeQueryFormComponents } from './default-components'
+import { useQueryFormForm, useQueryFormSchemaField } from './hooks'
 
 defineOptions({
   name: 'FQueryForm',
@@ -41,14 +41,18 @@ const slots = useSlots()
 const prefixCls = `${stylePrefix}-query-form`
 const FormGridColumn = FormGrid.GridColumn
 
-const innerFormProps = computed(() => ({
-  fullness: true,
-  ...formProps.value,
-}))
-
 const COLLAPSED_ROWS = 1
 const fieldSchemaRef = useFieldSchema()
 const formRef = useForm()
+const { externalForm, activeForm } = useQueryFormForm({
+  formProps,
+  fallbackForm: formRef,
+})
+const innerFormProps = computed(() => ({
+  fullness: true,
+  ...formProps.value,
+  form: externalForm.value,
+}))
 
 const schemaList = computed<SchemaEntry[]>(() => {
   const rawSchema = props.schema ?? fieldSchemaRef.value
@@ -63,8 +67,7 @@ const schemaList = computed<SchemaEntry[]>(() => {
 })
 
 function resolveField(name?: string | number) {
-  const form = formProps.value.form ?? formRef?.value
-  return form?.query(name).take()
+  return activeForm.value?.query(name).take()
 }
 
 function createVisibleContext(
@@ -194,14 +197,13 @@ function toggle() {
   grid.maxRows = grid.maxRows === Infinity ? COLLAPSED_ROWS : Infinity
 }
 
-const hasDefaultSlot = Boolean(slots.default)
-const mergedComponents = mergeQueryFormComponents(props.components)
-const schemaField = hasDefaultSlot || !props.schema
-  ? null
-  : (props.schemaField ?? createSchemaField({
-      components: mergedComponents,
-      scope: props.scope,
-    }).SchemaField)
+const { hasDefaultSlot, schemaField } = useQueryFormSchemaField({
+  slots,
+  schema: computed(() => props.schema),
+  schemaField: computed(() => props.schemaField),
+  components: computed(() => props.components),
+  scope: computed(() => props.scope),
+})
 </script>
 
 <template>
