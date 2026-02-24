@@ -25,6 +25,11 @@
 - Vitest is configured in `vitest.config.ts`; interactive work uses `pnpm test` (Vitest UI), while `pnpm coverage` runs headless with Istanbul.
 - Follow the current pattern (`__test__/foo.test.ts`) and assert both form logic and Element Plus rendering.
 - Aim for meaningful assertions instead of snapshot dumps, and watch coverage reports for regressions before opening a PR.
+- For Vitest Browser Mode (`--browser.headless` / Playwright), prefer running in a TTY terminal. In non-TTY pipes, output may stop at `RUN` and not print final test results.
+- If Browser Mode output is missing, re-run with a TTY/PTY session first. For Codex terminal calls, prefer enabling TTY for the test command.
+- For machine-readable fallback, write a JSON report and inspect the file instead of relying on stdout:
+  - `pnpm vitest run <test-file> --browser.headless --reporter json --outputFile vitest-browser.json`
+  - If the runner is non-TTY, use a pseudo terminal wrapper: `script -q /dev/null pnpm vitest run <test-file> --browser.headless --reporter json --outputFile vitest-browser.json`
 
 ## Commit & Pull Request Guidelines
 
