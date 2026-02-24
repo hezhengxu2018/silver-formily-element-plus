@@ -16,6 +16,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { stylePrefix, useCleanAttrs } from '../__builtins__'
 import { FormBaseItem } from '../form-item'
 import { QueryForm } from '../query-form'
+import { useQueryFormForm } from '../query-form/hooks'
 
 defineOptions({
   name: 'FQueryFormItem',
@@ -70,17 +71,8 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
 
 const fieldRef = useField()
 const prefixCls = `${stylePrefix}-query-form-item`
-const { props: cleanAttrs } = useCleanAttrs()
+const { props: formItemProps } = useCleanAttrs()
 
-const formItemBindings = computed(() => {
-  const { form, ...bindings } = cleanAttrs.value
-  return bindings
-})
-
-const initialPaginationProps = {
-  ...defaultPaginationProps,
-  ...props.paginationProps,
-}
 const paginationBindings = computed(() => {
   const {
     currentPage,
@@ -93,8 +85,8 @@ const paginationBindings = computed(() => {
   return bindings
 })
 
-const currentPageRef = ref(initialPaginationProps.currentPage)
-const pageSizeRef = ref(initialPaginationProps.pageSize)
+const currentPageRef = ref(1)
+const pageSizeRef = ref(props.paginationProps?.pageSize ?? defaultPaginationProps.pageSize)
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
@@ -102,11 +94,8 @@ const resolvedQuerySchema = computed(() => {
   return props.querySchema ?? (props.queryFormProps as { schema?: ISchema }).schema
 })
 
-const activeQueryForm = computed(() => {
-  const form = props.queryFormProps.form
-  return typeof form === 'function'
-    ? form()
-    : form
+const { externalForm: activeQueryForm } = useQueryFormForm({
+  formProps: () => props.queryFormProps,
 })
 
 const queryFormBindings = computed(() => {
@@ -223,7 +212,7 @@ watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, pr
 </script>
 
 <template>
-  <FormBaseItem v-bind="formItemBindings">
+  <FormBaseItem v-bind="formItemProps">
     <div :class="prefixCls">
       <component
         :is="props.mode === 'light' ? QueryForm.Light : QueryForm"

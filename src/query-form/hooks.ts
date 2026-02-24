@@ -14,7 +14,7 @@ function resolveExternalForm(form: unknown): Form | undefined {
 
 interface UseQueryFormFormOptions {
   formProps: MaybeRefOrGetter<{ form?: unknown }>
-  fallbackForm: MaybeRefOrGetter<Form | undefined>
+  fallbackForm?: MaybeRefOrGetter<Form | undefined>
 }
 
 export function useQueryFormForm(options: UseQueryFormFormOptions) {
