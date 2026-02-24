@@ -133,6 +133,7 @@ async function executeRequest() {
     field.dataSource = []
 
   const requestId = ++currentRequestId.value
+  /* istanbul ignore next -- @preserve defensive: active query form can be temporarily undefined before form injection settles */
   const queryValues = activeQueryForm.value?.values ?? {}
   const paginationData = props.pagination
     ? {
@@ -210,12 +211,14 @@ onMounted(() => {
 })
 
 watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, previousPageSize]) => {
+  /* istanbul ignore if -- @preserve defensive: watcher is retained when pagination is dynamically toggled off */
   if (!props.pagination)
     return
 
   const currentChanged = currentPage !== previousPage
   const pageSizeChanged = pageSize !== previousPageSize
 
+  /* istanbul ignore if -- @preserve defensive: keep guard for unexpected duplicated watcher payload */
   if (!currentChanged && !pageSizeChanged)
     return
 

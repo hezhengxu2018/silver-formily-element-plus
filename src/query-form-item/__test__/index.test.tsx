@@ -434,6 +434,28 @@ describe('QueryFormItem', () => {
     expect(request).toHaveBeenCalledTimes(1)
   })
 
+  it('should trigger request when reset onClick does not return false', async () => {
+    const form = createForm()
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '12-1', name: 'Row-12-1' }],
+      success: true,
+      total: 1,
+    }))
+
+    const screen = render(formilyWrapperFactory(form, request))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalledTimes(1)
+    })
+
+    await screen.getByRole('button', { name: '重置' }).click()
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalledTimes(2)
+    })
+    expect(request.mock.calls[1]?.[0]).toEqual({ current: 1, pageSize: 10 })
+  })
+
   it('should set current page to first page before submit when current page is not 1', async () => {
     const form = createForm()
     const request = vi.fn<QueryFormItemRequest>(async () => ({
