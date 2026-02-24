@@ -42,6 +42,7 @@ export interface IQueryFormItemProps extends IFormItemProps {
   request?: QueryFormItemRequest
   querySchema?: ISchema
   queryFormProps?: QueryFormItemQueryProps
+  form?: QueryFormPassThroughAttrs['form']
   pagination?: boolean
   paginationProps?: QueryFormItemPaginationProps
   paginationMap?: QueryFormItemPaginationMap

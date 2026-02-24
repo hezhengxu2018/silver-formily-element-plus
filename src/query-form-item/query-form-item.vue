@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Form } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import type { PropType } from 'vue'
 import type {
@@ -9,6 +10,7 @@ import type {
   QueryFormItemRequest,
   QueryFormItemRequestSuccessPayload,
 } from './types'
+import { createForm } from '@formily/core'
 import { isNum } from '@formily/shared'
 import { useField } from '@silver-formily/vue'
 import { ElPagination } from 'element-plus'
@@ -34,6 +36,9 @@ const props = defineProps({
     type: Object as PropType<QueryFormItemQueryProps>,
     default: () => ({}),
   },
+  form: {
+    type: [Object, Function] as PropType<Form | (() => Form | undefined)>,
+  },
   pagination: {
     type: Boolean,
     default: true,
@@ -57,12 +62,12 @@ const emit = defineEmits<{
   (e: 'requestFailed', error: any): void
 }>()
 
-const defaultPaginationProps: Required<Pick<QueryFormItemPaginationProps, 'currentPage' | 'pageSize' | 'pageSizes' | 'layout' | 'background'>> = {
+const defaultPaginationProps: QueryFormItemPaginationProps = {
   currentPage: 1,
   pageSize: 10,
   pageSizes: [10, 20, 50, 100],
   layout: 'total, prev, pager, next',
-  background: true,
+  size: 'small',
 }
 const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
   current: 'current',
@@ -70,6 +75,7 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
 }
 
 const fieldRef = useField()
+const internalQueryForm = createForm()
 const prefixCls = `${stylePrefix}-query-form-item`
 const { props: formItemProps } = useCleanAttrs()
 
@@ -85,22 +91,30 @@ const paginationBindings = computed(() => {
   return bindings
 })
 
-const currentPageRef = ref(1)
+const currentPageRef = ref(props.paginationProps?.currentPage ?? defaultPaginationProps.currentPage)
 const pageSizeRef = ref(props.paginationProps?.pageSize ?? defaultPaginationProps.pageSize)
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
-const resolvedQuerySchema = computed(() => {
-  return props.querySchema ?? (props.queryFormProps as { schema?: ISchema }).schema
+const resolvedQueryFormProps = computed(() => {
+  return {
+    ...props.queryFormProps,
+    form: props.form ?? props.queryFormProps.form,
+  }
 })
 
-const { externalForm: activeQueryForm } = useQueryFormForm({
-  formProps: () => props.queryFormProps,
+const resolvedQuerySchema = computed(() => {
+  return props.querySchema ?? (resolvedQueryFormProps.value as { schema?: ISchema }).schema
+})
+
+const { activeForm: activeQueryForm } = useQueryFormForm({
+  formProps: resolvedQueryFormProps,
+  fallbackForm: internalQueryForm,
 })
 
 const queryFormBindings = computed(() => {
   return ({
-    ...props.queryFormProps,
+    ...resolvedQueryFormProps.value,
     schema: resolvedQuerySchema.value,
     form: activeQueryForm.value,
     onAutoSubmit: handleQuerySubmit,
@@ -115,6 +129,9 @@ async function executeRequest() {
     return
 
   const field = fieldRef.value as any
+  if (!Array.isArray(field.dataSource))
+    field.dataSource = []
+
   const requestId = ++currentRequestId.value
   const queryValues = activeQueryForm.value?.values ?? {}
   const paginationData = props.pagination
@@ -175,7 +192,7 @@ async function handleQuerySubmit() {
 }
 
 function handleQueryReset(event: MouseEvent) {
-  const userOnClick = props.queryFormProps.resetProps?.onClick as ((event: MouseEvent) => void | boolean) | undefined
+  const userOnClick = resolvedQueryFormProps.value.resetProps?.onClick as ((event: MouseEvent) => void | boolean) | undefined
   const result = userOnClick?.(event)
   if (result === false)
     return false
