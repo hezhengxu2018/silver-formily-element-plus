@@ -1,4 +1,8 @@
 export interface IFormItemProps {
+  /**
+   * Internal: override Element Plus root class for isolated scenes (e.g. QueryFormItem).
+   */
+  internalFormItemClass?: string
   label?: string
   for?: string
   tooltip?: string

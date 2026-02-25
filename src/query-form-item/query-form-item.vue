@@ -77,6 +77,7 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
 const fieldRef = useField()
 const internalQueryForm = createForm()
 const prefixCls = `${stylePrefix}-query-form-item`
+const formItemInternalClass = `${stylePrefix}-form-item--isolated`
 const { props: formItemProps } = useCleanAttrs()
 
 const paginationBindings = computed(() => {
@@ -232,7 +233,10 @@ watch([currentPageRef, pageSizeRef], ([currentPage, pageSize], [previousPage, pr
 </script>
 
 <template>
-  <FormBaseItem v-bind="formItemProps">
+  <FormBaseItem
+    v-bind="formItemProps"
+    :internal-form-item-class="formItemInternalClass"
+  >
     <div :class="prefixCls">
       <component
         :is="props.mode === 'light' ? QueryForm.Light : QueryForm"

@@ -310,8 +310,13 @@ describe('QueryFormItem', () => {
       expect(request).toHaveBeenCalled()
     })
 
+    const fieldLabel = screen.getByText('Selected Rows')
+    const formItemElement = fieldLabel.element().closest('.formily-element-plus-form-item')
+
     await expect.element(screen.container.querySelector('.el-form-item__label')).toHaveTextContent('Selected Rows')
-    await expect.element(screen.container.querySelector('.el-form-item')).toHaveClass('is-required')
+    await expect.element(formItemElement).toHaveClass('is-required')
+    await expect.element(formItemElement).toHaveClass('formily-element-plus-form-item--isolated')
+    await expect.element(formItemElement).not.toHaveClass('el-form-item')
   })
 
   it('should show validation feedback through form item wrapper', async () => {
