@@ -20,6 +20,16 @@ query-form-item/light-with-tree
 
 :::
 
+## 注册自定义组件（Segmented）
+
+:::demo
+
+query-form-item/custom-components-segmented
+
+:vueFiles="['query-form-item/custom-components-segmented.vue', 'query-form-item/mock-user-request.ts']"
+
+:::
+
 ## 通过外部传入 Form 设置初始值
 
 :::warning 注意
@@ -60,12 +70,12 @@ query-form-item/transfer-clear-on-data-change
 | `paginationMap`     | 分页参数映射（用于请求入参键名） | `QueryFormItemPaginationMap`  | [分页参数映射](#分页参数映射) |
 | `immediate`         | 挂载后是否立即执行一次查询       | `boolean`                     | `true`                        |
 
-### Events
+### 事件
 
-| 事件名           | 说明           | 回调参数                                            |
-| ---------------- | -------------- | --------------------------------------------------- |
-| `requestSuccess` | 查询成功后触发 | `{ values, pagination, dataSource, total, result }` |
-| `requestFailed`  | 查询失败后触发 | `error`                                             |
+| 属性名           | 类型                                                    | 描述           | 默认值 |
+| ---------------- | ------------------------------------------------------- | -------------- | ------ |
+| `requestSuccess` | `(payload: QueryFormItemRequestSuccessPayload) => void` | 查询成功后触发 | -      |
+| `requestFailed`  | `(error: any) => void`                                  | 查询失败后触发 | -      |
 
 ### Request 约定
 
