@@ -31,7 +31,13 @@ async function handleAutoSubmit(values: any) {
     <SchemaField>
       <SchemaVoidField
         x-component="QueryForm"
-        :x-component-props="{ onAutoSubmit: handleAutoSubmit }"
+        :x-component-props="{
+          onAutoSubmit: handleAutoSubmit,
+          gridProps: {
+            breakpoints: [900, Infinity],
+            maxColumns: [3, 4],
+          },
+        }"
       >
         <SchemaStringField
           name="input1"
@@ -58,18 +64,12 @@ async function handleAutoSubmit(values: any) {
           x-decorator="FormItem"
         />
         <SchemaStringField
-          name="date"
-          title="DatePicker"
-          x-component="DatePicker"
-          x-decorator="FormItem"
-        />
-        <SchemaStringField
           name="dateRange"
           title="DatePicker"
           x-component="DatePicker"
           x-decorator="FormItem"
           :x-decorator-props="{
-            gridSpan: 'span 2',
+            'data-grid-span': 2,
           }"
           :x-component-props="{
             type: 'daterange',

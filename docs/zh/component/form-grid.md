@@ -32,7 +32,7 @@ form-grid/native
 
 ## 查询表单实现案例
 
-:::demo
+:::demo 这是一个简单的例子，现在可以通过 QueryForm 组件获得更好的封装。
 
 form-grid/form
 

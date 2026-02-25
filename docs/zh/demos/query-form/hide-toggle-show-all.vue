@@ -62,6 +62,6 @@ const schema: ISchema = {
     :schema="schema"
     :default-expanded="true"
     :show-toggle="false"
-    :grid-props="{ maxColumns: 3, maxWidth: 220 }"
+    :grid-props="{ breakpoints: [900, Infinity], maxColumns: [3, 4], maxWidth: 220 }"
   />
 </template>

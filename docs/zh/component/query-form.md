@@ -15,6 +15,10 @@
 
 ## Markup Schema 案例
 
+:::tip 提示
+配置跨列需使用`@formily/grid`的`data-grid-span`属性
+:::
+
 :::demo
 
 query-form/markup-schema
@@ -71,12 +75,6 @@ query-form/light
 
 ## Light 模式（无节流实时提交）
 
-:::demo
-
-query-form/light-immediate
-
-:::
-
 ::: tip 提示
 
 - `QueryForm.Light` 使用独立的 flex 紧凑布局，不使用 Grid 折叠逻辑，因此 `gridProps`、`visibleWhen`、展开/收起相关配置在 Light 模式下不生效。
@@ -84,6 +82,12 @@ query-form/light-immediate
 - `Select` 组件在 Element-Plus 的 `2.5.0` 版本后不再提供默认宽度，在Light模式下需要手动添加宽度。
 
 - 如果需要更紧凑的布局可以考虑`Editable`组件。
+
+:::
+
+:::demo
+
+query-form/light-immediate
 
 :::
 
@@ -98,7 +102,7 @@ query-form/actions-at-row-end
 ## 插槽示例（在查询/重置后、展开前插入导出按钮）
 
 :::tip 提示
-目前操作区仅支持占用网格布局中的一个网格，内容太多会导致换行。
+目前操作区仅支持占用网格布局中的一个网格，内容太多会导致换行。需要设置合理的断点值，保证交互区按钮的宽度足够显示。
 :::
 
 :::demo

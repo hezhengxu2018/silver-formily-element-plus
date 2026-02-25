@@ -1,82 +1,81 @@
 <script setup lang="ts">
 import type { ISchema } from '@formily/json-schema'
 import { createForm } from '@formily/core'
-import { QueryFormItem, SelectTable } from '@silver-formily/element-plus'
+import { QueryFormItem, Transfer } from '@silver-formily/element-plus'
 import { createSchemaField, FormProvider } from '@silver-formily/vue'
 import { ElButton, ElMessage } from 'element-plus'
-import { createUserRequest } from './mock-user-request'
+import { createPermissionRequest } from './mock-user-request'
 
 const form = createForm()
-const request = createUserRequest()
-
-// External query form instance with initial query params.
-const queryForm = createForm({
-  initialValues: {
-    keyword: 'User-1',
-    department: 'R&D',
-  },
-})
+const request = createPermissionRequest()
 
 const querySchema: ISchema = {
   type: 'object',
   properties: {
     keyword: {
       'type': 'string',
+      'title': '关键词',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
       'x-component-props': {
         clearable: true,
-        placeholder: 'Keyword',
+        placeholder: '按权限名称过滤',
       },
     },
-    department: {
+    module: {
       'type': 'string',
+      'title': '模块',
       'enum': [
-        { label: 'All', value: '' },
-        { label: 'R&D', value: 'R&D' },
-        { label: 'Product', value: 'Product' },
+        { label: '全部', value: '' },
+        { label: '用户', value: 'user' },
+        { label: '订单', value: 'order' },
+        { label: '财务', value: 'finance' },
       ],
       'x-decorator': 'FormItem',
       'x-component': 'Select',
       'x-component-props': {
         clearable: true,
-        placeholder: 'Department',
-        style: 'width: 120px;',
+        style: 'width: 130px;',
       },
     },
   },
 }
 
 async function handleSubmit() {
-  const values = await form.submit()
-  ElMessage.success(`Submit: ${JSON.stringify(values)}`)
+  try {
+    const values = await form.submit()
+    ElMessage.success(`Submit: ${JSON.stringify(values)}`)
+  }
+  catch {
+    ElMessage.error('请先选择至少一项权限')
+  }
 }
 
 const schema: ISchema = {
   type: 'object',
   properties: {
-    selectedUsers: {
+    selectedPermissions: {
       'type': 'array',
+      'x-validator': [
+        {
+          required: true,
+          message: '请选择至少一项权限',
+        },
+      ],
       'x-decorator': 'QueryFormItem',
       'x-decorator-props': {
-        mode: 'light',
         label: '',
-        extra: 'Light mode query area uses an external form with initial values.',
-        request,
+        required: true,
         querySchema,
-        queryFormProps: {
-          form: () => queryForm, // [!code highlight]
-          throttleWait: 200,
-        },
+        request,
+        pagination: false,
+        clearOnDataChange: true,
+        extra: '修改过滤条件并点击查询后，会自动清空已选择的数据。',
       },
-      'x-component': 'SelectTable',
+      'x-component': 'Transfer',
       'x-component-props': {
-        mode: 'multiple',
-        rowKey: 'id',
-        columns: [
-          { prop: 'name', label: 'Name' },
-          { prop: 'department', label: 'Department' },
-        ],
+        titles: ['可选权限', '已选权限'],
+        filterable: true,
       },
     },
   },
@@ -85,7 +84,7 @@ const schema: ISchema = {
 const { SchemaField } = createSchemaField({
   components: {
     QueryFormItem,
-    SelectTable,
+    Transfer,
   },
 })
 </script>

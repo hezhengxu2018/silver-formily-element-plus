@@ -120,7 +120,7 @@ async function handleAutoSubmit(values: any) {
   <QueryForm
     :form="form"
     :schema="schema"
-    :grid-props="{ maxColumns: 4, maxWidth: 240 }"
+    :grid-props="{ breakpoints: [900, Infinity], maxColumns: [3, 4], maxWidth: 240 }"
     :visible-when="(context) => {
       if (!context.collapsed)
         return true

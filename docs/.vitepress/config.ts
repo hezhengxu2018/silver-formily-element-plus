@@ -33,6 +33,7 @@ export default defineConfig<EPThemeConfig>({
     search: {
       provider: 'local',
     },
+    outline: [2, 4],
     footer: {
       message: 'Released under the MIT License.',
       blogroll: [
