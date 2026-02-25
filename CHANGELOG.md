@@ -2,6 +2,14 @@
 
 
 
+# [2.4.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.3.0...v2.4.0) (2026-02-25)
+
+
+### Features
+
+* **query-form-item:** 添加QueryFormItem组件 ([2f323ba](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/2f323bac96f47b8785c07a22dbe9c5e5cb0f515e))
+* **query-form:** 添加QueryForm组件及文档 ([b1b56ea](https://github.com/hezhengxu2018/silver-formily-element-plus/commit/b1b56ea2ed995a634cbbfd5e0798e9ea7ea9975e))
+
 # [2.3.0](https://github.com/hezhengxu2018/silver-formily-element-plus/compare/v2.2.0...v2.3.0) (2026-02-16)
 
 
