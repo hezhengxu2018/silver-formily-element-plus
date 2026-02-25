@@ -31,11 +31,10 @@ export type QueryFormItemPaginationProps = Partial<PaginationProps>
 type QueryFormDefaultProps = Omit<IQueryFormProps, 'schema'>
 type QueryFormLightProps = Omit<IQueryFormLightProps, 'schema'>
 
-interface QueryFormPassThroughAttrs {
+export type QueryFormItemQueryProps = Partial<QueryFormDefaultProps & QueryFormLightProps> & {
   form?: Form | (() => Form | undefined)
+  schema?: ISchema
 }
-
-export type QueryFormItemQueryProps = Partial<QueryFormDefaultProps & QueryFormLightProps> & QueryFormPassThroughAttrs
 
 export interface IQueryFormItemProps extends IFormItemProps {
   mode?: QueryFormItemMode
@@ -43,7 +42,6 @@ export interface IQueryFormItemProps extends IFormItemProps {
   clearOnDataChange?: boolean
   querySchema?: ISchema
   queryFormProps?: QueryFormItemQueryProps
-  form?: QueryFormPassThroughAttrs['form']
   pagination?: boolean
   paginationProps?: QueryFormItemPaginationProps
   paginationMap?: QueryFormItemPaginationMap

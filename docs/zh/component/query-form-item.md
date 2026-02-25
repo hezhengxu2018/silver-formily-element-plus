@@ -2,11 +2,6 @@
 
 > 基于 `QueryForm` 的装饰器组件，用于按条件请求并更新当前字段的 `dataSource`。
 
-::: tip 提示
-为了避免校验失败时报错的样式影响到内部的QueryForm，组件修改了FormItem的class名，可能会出现部分配置项不生效的情况。
-
-:::
-
 ## SelectTable + 分页
 
 :::demo
@@ -50,6 +45,8 @@ query-form-item/transfer-clear-on-data-change
 ## API
 
 ### QueryFormItem Props
+
+基本继承了所有 FormItem 的配置项。为了避免校验失败时报错的样式影响到内部的QueryForm，组件修改了FormItem的class名，因此可能会出现部分配置项不生效的情况。下面的这些配置项是 QueryFormItem 独有的。
 
 | 属性名              | 说明                             | 类型                          | 默认值                        |
 | ------------------- | -------------------------------- | ----------------------------- | ----------------------------- |

@@ -230,7 +230,7 @@ describe('QueryFormItem', () => {
     expect(request.mock.calls[0]?.[0]).toEqual({ pageNum: 1, pageSize: 10 })
   })
 
-  it('should prefer external form values for initial request', async () => {
+  it('should prefer queryFormProps.form values for initial request', async () => {
     const form = createForm()
     const externalQueryForm = createForm({
       values: {
@@ -244,7 +244,9 @@ describe('QueryFormItem', () => {
     }))
 
     render(formilyWrapperFactory(form, request, {
-      form: () => externalQueryForm,
+      queryFormProps: {
+        form: () => externalQueryForm,
+      },
     }))
 
     await vi.waitFor(() => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Form } from '@formily/core'
+import type { Field } from '@formily/core'
 import type { ISchema } from '@formily/json-schema'
 import type { PropType } from 'vue'
 import type {
@@ -40,9 +40,6 @@ const props = defineProps({
     type: Object as PropType<QueryFormItemQueryProps>,
     default: () => ({}),
   },
-  form: {
-    type: [Object, Function] as PropType<Form | (() => Form | undefined)>,
-  },
   pagination: {
     type: Boolean,
     default: true,
@@ -78,7 +75,7 @@ const defaultPaginationRequestMapping: Required<QueryFormItemPaginationMap> = {
   pageSize: 'pageSize',
 }
 
-const fieldRef = useField()
+const fieldRef = useField<Field>()
 const internalQueryForm = createForm()
 const prefixCls = `${stylePrefix}-query-form-item`
 const formItemInternalClass = `${stylePrefix}-form-item--isolated`
@@ -101,26 +98,15 @@ const pageSizeRef = ref(props.paginationProps?.pageSize ?? defaultPaginationProp
 const totalRef = ref(0)
 const currentRequestId = ref(0)
 
-const resolvedQueryFormProps = computed(() => {
-  return {
-    ...props.queryFormProps,
-    form: props.form ?? props.queryFormProps.form,
-  }
-})
-
-const resolvedQuerySchema = computed(() => {
-  return props.querySchema ?? (resolvedQueryFormProps.value as { schema?: ISchema }).schema
-})
-
 const { activeForm: activeQueryForm } = useQueryFormForm({
-  formProps: resolvedQueryFormProps,
+  formProps: computed(() => props.queryFormProps),
   fallbackForm: internalQueryForm,
 })
 
 const queryFormBindings = computed(() => {
   return ({
-    ...resolvedQueryFormProps.value,
-    schema: resolvedQuerySchema.value,
+    ...props.queryFormProps,
+    schema: props.querySchema ?? props.queryFormProps.schema,
     form: activeQueryForm.value,
     onAutoSubmit: handleQuerySubmit,
     resetProps: {
@@ -133,7 +119,7 @@ async function executeRequest() {
   if (!props.request)
     return
 
-  const field = fieldRef.value as any
+  const field = fieldRef.value
   if (!Array.isArray(field.dataSource))
     field.dataSource = []
 
@@ -201,14 +187,12 @@ async function handleQuerySubmit() {
 }
 
 function handleQueryReset(event: MouseEvent) {
-  const userOnClick = resolvedQueryFormProps.value.resetProps?.onClick as ((event: MouseEvent) => void | boolean) | undefined
+  const userOnClick = props.queryFormProps.resetProps?.onClick as ((event: MouseEvent) => void | boolean) | undefined
   const result = userOnClick?.(event)
   if (result === false)
     return false
 
-  Promise.resolve().then(() => {
-    void handleQuerySubmit()
-  })
+  void handleQuerySubmit()
 
   return result
 }
