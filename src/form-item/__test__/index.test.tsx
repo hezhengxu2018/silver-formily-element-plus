@@ -28,6 +28,23 @@ describe('FormItem', () => {
       await expect.element(container.querySelector('.el-form-item__label')).toHaveTextContent('测试标签')
     })
 
+    it('应该支持内部隔离根类名', async () => {
+      const { container } = render(() => (
+        <FormProvider form={createForm()}>
+          <FormItem
+            label="隔离类名"
+            internalFormItemClass={`${stylePrefix}-form-item--isolated`}
+          >
+            <Input placeholder="请输入" />
+          </FormItem>
+        </FormProvider>
+      ))
+
+      const formItemElement = container.querySelector(`.${stylePrefix}-form-item`)
+      await expect.element(formItemElement).toHaveClass(`${stylePrefix}-form-item--isolated`)
+      await expect.element(formItemElement).not.toHaveClass('el-form-item')
+    })
+
     it('应该支持label 为空时的展示', async () => {
       const { container } = render(() => (
         <FormProvider form={createForm()}>

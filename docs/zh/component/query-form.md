@@ -15,6 +15,10 @@
 
 ## Markup Schema 案例
 
+:::tip 提示
+配置跨列需使用`@formily/grid`的`data-grid-span`属性
+:::
+
 :::demo
 
 query-form/markup-schema
@@ -71,12 +75,6 @@ query-form/light
 
 ## Light 模式（无节流实时提交）
 
-:::demo
-
-query-form/light-immediate
-
-:::
-
 ::: tip 提示
 
 - `QueryForm.Light` 使用独立的 flex 紧凑布局，不使用 Grid 折叠逻辑，因此 `gridProps`、`visibleWhen`、展开/收起相关配置在 Light 模式下不生效。
@@ -84,6 +82,12 @@ query-form/light-immediate
 - `Select` 组件在 Element-Plus 的 `2.5.0` 版本后不再提供默认宽度，在Light模式下需要手动添加宽度。
 
 - 如果需要更紧凑的布局可以考虑`Editable`组件。
+
+:::
+
+:::demo
+
+query-form/light-immediate
 
 :::
 
@@ -98,7 +102,7 @@ query-form/actions-at-row-end
 ## 插槽示例（在查询/重置后、展开前插入导出按钮）
 
 :::tip 提示
-目前操作区仅支持占用网格布局中的一个网格，内容太多会导致换行。
+目前操作区仅支持占用网格布局中的一个网格，内容太多会导致换行。需要设置合理的断点值，保证交互区按钮的宽度足够显示。
 :::
 
 :::demo
@@ -139,24 +143,24 @@ query-form/visible-when-top-n
 
 ### QueryForm Props
 
-| 属性名          | 说明                                                         | 类型                                               | 默认值  |
-| --------------- | ------------------------------------------------------------ | -------------------------------------------------- | ------- |
-| schema          | JSON Schema 渲染                                             | `ISchema`                                          | -       |
-| schemaField     | 自定义 SchemaField                                           | `Component`                                        | -       |
-| components      | JSON Schema 组件映射（会与内置映射合并，传入同名可覆盖）     | `Record<string, Component>`                        | `{}`    |
-| gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows）           | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>` | `{}`    |
-| defaultExpanded | 初始是否展开                                                 | `boolean`                                          | `false` |
-| showToggle      | 是否显示展开/收起切换按钮（为 `false` 时始终展示全部搜索项） | `boolean`                                          | `true`  |
-| actionsAtRowEnd | 操作区是否固定在行尾右侧显示                                 | `boolean`                                          | `false` |
-| visibleWhen     | 字段可见性判断函数                                           | `(context) => boolean`                             | -       |
-| submitText      | 提交按钮文字                                                 | `string`                                           | `查询`  |
-| resetText       | 重置按钮文字                                                 | `string`                                           | `重置`  |
-| expandText      | 展开按钮文字                                                 | `string`                                           | `展开`  |
-| collapseText    | 收起按钮文字                                                 | `string`                                           | `收起`  |
-| showSubmit      | 是否显示提交按钮                                             | `boolean`                                          | `true`  |
-| showReset       | 是否显示重置按钮                                             | `boolean`                                          | `true`  |
-| submitProps     | 透传给 Submit 的属性                                         | `Record<string, any>`                              | -       |
-| resetProps      | 透传给 Reset 的属性                                          | `Record<string, any>`                              | -       |
+| 属性名          | 说明                                                         | 类型                                                | 默认值  |
+| --------------- | ------------------------------------------------------------ | --------------------------------------------------- | ------- |
+| schema          | JSON Schema 渲染                                             | `ISchema`                                           | -       |
+| schemaField     | 自定义 SchemaField                                           | `Component`                                         | -       |
+| components      | JSON Schema 组件映射（会与内置映射合并，传入同名可覆盖）     | `Record<string, Component>`                         | `{}`    |
+| gridProps       | 创建 Grid 的参数（不包含 shouldVisible / maxRows）           | `Omit<IGridOptions, 'shouldVisible' \| 'maxRows'>`  | `{}`    |
+| defaultExpanded | 初始是否展开                                                 | `boolean`                                           | `false` |
+| showToggle      | 是否显示展开/收起切换按钮（为 `false` 时始终展示全部搜索项） | `boolean`                                           | `true`  |
+| actionsAtRowEnd | 操作区是否固定在行尾右侧显示                                 | `boolean`                                           | `false` |
+| visibleWhen     | 字段可见性判断函数                                           | [QueryFormVisibleContext](#QueryFormVisibleContext) | -       |
+| submitText      | 提交按钮文字                                                 | `string`                                            | `查询`  |
+| resetText       | 重置按钮文字                                                 | `string`                                            | `重置`  |
+| expandText      | 展开按钮文字                                                 | `string`                                            | `展开`  |
+| collapseText    | 收起按钮文字                                                 | `string`                                            | `收起`  |
+| showSubmit      | 是否显示提交按钮                                             | `boolean`                                           | `true`  |
+| showReset       | 是否显示重置按钮                                             | `boolean`                                           | `true`  |
+| submitProps     | 透传给 Submit 的属性                                         | `Record<string, any>`                               | -       |
+| resetProps      | 透传给 Reset 的属性                                          | `Record<string, any>`                               | -       |
 
 ### Slots
 
@@ -194,13 +198,3 @@ query-form/visible-when-top-n
 #### QueryFormVisibleContext
 
 <<< @/../src/query-form/types.ts#visible
-
-### Types
-
-#### IQueryFormProps
-
-<<< @/../src/query-form/types.ts#props
-
-#### IQueryFormLightProps
-
-<<< @/../src/query-form/types.ts#light-props

@@ -2,6 +2,27 @@
 @use '../__builtins__/styles/common.scss' as *;
 
 $form-item-prefix: '#{$formily-prefix}-form-item';
+$form-item-isolated-prefix: '#{$form-item-prefix}--isolated';
+
+.#{$form-item-isolated-prefix} {
+  display: flex;
+  --font-size: 14px;
+  --el-form-label-font-size: var(--font-size);
+
+  &.is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label-wrap > .el-form-item__label::before,
+  &.is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label::before {
+    color: var(--el-color-danger);
+    content: '*';
+    margin-right: 4px;
+  }
+
+  &.is-required:not(.is-no-asterisk).asterisk-right > .el-form-item__label-wrap > .el-form-item__label::after,
+  &.is-required:not(.is-no-asterisk).asterisk-right > .el-form-item__label::after {
+    color: var(--el-color-danger);
+    content: '*';
+    margin-left: 4px;
+  }
+}
 
 .#{$form-item-prefix} {
 

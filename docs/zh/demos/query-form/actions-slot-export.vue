@@ -71,7 +71,7 @@ async function handleAutoSubmit(values: any) {
   <QueryForm
     :form="form"
     :schema="schema"
-    :grid-props="{ maxColumns: 4 }"
+    :grid-props="{ breakpoints: [1075, 1410, Infinity], maxColumns: [2, 3, 4] }"
     @auto-submit="handleAutoSubmit"
   >
     <template #actions>

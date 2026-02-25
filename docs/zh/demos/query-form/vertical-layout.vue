@@ -84,6 +84,6 @@ const schema: ISchema = {
     :form="form"
     :schema="schema"
     layout="vertical"
-    :grid-props="{ minColumns: 5, maxColumns: 5 }"
+    :grid-props="{ breakpoints: [900, Infinity], minColumns: [3, 4], maxColumns: [3, 4] }"
   />
 </template>

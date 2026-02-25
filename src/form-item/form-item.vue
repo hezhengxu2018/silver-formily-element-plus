@@ -32,6 +32,7 @@ const props = withDefaults(defineProps<IFormItemProps>(), {
 const slots = useSlots()
 const ns = useNamespace('form-item')
 const prefixCls = `${stylePrefix}-form-item`
+const rootFormItemClass = computed(() => props.internalFormItemClass || ns.b())
 const formItemConfig = computed<Partial<ICalculatedFormLayoutProps>>(() =>
   Object.fromEntries(
     Object.entries(pick(props, FORM_LAYOUT_PROPS_KEYS))
@@ -104,7 +105,7 @@ const isRequired = computed(() =>
 )
 
 const formItemClasses = computed(() => [
-  ns.b(),
+  rootFormItemClass.value,
   ns.m(formItemSize.value || 'default'),
   ns.is(props.feedbackStatus),
   ns.is('validating', validateState.value === 'validating'),
