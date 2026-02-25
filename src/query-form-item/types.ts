@@ -40,6 +40,7 @@ export type QueryFormItemQueryProps = Partial<QueryFormDefaultProps & QueryFormL
 export interface IQueryFormItemProps extends IFormItemProps {
   mode?: QueryFormItemMode
   request?: QueryFormItemRequest
+  clearOnDataChange?: boolean
   querySchema?: ISchema
   queryFormProps?: QueryFormItemQueryProps
   form?: QueryFormPassThroughAttrs['form']

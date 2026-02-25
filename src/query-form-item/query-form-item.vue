@@ -31,6 +31,10 @@ const props = defineProps({
     default: 'default',
   },
   request: Function as PropType<QueryFormItemRequest>,
+  clearOnDataChange: {
+    type: Boolean,
+    default: false,
+  },
   querySchema: Object as PropType<ISchema>,
   queryFormProps: {
     type: Object as PropType<QueryFormItemQueryProps>,
@@ -163,6 +167,9 @@ async function executeRequest() {
     }
 
     field.dataSource = result.data
+    if (props.clearOnDataChange) {
+      field.setValue?.(undefined)
+    }
     totalRef.value = isNum(result.total) ? result.total : result.data.length
 
     emit('requestSuccess', {

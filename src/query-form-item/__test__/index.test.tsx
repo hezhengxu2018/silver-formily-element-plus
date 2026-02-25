@@ -87,6 +87,50 @@ describe('QueryFormItem', () => {
     expect(form.query('selected').get('dataSource')).toEqual([{ id: '1', name: 'Row-1' }])
   })
 
+  it('should keep field value after dataSource update by default', async () => {
+    const form = createForm({
+      values: {
+        selected: ['legacy-id'],
+      },
+    })
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '18', name: 'Row-18' }],
+      success: true,
+      total: 1,
+    }))
+
+    render(formilyWrapperFactory(form, request))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    expect(form.query('selected').get('value')).toEqual(['legacy-id'])
+  })
+
+  it('should clear field value after dataSource update when enabled', async () => {
+    const form = createForm({
+      values: {
+        selected: ['legacy-id'],
+      },
+    })
+    const request = vi.fn<QueryFormItemRequest>(async () => ({
+      data: [{ id: '19', name: 'Row-19' }],
+      success: true,
+      total: 1,
+    }))
+
+    render(formilyWrapperFactory(form, request, {
+      clearOnDataChange: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(request).toHaveBeenCalled()
+    })
+
+    expect(form.query('selected').get('value')).toBeUndefined()
+  })
+
   it('should not pass pagination params when pagination is disabled', async () => {
     const form = createForm()
     const request = vi.fn<QueryFormItemRequest>(async () => ({
