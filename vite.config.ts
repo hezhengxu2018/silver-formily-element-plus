@@ -9,7 +9,7 @@ import dts from 'vite-plugin-dts'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import { pkg } from './build/constants'
 
-function resolve(dir) {
+function resolve(dir: string) {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
   return path.resolve(__dirname, dir)

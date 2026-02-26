@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { IGridOptions } from '@formily/grid'
+import type { IGridOptions } from '@silver-formily/grid'
 import type { PropType } from 'vue'
-import { Grid } from '@formily/grid'
 import { markRaw } from '@formily/reactive'
+import { Grid } from '@silver-formily/grid'
 import { computed, provide, ref, watchEffect } from 'vue'
 import { stylePrefix } from '../__builtins__'
 import { FormGridSymbol } from './hooks'
@@ -27,6 +27,18 @@ const props = defineProps({
   maxColumns: {
     type: [Number, Array],
   },
+  ssrColumns: {
+    type: Number,
+  },
+  ssrTemplateColumns: {
+    type: String,
+  },
+  deferVisibilityUntilHydration: {
+    type: Boolean,
+  },
+  maxRows: {
+    type: Number,
+  },
   maxWidth: {
     type: [Number, Array],
   },
@@ -47,8 +59,14 @@ const props = defineProps({
       return () => true
     },
   },
+  onDigest: {
+    type: Function as PropType<IGridOptions['onDigest']>,
+  },
+  onInitialized: {
+    type: Function as PropType<IGridOptions['onInitialized']>,
+  },
   grid: {
-    type: Object as PropType<Grid<HTMLElement>>,
+    type: Object as PropType<Grid>,
   },
 })
 
@@ -72,7 +90,11 @@ const gridInstance = computed(() => {
 provide(FormGridSymbol, gridInstance)
 
 watchEffect((onInvalidate) => {
-  const dispose = gridInstance.value.connect(rootRef.value)
+  const container = rootRef.value
+  if (!container)
+    return
+
+  const dispose = gridInstance.value.connect(container)
   onInvalidate(() => {
     dispose()
   })

@@ -25,6 +25,8 @@ async function onSubmit(value) {
         :x-component-props="{
           maxColumns: 3,
           minColumns: 2,
+          ssrColumns: 3,
+          ssrTemplateColumns: 'repeat(3,minmax(0,1fr))',
         }"
       >
         <SchemaStringField

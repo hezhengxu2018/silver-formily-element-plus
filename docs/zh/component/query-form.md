@@ -16,7 +16,7 @@
 ## Markup Schema 案例
 
 :::tip 提示
-配置跨列需使用`@formily/grid`的`data-grid-span`属性
+配置跨列需使用`@silver-formily/grid`的`data-grid-span`属性
 :::
 
 :::demo

@@ -14,9 +14,6 @@ importers:
       '@formily/core':
         specifier: ^2.0.8
         version: 2.3.7
-      '@formily/grid':
-        specifier: ^2.0.8
-        version: 2.3.7(typescript@5.9.3)
       '@formily/json-schema':
         specifier: ^2.0.8
         version: 2.3.7(typescript@5.9.3)
@@ -72,6 +69,9 @@ importers:
       '@shikijs/langs':
         specifier: ^3.13.0
         version: 3.13.0
+      '@silver-formily/grid':
+        specifier: ./silver-formily-grid-0.0.2.tgz
+        version: file:silver-formily-grid-0.0.2.tgz(@formily/reactive@2.3.7)
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -830,12 +830,6 @@ packages:
     resolution: {integrity: sha512-oqLE6gOoM2xjwlUrfH4cyjscO4kZJNpidtVytZeBvYp9v4OgL9EUm89laPcF4cnpWE2lZIqqzfGluOySxku8WQ==}
     engines: {npm: '>=3.0.0'}
 
-  '@formily/grid@2.3.7':
-    resolution: {integrity: sha512-QTmmFkNVxcL+nQVvrqhBrUwhRCXDVy5iycTb4IJILqK4puYUKRajbsbm0oudTE0Yyo6ovpM6SD8QtdFU/cwLLw==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      typescript: 4.x || 5.x
-
   '@formily/json-schema@2.3.7':
     resolution: {integrity: sha512-YmDmH98sJLOPO5GAq5NJw+NP3i2vCELBoz4Y4w+nhpKI5n8eQHe2GczQKntWDOnTfchXD2dXcgpb0ub6KNeATw==}
     engines: {npm: '>=3.0.0'}
@@ -1066,9 +1060,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@juggle/resize-observer@3.4.0':
-    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
   '@mdit-vue/shared@2.1.4':
     resolution: {integrity: sha512-Axd8g2iKQTMuHcPXZH5JY3hbSMeLyoeu0ftdgMrjuPzHpJnWiPSAnA0dAx5NQFQqZkXHhyIrAssLSrOWjFmPKg==}
@@ -1446,6 +1437,12 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@silver-formily/grid@file:silver-formily-grid-0.0.2.tgz':
+    resolution: {integrity: sha512-nIqQuFl/bcaDSI24yJ1aqCSwsuv5mRhPMFvAvu3oYCOH9iXV42glzlN51GIZ4u5ZdbqfrqkzBHVvO4TkI8ZohQ==, tarball: file:silver-formily-grid-0.0.2.tgz}
+    version: 0.0.2
+    peerDependencies:
+      '@formily/reactive': ^2
 
   '@silver-formily/reactive-vue@1.0.0':
     resolution: {integrity: sha512-BX6lN9FO10l1z+ACrKyHWoMx0dcwSl/QbS6TRrh0cV/CveX2C7qgystnyMkTWY1h2Ouf2kRI7gFlh+pPG01tNQ==}
@@ -6549,12 +6546,6 @@ snapshots:
       '@formily/shared': 2.3.7
       '@formily/validator': 2.3.7
 
-  '@formily/grid@2.3.7(typescript@5.9.3)':
-    dependencies:
-      '@formily/reactive': 2.3.7
-      '@juggle/resize-observer': 3.4.0
-      typescript: 5.9.3
-
   '@formily/json-schema@2.3.7(typescript@5.9.3)':
     dependencies:
       '@formily/core': 2.3.7
@@ -6789,8 +6780,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@juggle/resize-observer@3.4.0': {}
 
   '@mdit-vue/shared@2.1.4':
     dependencies:
@@ -7157,6 +7146,10 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@10.0.2': {}
+
+  '@silver-formily/grid@file:silver-formily-grid-0.0.2.tgz(@formily/reactive@2.3.7)':
+    dependencies:
+      '@formily/reactive': 2.3.7
 
   '@silver-formily/reactive-vue@1.0.0(@formily/reactive@2.3.7)(vue@3.5.22(typescript@5.9.3))':
     dependencies:

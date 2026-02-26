@@ -11,6 +11,8 @@ const schema = {
       'x-component': 'FormGrid',
       'x-component-props': {
         minColumns: [4, 6, 10],
+        ssrColumns: 7,
+        ssrTemplateColumns: 'repeat(7,minmax(0,1fr))',
       },
       'properties': {
         aaa: {

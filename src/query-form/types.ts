@@ -1,6 +1,6 @@
 import type { GeneralField } from '@formily/core'
-import type { Grid, GridNode, IGridOptions } from '@formily/grid'
 import type { ISchema } from '@formily/json-schema'
+import type { Grid, GridNode, IGridOptions } from '@silver-formily/grid'
 import type { Component } from 'vue'
 
 // #region visible
@@ -9,7 +9,7 @@ export interface QueryFormVisibleContext {
   schema?: ISchema
   index: number
   node: GridNode
-  grid: Grid<HTMLElement>
+  grid: Grid
   collapsed: boolean
   breakpoint: number
 }

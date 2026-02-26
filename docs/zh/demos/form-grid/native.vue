@@ -23,7 +23,7 @@ const FormGridColumn = FormGrid.GridColumn
 <template>
   <div>
     <p>maxColumns 3 + minColumns 2</p>
-    <FormGrid :max-columns="3" :min-columns="2" :column-gap="4">
+    <FormGrid :max-columns="3" :min-columns="2" :column-gap="4" :ssr-columns="3" ssr-template-columns="repeat(3,minmax(0,1fr))">
       <FormGridColumn :grid-span="4">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -44,7 +44,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>maxColumns 3</p>
-    <FormGrid :max-columns="3" :column-gap="4">
+    <FormGrid :max-columns="3" :column-gap="4" :ssr-columns="3" ssr-template-columns="repeat(3,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -65,7 +65,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>minColumns 2</p>
-    <FormGrid :min-columns="2" :column-gap="4">
+    <FormGrid :min-columns="2" :column-gap="4" :ssr-columns="2" ssr-template-columns="repeat(2,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -86,7 +86,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>Null</p>
-    <FormGrid :column-gap="4">
+    <FormGrid :column-gap="4" :ssr-columns="2" ssr-template-columns="repeat(2,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -107,7 +107,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>minWidth 150 +maxColumns 3</p>
-    <FormGrid :min-width="150" :max-columns="3" :column-gap="4">
+    <FormGrid :min-width="150" :max-columns="3" :column-gap="4" :ssr-columns="3" ssr-template-columns="repeat(3,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -128,7 +128,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>maxWidth 120+minColumns 2</p>
-    <FormGrid :max-width="120" :min-columns="2" :column-gap="4">
+    <FormGrid :max-width="120" :min-columns="2" :column-gap="4" :ssr-columns="2" ssr-template-columns="repeat(2,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>
@@ -149,7 +149,7 @@ const FormGridColumn = FormGrid.GridColumn
       </FormGridColumn>
     </FormGrid>
     <p>maxWidth 120 + gridSpan -1</p>
-    <FormGrid :max-width="120" :column-gap="4">
+    <FormGrid :max-width="120" :column-gap="4" :ssr-columns="2" ssr-template-columns="repeat(2,minmax(0,1fr))">
       <FormGridColumn :grid-span="2">
         <Cell>1</Cell>
       </FormGridColumn>

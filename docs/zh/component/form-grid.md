@@ -32,35 +32,36 @@ form-grid/native
 
 ## 查询表单实现案例
 
-:::demo 这是一个简单的例子，现在可以通过 QueryForm 组件获得更好的封装。
-
-form-grid/form
-
-:::
-
 ## API
 
 ### FormGrid
 
-| 属性名        | 类型                      | 描述                                                           | 默认值              |
-| ------------- | ------------------------- | -------------------------------------------------------------- | ------------------- |
-| columnGap     | `number`                  | 列间距                                                         | 8                   |
-| rowGap        | `number`                  | 行间距                                                         | 4                   |
-| minColumns    | `number \| number[]`      | 最小列数                                                       | 0                   |
-| minWidth      | `number \| number[]`      | 元素最小宽度                                                   | 100                 |
-| maxColumns    | `number \| number[]`      | 最大列数                                                       | -                   |
-| maxWidth      | `number \| number[]`      | 元素最大宽度                                                   | -                   |
-| breakpoints   | `number[]`                | 容器尺寸断点                                                   | `[720, 1280, 1920]` |
-| colWrap       | `boolean`                 | 自动换行                                                       | true                |
-| strictAutoFit | `boolean`                 | GridItem 宽度是否严格受限于 maxWidth，不受限的话会自动占满容器 | false               |
-| shouldVisible | `(node, grid) => boolean` | 是否需要显示当前节点                                           | `() => true`        |
-| grid          | `Grid`                    | 外部传入 Grid 实例，用于实现更复杂的布局逻辑                   | -                   |
+| 属性名                        | 类型                      | 描述                                                           | 默认值              |
+| ----------------------------- | ------------------------- | -------------------------------------------------------------- | ------------------- |
+| ssrColumns                    | `number`                  | `ready=false` 时的回退列数                                     | 1                   |
+| ssrTemplateColumns            | `string`                  | `ready=false` 时的回退模板字符串                               | -                   |
+| deferVisibilityUntilHydration | `boolean`                 | 是否延迟执行 `shouldVisible` 的 DOM 可见性副作用               | true                |
+| columnGap                     | `number`                  | 列间距                                                         | 8                   |
+| rowGap                        | `number`                  | 行间距                                                         | 4                   |
+| maxRows                       | `number`                  | 最大行数                                                       | `Infinity`          |
+| minColumns                    | `number \| number[]`      | 最小列数                                                       | 0                   |
+| minWidth                      | `number \| number[]`      | 元素最小宽度                                                   | 100                 |
+| maxColumns                    | `number \| number[]`      | 最大列数                                                       | -                   |
+| maxWidth                      | `number \| number[]`      | 元素最大宽度                                                   | -                   |
+| breakpoints                   | `number[]`                | 容器尺寸断点                                                   | `[720, 1280, 1920]` |
+| colWrap                       | `boolean`                 | 自动换行                                                       | true                |
+| strictAutoFit                 | `boolean`                 | GridItem 宽度是否严格受限于 maxWidth，不受限的话会自动占满容器 | false               |
+| shouldVisible                 | `(node, grid) => boolean` | 是否需要显示当前节点                                           | `() => true`        |
+| onDigest                      | `(grid) => void`          | 每次布局计算后触发                                             | -                   |
+| onInitialized                 | `(grid) => void`          | 首次初始化完成后触发                                           | -                   |
+| grid                          | `Grid`                    | 外部传入 Grid 实例，用于实现更复杂的布局逻辑                   | -                   |
 
 ::: tip 注意
 
 - `minWidth` 的优先级高于 `minColumns`。
 - `maxWidth` 的优先级高于 `maxColumns`。
 - `minWidth`/`maxWidth`/`minColumns`/`maxColumns` 的数组格式与 `breakpoints` 数组一一映射。
+- SSR 场景下推荐同时配置 `ssrColumns`（必要时再配 `ssrTemplateColumns`）；`data-grid-span` 会在首屏先应用静态跨列样式以减少 hydration 闪动。
   :::
 
 ### FormGrid.GridColumn
