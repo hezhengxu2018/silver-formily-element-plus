@@ -6,6 +6,11 @@ English | [简体中文](README.md)
 
 Formily bindings for Element Plus, focused on consistent UI behavior, flexible configuration, and richer form scenarios.
 
+## Repository Status
+
+> Note: The code in this repository has been migrated to [silver-formily](https://github.com/hezhengxu2018/silver-formily).
+> This `silver-formily-element-plus` repository has been archived and is no longer maintained. Please use the new repository for ongoing development, fixes, and new features.
+
 ## Documentation
 
 https://element-plus.silver-formily.org/

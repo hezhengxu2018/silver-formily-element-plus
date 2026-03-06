@@ -6,6 +6,11 @@
 
 基于 Element Plus 的 Formily 组件库封装，提供一致的组件风格、灵活的配置能力以及更丰富的表单场景。
 
+## 仓库状态
+
+> 注意：本仓库中的代码已迁移至 [silver-formily](https://github.com/hezhengxu2018/silver-formily)。
+> 当前仓库 `silver-formily-element-plus` 已归档（archived），不再继续维护。后续开发、问题修复与新特性请前往新仓库。
+
 ## 文档
 
 https://element-plus.silver-formily.org/
